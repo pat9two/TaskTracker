@@ -134,13 +134,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     //getting employees count
     public int getEmployeesCount(){
+        int count;
         String countQuery = "SELECT  * FROM " + TABLE_EMPLOYEES;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
+        count = cursor.getCount();
         cursor.close();
 
         // return count
-        return cursor.getCount();
+        return count;
     }
 
     // updating single employee

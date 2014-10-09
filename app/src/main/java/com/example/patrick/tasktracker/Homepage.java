@@ -1,6 +1,8 @@
 package com.example.patrick.tasktracker;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,19 +15,39 @@ import java.util.List;
 
 
 public class Homepage extends Activity {
-    TextView textview;
-    Button button;
-    EditText textbox;
 
+    /* Testing purposes only */
+    //////////////////////////
+
+    TextView textview;
+    EditText textbox;
+    TextView rowlist;
+    public void dropEntry(View view){
+        DatabaseHandler db = new DatabaseHandler(this);
+        SQLiteDatabase sdb = db.getReadableDatabase();
+        rowlist = (TextView)findViewById(R.id.list);
+        Employee em = db.getEmployee(1);
+        Log.d("Dropping", em.First_name);
+        rowlist.setText(db.getEmployeesCount());
+        db.deleteEmployee(em);
+    }
     public void addRow(View view){
+        int i = 0;
         DatabaseHandler db = new DatabaseHandler(this);
         textbox = (EditText)findViewById(R.id.entry);
         db.addEmployee(new Employee("pm01789", "2ndDan!912", textbox.getText().toString(), "Marino", "true"));
+        SQLiteDatabase rdb = db.getReadableDatabase();
+
         textview = (TextView)findViewById(R.id.textbox);
-        textview.setText(String.valueOf(db.getEmployee(0).getEagle_id() + " " +  db.getEmployee(0).getFirst_name()));
+        Cursor cursor = rdb.rawQuery("Select First_name FROM Employee",null);
 
-
+        cursor.moveToFirst();
+        textview.setText(cursor.getString(i));
+        i++;
     }
+    //////////////////////////////////
+    /* Testing purposes only. */
+
     public void onClick(View view){
         DatabaseHandler db = new DatabaseHandler(this);
 
@@ -35,26 +57,6 @@ public class Homepage extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-
-
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        Log.d("Insert: ", "Inserting...");
-        db.addEmployee(new Employee("pm01789","2ndDan!912", "Patrick", "Marino", "true"));
-
-        Log.d("Reading: ", "Reading all contacts..");
-        List<Employee> employees = db.getAllEmployees();
-
-        for(int i = 0; i < employees.size(); i++){
-            String log = "Id: " + employees.get(i).getEagle_id()+" ,Name: " + employees.get(i).getFirst_name() + " " + employees.get(i).getLast_name();
-            Log.d("Name: ",log);
-        }
-  /*
-        for(Employee em : employees){
-            String log = "Id: " + em.getEagle_id()+" ,Name: " + em.getFirst_name() + " " + em.getLast_name();
-            Log.d("Name: ",log);
-        }
-  */
     }
 
 

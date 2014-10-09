@@ -22,10 +22,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/entry"
-        android:text="Button"
+        android:text="InsertRow"
         android:layout_marginLeft="10dp"
         android:clickable="true"
         android:onClick="addRow"
         android:id="@+id/button"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dropDb"
+        android:text="Drop last entry"
+        android:layout_toRightOf="@id/button"
+        android:layout_below="@id/entry"
+        android:onClick="dropEntry"
+    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dropDb"
+        android:id="@+id/list"
+    />
 
 </RelativeLayout>
