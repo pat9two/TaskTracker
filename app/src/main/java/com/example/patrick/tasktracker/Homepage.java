@@ -28,7 +28,7 @@ public class Homepage extends Activity {
         rowlist = (TextView)findViewById(R.id.list);
         Employee em = db.getEmployee(1);
         Log.d("Dropping", em.First_name);
-        rowlist.setText(db.getEmployeesCount());
+        rowlist.setText(String.valueOf(db.getEmployeesCount()));
         db.deleteEmployee(em);
     }
     public void addRow(View view){
