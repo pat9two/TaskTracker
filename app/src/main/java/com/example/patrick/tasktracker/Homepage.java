@@ -24,7 +24,7 @@ public class Homepage extends Activity {
     TextView rowlist;
     public void dropEntry(View view){
         DatabaseHandler db = new DatabaseHandler(this);
-        SQLiteDatabase sdb = db.getReadableDatabase();
+        SQLiteDatabase sdb = db.getWritableDatabase();
         rowlist = (TextView)findViewById(R.id.list);
         Employee em = db.getEmployee(1);
         Log.d("Dropping", em.First_name);

@@ -3,6 +3,7 @@ package com.example.patrick.tasktracker;
 /**
  * Created by Patrick on 10/8/2014.
  */
+
 public class Department {
     int Department_id;
     String Charged;
@@ -29,6 +30,5 @@ public class Department {
     public void setChargedStatus(String Charged){
         this.Charged = Charged;
     }
-
 
 }
