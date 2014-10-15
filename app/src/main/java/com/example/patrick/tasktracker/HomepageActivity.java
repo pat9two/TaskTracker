@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,7 @@ public class HomepageActivity extends Activity {
     public void dropEntry(View view){
 
         rowlist = (TextView)findViewById(R.id.list);
+        DatabaseHandler db = new DatabaseHandler(this);
         Employee em = db.getEmployee(1);
         Log.d("Dropping", em.First_name);
         rowlist.setText(String.valueOf(db.getEmployeesCount()));
