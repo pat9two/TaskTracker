@@ -8,6 +8,8 @@ package com.example.patrick.tasktracker;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
 
+        import com.parse.Parse;
+
         import java.util.ArrayList;
         import java.util.List;
 
@@ -41,10 +43,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // creating tables
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_EMPLOYEES_TABLE = "Create Table " + TABLE_EMPLOYEES + "("
-                + KEY_Eagle_id + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_User_name + " TEXT,"
-                + KEY_Password + " TEXT," + KEY_First_name + " TEXT," + KEY_Last_name + " TEXT,"
-                + KEY_Admin + " TEXT)";
+                String CREATE_EMPLOYEES_TABLE = "Create Table " + TABLE_EMPLOYEES + "("
+                        + KEY_Eagle_id + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_User_name + " TEXT,"
+                        + KEY_Password + " TEXT," + KEY_First_name + " TEXT," + KEY_Last_name + " TEXT,"
+                        + KEY_Admin + " TEXT)";
         db.execSQL(CREATE_EMPLOYEES_TABLE);
     }
 
@@ -61,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // adding new employee
     public void addEmployee(Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.d("Adding: ", "adding a new emplooyee to the table.");
+        Log.d("Adding: ", "adding a new employee to the table.");
         ContentValues values = new ContentValues();
        // values.put(KEY_Eagle_id, employee.getEagle_id());
         values.put(KEY_User_name, employee.getUser_name());
@@ -171,5 +173,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(employee.getEagle_id()) });
         db.close();
     }
-
+    public Cursor getData(String query){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
 }
