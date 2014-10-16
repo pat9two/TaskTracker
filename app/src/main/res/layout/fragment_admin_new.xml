@@ -43,6 +43,11 @@
         android:layout_centerVertical ="true"
         android:layout_below="@id/title_string" />
 
+    <Space
+        android:id="@+id/admin_new_spacing_3"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_title" />
 
     <TextView
         android:id="@+id/admin_new_locationSpinner_label"
@@ -51,12 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_3"
         />
-
-    <Space
-        android:id="@+id/admin_new_spacing_3"
-        android:layout_width="1dp"
-        android:layout_height="20dp"
-        android:layout_below="@id/admin_new_title" />
 
     <!-- NEEDS RESIZING -->
     <Spinner

@@ -25,8 +25,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // database name
     private static final String DATABASE_NAME = "Employee_manager";
 
-    // employee table name
+    // table names
     private static final String TABLE_EMPLOYEES = "Employee";
+    private static final String TABLE_LOCATION = "Location";
+    private static final String TABLE_DEPARTMENT = "Department";
+    private static final String TABLE_MATERIAL = "Material";
+    private static final String TABLE_WORKORDER = "Work_order";
 
     // employee table column names
     private static final String KEY_Eagle_id = "Eagle_id";
@@ -36,6 +40,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_Password = "Password";
     private static final String KEY_Admin = "Admin";
 
+    // department table column names
+    private static final String KEY_Department_id = "Department_id";
+    private static final String KEY_Charged = "Charged";
+
+    // material table column names
+    private static final String KEY_Material_id = "Material_id";
+    private static final String KEY_Material_name = "Material_name";
+
+    // department table column names
+    private static final String KEY_Location_id = "Location_id";
+    private static final String KEY_Location_name = "Location_name";
+
+    // workorder table column names
+    private static final String KEY_WO_id = "WO_id";
+    private static final String KEY_Work_description = "Work_description";
+    private static final String KEY_Schedule_Date = "Schedule_date";
+    private static final String KEY_Start_time = "Start_time";
+    private static final String KEY_End_time = "End_time";
+
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -43,11 +66,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // creating tables
     @Override
     public void onCreate(SQLiteDatabase db){
-                String CREATE_EMPLOYEES_TABLE = "Create Table " + TABLE_EMPLOYEES + "("
-                        + KEY_Eagle_id + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_User_name + " TEXT,"
-                        + KEY_Password + " TEXT," + KEY_First_name + " TEXT," + KEY_Last_name + " TEXT,"
+                String CREATE_EMPLOYEES_TABLE = "Create Table "
+                        + TABLE_EMPLOYEES + "("
+                        + KEY_Eagle_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        + KEY_User_name + " TEXT,"
+                        + KEY_Password + " TEXT,"
+                        + KEY_First_name + " TEXT,"
+                        + KEY_Last_name + " TEXT,"
                         + KEY_Admin + " TEXT)";
+                String CREATE_DEPARTMENT_TABLE = "Create Table "
+                        + TABLE_DEPARTMENT + "("
+                        + KEY_Department_id + " INTEGER PRIMARY KEY,"
+                        + KEY_Charged + " TEXT)";
+                String CREATE_LOCATION_TABLE = "Create Table "
+                        + TABLE_LOCATION + "("
+                        + KEY_Location_id + " INTEGER PRIMARY KEY,"
+                        + KEY_Location_name + " TEXT,"
+                        + KEY_Department_id + " INTEGER, " + " FOREIGN KEY(" + KEY_Department_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Department_id + ")"
+                        + ")";
+                String CREATE_MATERIAL_TABLE = "Create Table "
+                        + TABLE_MATERIAL + "("
+                        + KEY_Material_id + " INTEGER PRIMARY KEY,"
+                        + KEY_Material_name + " TEXT)";
+                String CREATE_WORKORDER_TABLE = "Create Table "
+                        + TABLE_WORKORDER + "("
+                        + KEY_WO_id + " INTEGER PRIMARY KEY"
+                        + KEY_Work_description + " TEXT,"
+                        + KEY_Location_id + "INTEGER,"+ " FOREIGN KEY(" + KEY_Location_id + ") REFERENCES "+ TABLE_LOCATION + "(" + KEY_Location_id + ")"
+                        + KEY_Eagle_id + " INTEGER," + " FOREIGN KEY(" + KEY_Eagle_id + ") REFERENCES " + TABLE_EMPLOYEES + "(" + KEY_Eagle_id + ")"
+                        + KEY_Material_id + " INTEGER," + " FOREIGN KEY(" + KEY_Material_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Material_id + ")"
+                        +")";
         db.execSQL(CREATE_EMPLOYEES_TABLE);
+        db.execSQL(CREATE_DEPARTMENT_TABLE);
+        db.execSQL(CREATE_LOCATION_TABLE);
+        db.execSQL(CREATE_MATERIAL_TABLE);
+        db.execSQL(CREATE_WORKORDER_TABLE);
+        Log.d("Database Creation", "Complete");
     }
 
     // upgrading database
