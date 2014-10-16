@@ -26,28 +26,33 @@ public class HomepageActivity extends Activity {
     TextView textview;
     EditText textbox;
     TextView rowlist;
-    public void dropEntry(View view){
+    EditText selectId;
 
+
+    public void dropEntry(View view){
+        selectId = (EditText)findViewById(R.id.selectId);
         rowlist = (TextView)findViewById(R.id.list);
         DatabaseHandler db = new DatabaseHandler(this);
-        Employee em = db.getEmployee(1);
-        Log.d("Dropping", em.First_name);
-        rowlist.setText(String.valueOf(db.getEmployeesCount()));
-        db.deleteEmployee(em);
+
+        if(db.getEmployeesCount() >0){
+            Employee em = db.getEmployee(db.getEmployeesCount());
+            Log.d("Dropping", em.getFirst_name());
+            db.deleteEmployee(em);
+            rowlist.setText("");
+            for(int i = 1; i <= db.getEmployeesCount(); i++){
+                rowlist.append(db.getEmployee(i).getFirst_name() + "\n");
+            }
+        }
     }
     public void addRow(View view){
-        int i = 0;
+
         DatabaseHandler db = new DatabaseHandler(this);
         textbox = (EditText)findViewById(R.id.entry);
-        db.addEmployee(new Employee("pm01789", "2ndDan!912", textbox.getText().toString(), "Marino", "true"));
-        SQLiteDatabase rdb = db.getWritableDatabase();
+        Employee em = new Employee("pm01789", "password", textbox.getText().toString(), "Marino", "1");
+        db.addEmployee(em);
 
         textview = (TextView)findViewById(R.id.textbox);
-        Cursor cursor = rdb.rawQuery("Select First_name FROM Employee",null);
-
-        cursor.moveToFirst();
-        textview.setText(cursor.getString(i));
-        i++;
+        textview.setText(String.valueOf(em.getEagle_id()));
     }
     //////////////////////////////////
     /* Testing purposes only. */

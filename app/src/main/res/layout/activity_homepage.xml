@@ -31,8 +31,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/dropDb"
-        android:text="Drop last entry"
-        android:layout_toRightOf="@id/button"
+        android:text="Drop entry"
+        android:layout_toRightOf="@id/selectId"
         android:layout_below="@id/entry"
         android:onClick="dropEntry"
     />

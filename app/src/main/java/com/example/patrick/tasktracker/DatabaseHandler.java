@@ -68,7 +68,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db){
                 String CREATE_EMPLOYEES_TABLE = "Create Table "
                         + TABLE_EMPLOYEES + "("
-                        + KEY_Eagle_id + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                        + KEY_Eagle_id + " INTEGER PRIMARY KEY,"
                         + KEY_User_name + " TEXT,"
                         + KEY_Password + " TEXT,"
                         + KEY_First_name + " TEXT,"
@@ -120,9 +120,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // adding new employee
     public void addEmployee(Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.d("Adding: ", "adding a new employee to the table.");
+        Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
+
         ContentValues values = new ContentValues();
-       // values.put(KEY_Eagle_id, employee.getEagle_id());
         values.put(KEY_User_name, employee.getUser_name());
         values.put(KEY_Password, employee.getPassword());
         values.put(KEY_First_name, employee.getFirst_name());
@@ -131,17 +131,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // inserting row
         db.insert(TABLE_EMPLOYEES, null, values);
-
-
-        // for logcat only
-        /*
-        Cursor cursor = db.query(TABLE_EMPLOYEES, new String[]{ KEY_Eagle_id},null,null,null,null,null);
-        if(cursor != null)
-            cursor.moveToFirst();
-        Log.d("Keyvalue: ", cursor.getString(0));
-        */
-        // for logcat only
-
 
         db.close();
 
@@ -152,17 +141,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_EMPLOYEES, new String[]{ KEY_Eagle_id,
-                        KEY_User_name, KEY_Password, KEY_First_name, KEY_First_name, KEY_Last_name,
-                        KEY_Admin}, KEY_Eagle_id + "=?",
-                new String[] { String.valueOf(Eagle_id) }, null, null, null, null);
+                        KEY_User_name, KEY_Password, KEY_First_name, KEY_Last_name,
+                        KEY_Admin}, KEY_Eagle_id +  " =? ",
+                        new String[] { String.valueOf(Eagle_id) },
+                        null, // group by
+                        null, // having
+                        null, // order by
+                        null); // limit
 
-        if(cursor != null)
-            cursor.moveToFirst();
-        // cursor.getString(0) is the Primary Key. so start at 1.
-        Employee employee = new Employee(cursor.getString(1),
-                cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5));
+        if(cursor.moveToFirst()) {
+            // cursor.getString(0) is the Primary Key. so start at 1.
+            Employee employee = new Employee(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                    cursor.getString(4), cursor.getString(5));
 
-        return employee;
+            Log.d("getEmployee("+Eagle_id+")", String.valueOf(cursor.getString(3)) + " " + String.valueOf(cursor.getString(4)));
+
+            return employee;
+        }
+
+
+        return null;
     }
 
     //getting all employees

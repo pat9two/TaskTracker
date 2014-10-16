@@ -16,12 +16,13 @@ public class Employee {
     // empty constructor
     public Employee(){}
 
-    public Employee(String User_name,
+    public Employee(int Eagle_id,
+                    String User_name,
                     String Password,
                     String First_name,
                     String Last_name,
                     String Admin){
-      ///  this.Eagle_id = Eagle_id;
+        this.Eagle_id = Eagle_id;
         this.User_name = User_name;
         this.Password = Password;
         this.First_name = First_name;
@@ -29,20 +30,20 @@ public class Employee {
         this.Admin = Admin;
     }
 
-    public Employee(String User_name,
+    public Employee(
+                    String User_name,
                     String Password,
                     String First_name,
-                    String Last_name){
+                    String Last_name,
+                    String Admin){
+        ///  this.Eagle_id = Eagle_id;
         this.User_name = User_name;
         this.Password = Password;
         this.First_name = First_name;
         this.Last_name = Last_name;
+        this.Admin = Admin;
     }
-
-
-
-
-    // getters and setters
+     // getters and setters
     public int getEagle_id(){
         return this.Eagle_id;
     }
