@@ -90,11 +90,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + KEY_Material_name + " TEXT)";
                 String CREATE_WORKORDER_TABLE = "Create Table "
                         + TABLE_WORKORDER + "("
-                        + KEY_WO_id + " INTEGER PRIMARY KEY"
+                        + KEY_WO_id + " INTEGER PRIMARY KEY,"
                         + KEY_Work_description + " TEXT,"
-                        + KEY_Location_id + "INTEGER,"+ " FOREIGN KEY(" + KEY_Location_id + ") REFERENCES "+ TABLE_LOCATION + "(" + KEY_Location_id + ")"
-                        + KEY_Eagle_id + " INTEGER," + " FOREIGN KEY(" + KEY_Eagle_id + ") REFERENCES " + TABLE_EMPLOYEES + "(" + KEY_Eagle_id + ")"
-                        + KEY_Material_id + " INTEGER," + " FOREIGN KEY(" + KEY_Material_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Material_id + ")"
+                        + KEY_Location_id + " INTEGER,"
+                        + KEY_Eagle_id + " INTEGER,"
+                        + KEY_Material_id + " INTEGER,"
+                        + " FOREIGN KEY(" + KEY_Location_id + ") REFERENCES "+ TABLE_LOCATION + "(" + KEY_Location_id + "),"
+                        + " FOREIGN KEY(" + KEY_Eagle_id + ") REFERENCES " + TABLE_EMPLOYEES + "(" + KEY_Eagle_id + "),"
+                        + " FOREIGN KEY(" + KEY_Material_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Material_id + ")"
                         +")";
         db.execSQL(CREATE_EMPLOYEES_TABLE);
         db.execSQL(CREATE_DEPARTMENT_TABLE);
@@ -131,10 +134,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         // for logcat only
+        /*
         Cursor cursor = db.query(TABLE_EMPLOYEES, new String[]{ KEY_Eagle_id},null,null,null,null,null);
         if(cursor != null)
             cursor.moveToFirst();
         Log.d("Keyvalue: ", cursor.getString(0));
+        */
         // for logcat only
 
 

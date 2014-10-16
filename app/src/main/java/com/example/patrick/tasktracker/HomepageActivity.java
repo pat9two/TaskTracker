@@ -33,7 +33,7 @@ public class HomepageActivity extends Activity {
         Employee em = db.getEmployee(1);
         Log.d("Dropping", em.First_name);
         rowlist.setText(String.valueOf(db.getEmployeesCount()));
-       // db.deleteEmployee(em);
+        db.deleteEmployee(em);
     }
     public void addRow(View view){
         int i = 0;
