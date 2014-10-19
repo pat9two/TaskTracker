@@ -22,4 +22,5 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('C:/Users/Patrick/AndroidStudioProjects/TaskTracker/libs/Parse-1.7.0.jar')
+    compile files('libs/Parse-1.7.1.jar')
 }

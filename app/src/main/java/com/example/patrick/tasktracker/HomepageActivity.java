@@ -26,11 +26,10 @@ public class HomepageActivity extends Activity {
     TextView textview;
     EditText textbox;
     TextView rowlist;
-    EditText selectId;
 
 
     public void dropEntry(View view){
-        selectId = (EditText)findViewById(R.id.selectId);
+
         rowlist = (TextView)findViewById(R.id.list);
         DatabaseHandler db = new DatabaseHandler(this);
 
