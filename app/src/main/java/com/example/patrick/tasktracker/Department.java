@@ -5,14 +5,23 @@ package com.example.patrick.tasktracker;
  */
 
 public class Department {
-    int Department_id;
-    String Charged;
+    private int Department_id;
+    private String Department_name;
+    private String Charged;
 
     public Department(){}
 
     public Department(int Department_id, String charged){
        this.Department_id = Department_id;
        this.Charged = Charged;
+    }
+
+    public String getDepartment_name() {
+        return this.Department_name;
+    }
+
+    public void setDepartment_name(String department_name) {
+        this.Department_name = department_name;
     }
 
     public int getDepartment_id(){

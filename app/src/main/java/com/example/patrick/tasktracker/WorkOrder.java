@@ -10,6 +10,7 @@ public class WorkOrder {
     private int WO_id;
     private String Work_description;
     private Date Schedule_date;
+
     private Timestamp Start_time;
     private Timestamp End_time;
 

@@ -6,12 +6,12 @@ package com.example.patrick.tasktracker;
  */
 public class Employee {
     //private variables
-    int Eagle_id;
-    String User_name;
-    String Password;
-    String First_name;
-    String Last_name;
-    String Admin;
+    private int Eagle_id;
+    private  String User_name;
+    private  String Password;
+    private  String First_name;
+    private  String Last_name;
+    private  String Admin;
 
     // empty constructor
     public Employee(){}

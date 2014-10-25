@@ -6,6 +6,21 @@ package com.example.patrick.tasktracker;
 public class Location {
     private int Location_id;
     private String Location_name;
+    private int Department_id;
+
+
+    public Location(){}
+    public Location(int Location_id, String Location_name){
+        this.Location_id = Location_id;
+        this.Location_name = Location_name;
+    }
+    public int getDepartment_id() {
+        return this.Department_id;
+    }
+
+    public void setDepartment_id(int department_id) {
+        this.Department_id = department_id;
+    }
 
     public int getLocation_id() {
         return this.Location_id;

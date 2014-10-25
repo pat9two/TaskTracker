@@ -32,17 +32,18 @@ public class HomepageActivity extends Activity {
 
         rowlist = (TextView)findViewById(R.id.list);
         DatabaseHandler db = new DatabaseHandler(this);
-
-        if(db.getEmployeesCount() >0){
-            Employee em = db.getEmployee(db.getEmployeesCount());
+        List<Employee> empList = db.getAllEmployees();
+        if(empList.size() >0){
+            Employee em = db.getEmployee(empList.size());
             Log.d("Dropping", em.getFirst_name());
             db.deleteEmployee(em);
             rowlist.setText("");
-            for(int i = 1; i <= db.getEmployeesCount(); i++){
-                rowlist.append(db.getEmployee(i).getFirst_name() + "\n");
+            for(int i = 0; i < empList.size(); i++){
+                rowlist.append(empList.get(i).getFirst_name() + "\n");
             }
         }
     }
+
     public void addRow(View view){
 
         DatabaseHandler db = new DatabaseHandler(this);

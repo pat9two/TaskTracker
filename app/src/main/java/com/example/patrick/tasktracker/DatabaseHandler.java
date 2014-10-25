@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // database name
     private static final String DATABASE_NAME = "Employee_manager";
 
-    // table names
+    // table names-
     private static final String TABLE_EMPLOYEES = "Employee";
     private static final String TABLE_LOCATION = "Location";
     private static final String TABLE_DEPARTMENT = "Department";
@@ -116,7 +116,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // create tables again
         onCreate(db);
     }
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------Employee Table Methods---------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
     // adding new employee
     public void addEmployee(Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -236,4 +240,89 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------Employee Table Methods End-----------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------Location Table Methods---------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+
+public void addLocation(Location location, Department department){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.d("addLocation", location.getLocation_id() + " " + location.getLocation_name());
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_Location_id, location.getLocation_id());
+        values.put(KEY_Location_name, location.getLocation_name());
+        values.put(KEY_Department_id, department.getDepartment_id());
+
+        // inserting row
+        db.insert(TABLE_LOCATION, null, values);
+
+        db.close();
+
+    }
+
+    // getting a single location
+    public Location getLocation(int Location_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_LOCATION, new String[]{ KEY_Location_id, KEY_Location_name, KEY_Department_id}, KEY_Location_id +  " =? ",
+                        new String[] { String.valueOf(Location_id) },
+                        null, // group by
+                        null, // having
+                        null, // order by
+                        null); // limit
+
+        if(cursor.moveToFirst()) {
+            // cursor.getString(0) is the Primary Key. so start at 1.
+            Location location = new Location(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1));
+
+            Log.d("getLocation("+Location_id+")", String.valueOf(cursor.getString(0)) + " " + String.valueOf(cursor.getString(1)));
+
+            return location;
+        }
+
+
+        return null;
+    }
+
+    //getting all locations
+    public List<Location> getAllLocations(){
+        List<Location> locationList = new ArrayList<Location>();
+        // select all query
+        String selectQuery = "Select * FROM " + TABLE_LOCATION;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.moveToFirst();
+        // looping through all rows and adding to the list
+        if(cursor.moveToFirst()){
+            do{
+                Location location = new Location();
+
+                location.setLocation_id(Integer.parseInt(cursor.getString(0)));
+                location.setLocation_name(cursor.getString(1));
+
+
+                locationList.add(location);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        // return employee list
+        return locationList;
+    }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------Location Table Methods End-----------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 }
