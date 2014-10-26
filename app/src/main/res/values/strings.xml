@@ -22,5 +22,6 @@
     <string name="admin_add_employee_label">Add Employee</string>
     <string name="admin_remove_employee_label">Remove Employee</string>
     <string name="login_info">Username: *insert Password: *insert</string>
+    <string name="user_main_title">Welcome, User</string>
 
 </resources>
