@@ -48,11 +48,7 @@
         android:layout_height="15dp"
         android:layout_below="@id/user_main_title" />
 
-    <Space
-        android:id="@+id/user_spacing_4"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/user_location_field" />
+
 
     <EditText
         android:id="@+id/user_location_field"
@@ -62,6 +58,11 @@
         android:inputType="text"
         android:layout_below="@id/user_spacing_3" />
 
+    <Space
+        android:id="@+id/user_spacing_4"
+        android:layout_width="1dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/user_location_field" />
     <TextView
         android:id="@+id/user_location_spinner_label"
         android:text="Location:"
@@ -92,6 +93,11 @@
         android:layout_height="35dp"
         android:layout_below="@id/user_spacing_5" />
 
+    <Space
+        android:id="@+id/user_spacing_7"
+        android:layout_width="1dp"
+        android:layout_height="35dp"
+        android:layout_below="@id/admin_new_locationSpinner" />
     <Button
         android:id="@+id/user_start_button"
         android:layout_height="50dp"
@@ -107,12 +113,5 @@
         android:layout_width="100dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/user_spacing_7" />
-
-    <Space
-        android:id="@+id/user_spacing_7"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/admin_new_locationSpinner" />
-
 
 </RelativeLayout>

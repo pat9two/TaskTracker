@@ -9,6 +9,7 @@ package com.example.patrick.tasktracker;
         import android.util.Log;
 
         import com.parse.Parse;
+        import com.parse.ParseObject;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -125,6 +126,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addEmployee(Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
+        ParseObject parseEmployee = new ParseObject("Employee");
 
         ContentValues values = new ContentValues();
         values.put(KEY_User_name, employee.getUser_name());
@@ -133,6 +135,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_Last_name, employee.getLast_name());
         values.put(KEY_Admin, employee.getAdmin());
 
+        parseEmployee.put(KEY_User_name, employee.getUser_name());
+        parseEmployee.put(KEY_Password, employee.getPassword());
+        parseEmployee.put(KEY_First_name, employee.getFirst_name());
+        parseEmployee.put(KEY_Last_name, employee.getLast_name());
+        parseEmployee.put(KEY_Admin, employee.getAdmin());
+        parseEmployee.saveInBackground();
         // inserting row
         db.insert(TABLE_EMPLOYEES, null, values);
 
