@@ -10,30 +10,12 @@
     android:orientation="vertical"
     >
 
-    <!-- may want to append login info here -->
+    <!-- New Work Order Title String -->
     <TextView
-        android:id="@+id/title_string"
-        android:text="@string/app_title"
+        android:id="@+id/admin_new_title_string"
+        android:text="@string/admin_new_title_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <Space
-        android:id="@+id/admin_new_spacing_1"
-        android:layout_width="1dp"
-        android:layout_height="50dp"/>
-
-    <TextView
-        android:id="@+id/admin_new_title"
-        android:text="Work Order #: * GENERATE NEW WORK ID HERE"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@id/admin_new_spacing_1" />
-
-    <Space
-        android:id="@+id/admin_new_spacing_2"
-        android:layout_width="1dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/admin_main_title" />
 
     <View
         android:id="@+id/title_divider"
@@ -41,23 +23,64 @@
         android:layout_width = "fill_parent"
         android:layout_height="2dp"
         android:layout_centerVertical ="true"
-        android:layout_below="@id/title_string" />
+        android:layout_below="@id/admin_new_title_string" />
+
+    <Space
+        android:id="@+id/admin_new_spacing_1"
+        android:layout_width="1dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/admin_new_title_string"/>
+
+    <!-- Info Button -->
+    <Button
+        android:id="@+id/admin_new_info_button"
+        android:layout_height="40dp"
+        android:layout_width="75dp"
+        android:text="@string/admin_new_info_button_label"
+        android:layout_below="@id/admin_new_spacing_1" />
+
+    <Space
+        android:id="@+id/admin_new_spacing_2"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/admin_new_info_button" />
+
+    <!-- Department drop down label -->
+    <TextView
+        android:id="@+id/admin_new_departmentSpinner_label"
+        android:text="Department: "
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/admin_new_spacing_2"
+        />
+
+    <!-- Department Drop down box -->
+    <Spinner
+        android:id="@+id/admin_new_departmentSpinner"
+        android:layout_width="125dp"
+        android:layout_height="30dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_below="@id/admin_new_spacing_2"
+        android:layout_toRightOf="@id/admin_new_departmentSpinner_label"
+        android:layout_toEndOf="@id/admin_new_departmentSpinner_label" />
 
     <Space
         android:id="@+id/admin_new_spacing_3"
         android:layout_width="1dp"
-        android:layout_height="20dp"
-        android:layout_below="@id/admin_new_title" />
+        android:layout_height="30dp"
+        android:layout_below="@id/admin_new_departmentSpinner" />
 
+    <!-- Department drop down label -->
     <TextView
         android:id="@+id/admin_new_locationSpinner_label"
-        android:text="Location:"
+        android:text="Location: "
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_3"
         />
 
-    <!-- NEEDS RESIZING -->
+    <!-- Department Drop down box -->
     <Spinner
         android:id="@+id/admin_new_locationSpinner"
         android:layout_width="125dp"
@@ -65,7 +88,8 @@
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         android:layout_below="@id/admin_new_spacing_3"
-        android:layout_toRightOf="@id/admin_new_locationSpinner_label"/>
+        android:layout_toRightOf="@id/admin_new_locationSpinner_label"
+        android:layout_toEndOf="@id/admin_new_locationSpinner_label" />
 
     <Space
         android:id="@+id/admin_new_spacing_4"
@@ -75,11 +99,17 @@
 
     <TextView
         android:id="@+id/admin_new_workDesc_label"
-        android:text="Work Description:"
+        android:text="Description:"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_4"
         />
+
+    <Space
+        android:id="@+id/admin_new_spacing_5"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_workDesc_label" />
 
     <EditText
     android:id="@+id/admin_new_workDesc_textBox"
@@ -89,7 +119,63 @@
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
-    android:layout_below="@id/admin_new_workDesc_label"
+    android:layout_below="@id/admin_new_spacing_5"
     />
+
+    <Space
+        android:id="@+id/admin_new_spacing_6"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_workDesc_textBox" />
+
+    <Space
+        android:id="@+id/admin_new_spacing_7"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_workMats_label" />
+
+    <TextView
+        android:id="@+id/admin_new_workMats_label"
+        android:text="Materials:"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/admin_new_spacing_6"
+        />
+
+
+    <EditText
+        android:id="@+id/admin_new_workMats_textBox"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:maxLines="10"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:scrollbars="vertical"
+        android:layout_below="@id/admin_new_spacing_7"
+        />
+
+    <Space
+        android:id="@+id/admin_new_spacing_8"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_workMats_textBox" />
+
+    <TextView
+        android:id="@+id/admin_new_schedule_label"
+        android:text="Schedule:"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/admin_new_spacing_8"
+        />
+
+    <EditText
+        android:id="@+id/admin_new_schedule_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="MM/DD/YYYY"
+        android:inputType="text"
+        android:layout_below="@id/admin_new_spacing_8"
+        android:layout_toRightOf="@id/admin_new_schedule_label"
+        android:layout_toEndOf="@id/admin_new_schedule_label" />
 
 </RelativeLayout>

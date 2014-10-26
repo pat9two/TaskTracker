@@ -8,7 +8,7 @@
     <string name="app_title">Task Tracker</string>
     <string name="search_button_label">Search</string>
     <string name="login_main_button_label">Login</string>
-    <string name="login_main_title">Welcome to Task Tracker</string>
+    <string name="login_main_greeting_label">Welcome to Task Tracker</string>
     <string name="login_reset_title">Reset Password</string>
     <string name="login_main_username_field_label">Username</string>
     <string name="login_main_password_field_label">Password</string>
@@ -23,5 +23,7 @@
     <string name="admin_remove_employee_label">Remove Employee</string>
     <string name="login_info">Username: *insert Password: *insert</string>
     <string name="user_main_title">Welcome, User</string>
+    <string name="admin_new_title_label">New Work Order</string>
+    <string name="admin_new_info_button_label">Info</string>
 
 </resources>

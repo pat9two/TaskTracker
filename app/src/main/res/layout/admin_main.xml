@@ -11,30 +11,10 @@
     android:id="@+id/a">
 
     <TextView
-        android:id="@+id/title_string"
-        android:text="@string/app_title"
+        android:id="@+id/admin_main_title"
+        android:text="Admin Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <Space
-        android:id="@+id/admin_spacing_1"
-        android:layout_width="1dp"
-        android:layout_height="50dp"/>
-
-    <TextView
-        android:id="@+id/admin_main_title"
-        android:text="@string/admin_main_title"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignBottom="@+id/admin_spacing_1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Space
-        android:id="@+id/admin_spacing_2"
-        android:layout_width="1dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/admin_main_title" />
 
     <View
         android:id="@+id/title_divider"
@@ -42,82 +22,62 @@
         android:layout_width = "fill_parent"
         android:layout_height="2dp"
         android:layout_centerVertical ="true"
-        android:layout_below="@id/title_string" />
+        android:layout_below="@id/admin_main_title" />
+
+    <Space
+        android:id="@+id/admin_spacing_1"
+        android:layout_width="1dp"
+        android:layout_height="75dp"/>
+
+    <Button
+        android:id="@+id/admin_main_work_button"
+        android:layout_height="50dp"
+        android:text="View Work Orders"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/admin_spacing_1" />
+
+    <Space
+        android:id="@+id/admin_spacing_2"
+        android:layout_width="1dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/admin_main_work_button"/>
+
+    <Button
+        android:id="@+id/admin_main_emp_button"
+        android:layout_height="50dp"
+        android:text="View Employees"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/admin_spacing_2" />
 
     <Space
         android:id="@+id/admin_spacing_3"
         android:layout_width="1dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/admin_main_title" />
+        android:layout_height="25dp"
+        android:layout_below="@id/admin_main_emp_button"/>
 
     <Button
-        android:id="@+id/admin_newWork_button"
-        android:layout_height="58dp"
-        android:text="New Work Order"
-        android:layout_width="150dp"
-        android:layout_alignTop="@+id/admin_employee_list_label"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/admin_employee_list_view"
-        android:layout_toEndOf="@+id/admin_employee_list_view" />
+        android:id="@+id/admin_main_dept_button"
+        android:layout_height="50dp"
+        android:text="View Departments"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/admin_spacing_3" />
 
     <Space
         android:id="@+id/admin_spacing_4"
         android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/admin_newWork_button" />
-
-    <EditText
-        android:id="@+id/admin_search_job_field"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_by_job_label"
-        android:inputType="text"
-        android:layout_toRightOf="@+id/admin_spacing_4"
-        android:layout_below="@+id/admin_main_title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/admin_search_button"
-        android:layout_toLeftOf="@+id/admin_search_button" />
+        android:layout_height="75dp"
+        android:layout_below="@id/admin_main_dept_button"/>
 
     <Button
-        android:id="@+id/admin_search_button"
+        android:id="@+id/admin_main_logout_button"
         android:layout_height="50dp"
-        android:text="@string/search_button_label"
-        android:layout_width="100dp"
-        android:layout_alignBottom="@+id/admin_search_job_field"
-        android:layout_alignRight="@+id/title_divider"
-        android:layout_alignEnd="@+id/title_divider" />
-
-    <Space
-        android:id="@+id/admin_spacing_5"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/admin_search_button" />
-
-    <TextView
-        android:id="@+id/admin_employee_list_label"
-        android:text="@string/admin_employee_list_label"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@id/admin_spacing_5" />
-
-    <ListView
-        android:id="@+id/admin_employee_list_view"
-        android:layout_height="200dp"
-        android:layout_width="250dp"
-        android:layout_below="@id/admin_employee_list_label"
-        android:layout_alignRight="@+id/admin_search_job_field"
-        android:layout_alignEnd="@+id/admin_search_job_field" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Employee"
-        android:id="@+id/button"
-        android:layout_below="@+id/admin_employee_list_view"
-        android:layout_toRightOf="@+id/admin_spacing_4"
-        android:layout_toEndOf="@+id/admin_spacing_4" />
+        android:text="Logout"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/admin_spacing_4" />
 
 
 </RelativeLayout>

@@ -11,10 +11,18 @@
     >
 
     <TextView
-        android:id="@+id/title_string"
-        android:text="@string/app_title"
+        android:id="@+id/login_main_title"
+        android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/title_divider"
+        android:background="#1900ff"
+        android:layout_width = "fill_parent"
+        android:layout_height="2dp"
+        android:layout_centerVertical ="true"
+        android:layout_below="@id/login_main_title" />
 
     <Space
         android:id="@+id/login_spacing_1"
@@ -22,8 +30,8 @@
         android:layout_height="50dp"/>
 
     <TextView
-        android:id="@+id/login_main_title"
-        android:text="@string/login_main_title"
+        android:id="@+id/login_main_greeting"
+        android:text="@string/login_main_greeting_label"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/login_spacing_1" />
@@ -33,14 +41,6 @@
         android:layout_width="1dp"
         android:layout_height="50dp"
         android:layout_below="@id/login_spacing_1" />
-
-    <View
-        android:id="@+id/title_divider"
-        android:background="#1900ff"
-        android:layout_width = "fill_parent"
-        android:layout_height="2dp"
-        android:layout_centerVertical ="true"
-        android:layout_below="@id/title_string" />
 
 
     <EditText
@@ -69,8 +69,8 @@
         android:id="@+id/login_button"
         android:layout_height="50dp"
         android:text="@string/login_main_button_label"
-        android:layout_width="100dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/login_spacing_3" />
 
 </RelativeLayout>
