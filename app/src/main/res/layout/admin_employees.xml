@@ -34,7 +34,7 @@
         android:id="@+id/emp_list_view"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_below="@id/dept_spacing_1"/>
+        android:layout_below="@id/emp_spacing_1"/>
 
 
 </RelativeLayout>
