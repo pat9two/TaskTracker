@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/title_string"
-        android:text="@string/app_title"
+        android:text="My Work Orders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -45,14 +45,9 @@
     <Space
         android:id="@+id/user_spacing_3"
         android:layout_width="1dp"
-        android:layout_height="15dp"
+        android:layout_height="50dp"
         android:layout_below="@id/user_main_title" />
 
-    <Space
-        android:id="@+id/user_spacing_4"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/user_spacing_3" />
 
     <EditText
         android:id="@+id/user_search_job_field"
@@ -60,18 +55,18 @@
         android:layout_height="wrap_content"
         android:hint="@string/search_by_job_label"
         android:inputType="text"
-        android:layout_below="@id/user_spacing_4" />
+        android:layout_below="@id/user_spacing_3" />
 
     <Button
         android:id="@+id/user_search_button"
         android:layout_height="50dp"
         android:text="@string/search_button_label"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/user_search_job_field" />
 
     <Space
-        android:id="@+id/user_spacing_5"
+        android:id="@+id/user_spacing_4"
         android:layout_width="1dp"
         android:layout_height="35dp"
         android:layout_below="@id/user_search_button" />
@@ -81,7 +76,7 @@
         android:text="My Jobs"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/user_spacing_5" />
+        android:layout_below="@id/user_spacing_4" />
 
     <ListView
         android:id="@+id/user_employee_list_view"

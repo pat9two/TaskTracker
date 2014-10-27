@@ -54,12 +54,11 @@
         />
 
     <!-- Department Drop down box -->
-    <Spinner
-        android:id="@+id/user_view_departmentSpinner"
-        android:layout_width="125dp"
-        android:layout_height="30dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
+    <TextView
+        android:id="@+id/user_view_department_value"
+        android:text="DEPARTMENT VALUE"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/user_view_spacing_2"
         android:layout_toRightOf="@id/user_view_departmentSpinner_label"
         android:layout_toEndOf="@id/user_view_departmentSpinner_label" />
@@ -68,7 +67,7 @@
         android:id="@+id/user_view_spacing_3"
         android:layout_width="1dp"
         android:layout_height="30dp"
-        android:layout_below="@id/user_view_departmentSpinner" />
+        android:layout_below="@id/user_view_department_value" />
 
     <!-- Department drop down label -->
     <TextView
@@ -80,21 +79,20 @@
         />
 
     <!-- Department Drop down box -->
-    <Spinner
-        android:id="@+id/user_view_locationSpinner"
-        android:layout_width="125dp"
-        android:layout_height="30dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
+    <TextView
+        android:id="@+id/user_view_location_value"
+        android:text="LOCATION VALUE"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/user_view_spacing_3"
-        android:layout_toRightOf="@id/user_view_locationSpinner_label"
-        android:layout_toEndOf="@id/user_view_locationSpinner_label" />
+        android:layout_toRightOf="@id/user_view_departmentSpinner_label"
+        android:layout_toEndOf="@id/user_view_departmentSpinner_label" />
 
     <Space
         android:id="@+id/user_view_spacing_4"
         android:layout_width="1dp"
         android:layout_height="20dp"
-        android:layout_below="@id/user_view_locationSpinner" />
+        android:layout_below="@id/user_view_location_value" />
 
     <TextView
         android:id="@+id/user_view_workDesc_label"
@@ -119,6 +117,7 @@
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
         android:layout_below="@id/user_view_spacing_5"
+        android:editable="false"
         />
 
     <Space
@@ -152,6 +151,7 @@
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
         android:layout_below="@id/user_view_spacing_7"
+        android:editable="false"
         />
 
     <Space
