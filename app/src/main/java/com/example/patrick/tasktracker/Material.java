@@ -6,6 +6,7 @@ package com.example.patrick.tasktracker;
 public class Material {
     private int Material_id;
     private String Material_name;
+    private String Sync_id;
 
     public Material() {
     }
@@ -14,7 +15,13 @@ public class Material {
         this.Material_id = Material_id;
         this.Material_name = Material_name;
     }
+    public String getSync_id() {
+        return this.Sync_id;
+    }
 
+    public void setSync_id(String sync_id) {
+        this.Sync_id = sync_id;
+    }
     public int getMaterial_id() {
         return this.Material_id;
     }

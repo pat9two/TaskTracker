@@ -8,6 +8,7 @@ public class Department {
     private int Department_id;
     private String Department_name;
     private String Charged;
+    private String Sync_id;
 
     public Department(){}
 
@@ -16,6 +17,13 @@ public class Department {
        this.Charged = Charged;
     }
 
+    public String getSync_id() {
+        return this.Sync_id;
+    }
+
+    public void setSync_id(String sync_id) {
+        this.Sync_id = sync_id;
+    }
     public String getDepartment_name() {
         return this.Department_name;
     }

@@ -8,8 +8,12 @@ package com.example.patrick.tasktracker;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
 
+        import com.parse.GetCallback;
         import com.parse.Parse;
+        import com.parse.ParseAnalytics;
+        import com.parse.ParseException;
         import com.parse.ParseObject;
+        import com.parse.ParseQuery;
 
         import java.util.ArrayList;
         import java.util.List;
@@ -20,6 +24,7 @@ package com.example.patrick.tasktracker;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     // all static variables
+    private static final String KEY_Sync_id = "Sync_id";
     // database version
     private static final int DATABASE_VERSION = 1;
 
@@ -67,8 +72,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // creating tables
     @Override
     public void onCreate(SQLiteDatabase db){
-                String CREATE_EMPLOYEES_TABLE = "Create Table "
+
+        String CREATE_EMPLOYEES_TABLE = "Create Table "
                         + TABLE_EMPLOYEES + "("
+                        + KEY_Sync_id + " TEXT, "
                         + KEY_Eagle_id + " INTEGER PRIMARY KEY,"
                         + KEY_User_name + " TEXT,"
                         + KEY_Password + " TEXT,"
@@ -77,20 +84,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + KEY_Admin + " TEXT)";
                 String CREATE_DEPARTMENT_TABLE = "Create Table "
                         + TABLE_DEPARTMENT + "("
+                        + KEY_Sync_id + " TEXT, "
                         + KEY_Department_id + " INTEGER PRIMARY KEY,"
                         + KEY_Charged + " TEXT)";
                 String CREATE_LOCATION_TABLE = "Create Table "
                         + TABLE_LOCATION + "("
+                        + KEY_Sync_id + " TEXT, "
                         + KEY_Location_id + " INTEGER PRIMARY KEY,"
                         + KEY_Location_name + " TEXT,"
                         + KEY_Department_id + " INTEGER, " + " FOREIGN KEY(" + KEY_Department_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Department_id + ")"
                         + ")";
                 String CREATE_MATERIAL_TABLE = "Create Table "
                         + TABLE_MATERIAL + "("
+                        + KEY_Sync_id + " TEXT, "
                         + KEY_Material_id + " INTEGER PRIMARY KEY,"
                         + KEY_Material_name + " TEXT)";
                 String CREATE_WORKORDER_TABLE = "Create Table "
                         + TABLE_WORKORDER + "("
+                        + KEY_Sync_id + " TEXT, "
                         + KEY_WO_id + " INTEGER PRIMARY KEY,"
                         + KEY_Work_description + " TEXT,"
                         + KEY_Location_id + " INTEGER,"
@@ -126,21 +137,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addEmployee(Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
-        ParseObject parseEmployee = new ParseObject("Employee");
+        ParseObject parseEmployeeObject = new ParseObject("Employee");
+
+        parseEmployeeObject.put(KEY_User_name, employee.getUser_name());
+        parseEmployeeObject.put(KEY_Password, employee.getPassword());
+        parseEmployeeObject.put(KEY_First_name, employee.getFirst_name());
+        parseEmployeeObject.put(KEY_Last_name, employee.getLast_name());
+        parseEmployeeObject.put(KEY_Admin, employee.getAdmin());
+        parseEmployeeObject.saveInBackground();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_Sync_id, parseEmployeeObject.getObjectId());
         values.put(KEY_User_name, employee.getUser_name());
         values.put(KEY_Password, employee.getPassword());
         values.put(KEY_First_name, employee.getFirst_name());
         values.put(KEY_Last_name, employee.getLast_name());
         values.put(KEY_Admin, employee.getAdmin());
 
-        parseEmployee.put(KEY_User_name, employee.getUser_name());
-        parseEmployee.put(KEY_Password, employee.getPassword());
-        parseEmployee.put(KEY_First_name, employee.getFirst_name());
-        parseEmployee.put(KEY_Last_name, employee.getLast_name());
-        parseEmployee.put(KEY_Admin, employee.getAdmin());
-        parseEmployee.saveInBackground();
         // inserting row
         db.insert(TABLE_EMPLOYEES, null, values);
 
@@ -237,8 +250,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // deleting single employee
-    public void deleteEmployee(Employee employee){
+    public void deleteEmployee(final Employee employee){
         SQLiteDatabase db = this.getWritableDatabase();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
+        query.getInBackground(employee.getSync_id(), new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // object will be your employee row
+
+                } else {
+                    // something went wrong
+                    Log.d("Parse Deletion error", "Error deleting " + employee.getFirst_name() + " from Parse");
+                }
+                   object.deleteInBackground();
+
+            }
+        });
+
         db.delete(TABLE_EMPLOYEES, KEY_Eagle_id + " = ?",
                 new String[] { String.valueOf(employee.getEagle_id()) });
         db.close();

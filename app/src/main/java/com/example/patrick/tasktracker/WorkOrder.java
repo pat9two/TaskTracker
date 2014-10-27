@@ -13,7 +13,15 @@ public class WorkOrder {
 
     private Timestamp Start_time;
     private Timestamp End_time;
+    private String Sync_id;
 
+    public String getSync_id() {
+        return this.Sync_id;
+    }
+
+    public void setSync_id(String sync_id) {
+        this.Sync_id = sync_id;
+    }
     public int getWO_id() {
         return this.WO_id;
     }

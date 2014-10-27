@@ -6,6 +6,10 @@ package com.example.patrick.tasktracker;
  */
 public class Employee {
     //private variables
+    private String Sync_id;
+
+
+
     private int Eagle_id;
     private  String User_name;
     private  String Password;
@@ -44,6 +48,15 @@ public class Employee {
         this.Admin = Admin;
     }
      // getters and setters
+
+    public String getSync_id() {
+        return this.Sync_id;
+    }
+
+    public void setSync_id(String sync_id) {
+        this.Sync_id = sync_id;
+    }
+
     public int getEagle_id(){
         return this.Eagle_id;
     }

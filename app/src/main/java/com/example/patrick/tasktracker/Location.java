@@ -7,12 +7,21 @@ public class Location {
     private int Location_id;
     private String Location_name;
     private int Department_id;
+    private String Sync_id;
 
 
     public Location(){}
     public Location(int Location_id, String Location_name){
         this.Location_id = Location_id;
         this.Location_name = Location_name;
+    }
+
+    public String getSync_id() {
+        return this.Sync_id;
+    }
+
+    public void setSync_id(String sync_id) {
+        this.Sync_id = sync_id;
     }
     public int getDepartment_id() {
         return this.Department_id;

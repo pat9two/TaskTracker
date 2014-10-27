@@ -128,11 +128,7 @@
         android:layout_height="20dp"
         android:layout_below="@id/admin_new_workDesc_textBox" />
 
-    <Space
-        android:id="@+id/admin_new_spacing_7"
-        android:layout_width="1dp"
-        android:layout_height="20dp"
-        android:layout_below="@id/admin_new_workMats_label" />
+
 
     <TextView
         android:id="@+id/admin_new_workMats_label"
@@ -141,7 +137,11 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_6"
         />
-
+    <Space
+        android:id="@+id/admin_new_spacing_7"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_new_workMats_label" />
 
     <EditText
         android:id="@+id/admin_new_workMats_textBox"
