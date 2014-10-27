@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,11 +8,11 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    >
+    android:id="@+id/dept_a">
 
     <TextView
-        android:id="@id/title_string"
-        android:text="@string/app_title"
+        android:id="@+id/dept_main_title"
+        android:text="Admin: Departments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -24,30 +22,19 @@
         android:layout_width = "fill_parent"
         android:layout_height="2dp"
         android:layout_centerVertical ="true"
-        android:layout_below="@+id/title_string" />
+        android:layout_below="@id/dept_main_title" />
 
+    <Space
+        android:id="@+id/dept_spacing_1"
+        android:layout_width="1dp"
+        android:layout_height="35dp"/>
 
-    <EditText
-        android:id="@+id/search_job_field"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_by_job_label"
-        android:inputType="text"
-        android:layout_below="@id/title_divider" />
-
-    <Button
-        android:id="@+id/task_search_button"
-        android:layout_height="50dp"
-        android:text="@string/search_button_label"
-        android:layout_width="200dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/search_job_field" />
-
-    <!-- create custom ListView based on jobs-->
+    <!-- create custom ListView based on Departments table-->
     <ListView
-        android:id="@+id/job_list_view"
+        android:id="@+id/departments_list_view"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_below="@id/task_search_button"/>
+        android:layout_below="@id/dept_spacing_1"/>
+
 
 </RelativeLayout>
