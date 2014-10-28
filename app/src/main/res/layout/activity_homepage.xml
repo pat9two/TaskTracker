@@ -36,6 +36,14 @@
         android:layout_below="@id/entry"
         android:onClick="dropEntry"
     />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refreshList"
+        android:layout_toRightOf="@id/dropDb"
+        android:layout_alignBaseline="@id/dropDb"
+        android:text="Refresh"
+        android:onClick="refreshList"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

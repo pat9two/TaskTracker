@@ -1,22 +1,26 @@
 package com.example.patrick.tasktracker;
 
 
+
+import java.util.Date;
+
 /**
  * Created by Patrick on 10/5/2014.
  */
 public class Employee {
     //private variables
-    private String Sync_id;
+
 
 
 
     private int Eagle_id;
-    private  String User_name;
-    private  String Password;
-    private  String First_name;
-    private  String Last_name;
-    private  String Admin;
-
+    private String User_name;
+    private String Password;
+    private String First_name;
+    private String Last_name;
+    private String Admin;
+    private String Sync_id;
+    private Date Sync_timestamp;
     // empty constructor
     public Employee(){}
 
@@ -34,20 +38,27 @@ public class Employee {
         this.Admin = Admin;
     }
 
-    public Employee(
-                    String User_name,
+    public Employee(String User_name,
                     String Password,
                     String First_name,
                     String Last_name,
-                    String Admin){
-        ///  this.Eagle_id = Eagle_id;
+                    String Admin,
+                    Date Sync_timestamp){
         this.User_name = User_name;
         this.Password = Password;
         this.First_name = First_name;
         this.Last_name = Last_name;
         this.Admin = Admin;
+        this.Sync_timestamp = Sync_timestamp;
     }
      // getters and setters
+    public Date getSync_timestamp() {
+        return this.Sync_timestamp;
+    }
+
+    public void setSync_timestamp(Date sync_timestamp) {
+        this.Sync_timestamp = sync_timestamp;
+    }
 
     public String getSync_id() {
         return this.Sync_id;
@@ -86,7 +97,7 @@ public class Employee {
     }
 
     public void setFirst_name(String first_name){
-        this.First_name = First_name;
+        this.First_name = first_name;
     }
 
     public String getLast_name(){

@@ -1,7 +1,6 @@
 package com.example.patrick.tasktracker;
 
-import java.security.Timestamp;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by Patrick on 10/14/2014.
@@ -11,9 +10,30 @@ public class WorkOrder {
     private String Work_description;
     private Date Schedule_date;
 
-    private Timestamp Start_time;
-    private Timestamp End_time;
+    private Date Start_time;
+    private Date End_time;
     private String Sync_id;
+    private Date Sync_timestamp;
+
+    public WorkOrder(){}
+
+    public WorkOrder(int WO_id,
+                     String work_description,
+                     Date schedule_date,
+                     String sync_id) {
+        this.WO_id = WO_id;
+        this.Work_description = work_description;
+        this.Schedule_date = schedule_date;
+        this.Sync_id = sync_id;
+    }
+
+    public Date getSync_timestamp() {
+        return this.Sync_timestamp;
+    }
+
+    public void setSync_timestamp(Date sync_timestamp) {
+        this.Sync_timestamp = sync_timestamp;
+    }
 
     public String getSync_id() {
         return this.Sync_id;
@@ -46,19 +66,19 @@ public class WorkOrder {
         this.Schedule_date = schedule_date;
     }
 
-    public Timestamp getStart_time() {
+    public Date getStart_time() {
         return this.Start_time;
     }
 
-    public void setStart_time(Timestamp start_time) {
+    public void setStart_time(Date start_time) {
         this.Start_time = start_time;
     }
 
-    public Timestamp getEnd_time() {
+    public Date getEnd_time() {
         return this.End_time;
     }
 
-    public void setEnd_time(Timestamp end_time) {
+    public void setEnd_time(Date end_time) {
         this.End_time = end_time;
     }
 }

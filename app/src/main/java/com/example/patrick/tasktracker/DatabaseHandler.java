@@ -9,14 +9,16 @@ package com.example.patrick.tasktracker;
         import android.util.Log;
 
         import com.parse.GetCallback;
-        import com.parse.Parse;
-        import com.parse.ParseAnalytics;
         import com.parse.ParseException;
         import com.parse.ParseObject;
         import com.parse.ParseQuery;
 
+        import java.text.DateFormat;
+        import java.text.SimpleDateFormat;
         import java.util.ArrayList;
+        import java.util.Date;
         import java.util.List;
+        import java.util.TimeZone;
 
 /**
  * Created by Patrick on 10/5/2014.
@@ -37,6 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_DEPARTMENT = "Department";
     private static final String TABLE_MATERIAL = "Material";
     private static final String TABLE_WORKORDER = "Work_order";
+    private static final String TABLE_EMP_WO = "Emp_Work_order";
 
     // employee table column names
     private static final String KEY_Eagle_id = "Eagle_id";
@@ -45,6 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_Last_name = "Last_name";
     private static final String KEY_Password = "Password";
     private static final String KEY_Admin = "Admin";
+    private static final String KEY_Sync_timestamp = "Sync_timestmap";
 
     // department table column names
     private static final String KEY_Department_id = "Department_id";
@@ -65,6 +69,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_Start_time = "Start_time";
     private static final String KEY_End_time = "End_time";
 
+    // Emp_Work_order table column names;
+    private static final String KEY_Emp_WO_id = "Emp_WO_id";
+
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -81,7 +88,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + KEY_Password + " TEXT,"
                         + KEY_First_name + " TEXT,"
                         + KEY_Last_name + " TEXT,"
-                        + KEY_Admin + " TEXT)";
+                        + KEY_Admin + " TEXT,"
+                        + KEY_Sync_timestamp + " DATE)";
                 String CREATE_DEPARTMENT_TABLE = "Create Table "
                         + TABLE_DEPARTMENT + "("
                         + KEY_Sync_id + " TEXT, "
@@ -111,11 +119,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         + " FOREIGN KEY(" + KEY_Eagle_id + ") REFERENCES " + TABLE_EMPLOYEES + "(" + KEY_Eagle_id + "),"
                         + " FOREIGN KEY(" + KEY_Material_id + ") REFERENCES " + TABLE_DEPARTMENT + "(" + KEY_Material_id + ")"
                         +")";
+                String CREATE_EMP_WORK_ORDER_TABLE = "Create Table "
+                        + TABLE_EMP_WO + "("
+                        + KEY_Emp_WO_id + " TEXT,"
+                        + KEY_Eagle_id + " INTEGER,"
+                        + KEY_WO_id + " INTEGER,"
+                        + " FOREIGN KEY(" + KEY_Eagle_id + ") REFERENCES " + TABLE_EMPLOYEES + "(" + KEY_Eagle_id + "),"
+                        + " FOREIGN KEY(" + KEY_WO_id + ") REFERENCES " + TABLE_WORKORDER + "(" + KEY_WO_id + ")"
+                        + ")";
         db.execSQL(CREATE_EMPLOYEES_TABLE);
         db.execSQL(CREATE_DEPARTMENT_TABLE);
         db.execSQL(CREATE_LOCATION_TABLE);
         db.execSQL(CREATE_MATERIAL_TABLE);
         db.execSQL(CREATE_WORKORDER_TABLE);
+        db.execSQL(CREATE_EMP_WORK_ORDER_TABLE);
         Log.d("Database Creation", "Complete");
     }
 
@@ -134,17 +151,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
     // adding new employee
-    public void addEmployee(Employee employee){
+    public void addEmployee(Employee employee, boolean newEntry){
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
         ParseObject parseEmployeeObject = new ParseObject("Employee");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
-        parseEmployeeObject.put(KEY_User_name, employee.getUser_name());
-        parseEmployeeObject.put(KEY_Password, employee.getPassword());
-        parseEmployeeObject.put(KEY_First_name, employee.getFirst_name());
-        parseEmployeeObject.put(KEY_Last_name, employee.getLast_name());
-        parseEmployeeObject.put(KEY_Admin, employee.getAdmin());
-        parseEmployeeObject.saveInBackground();
+
+        if(newEntry) {
+            parseEmployeeObject.put(KEY_User_name, employee.getUser_name());
+            parseEmployeeObject.put(KEY_Password, employee.getPassword());
+            parseEmployeeObject.put(KEY_First_name, employee.getFirst_name());
+            parseEmployeeObject.put(KEY_Last_name, employee.getLast_name());
+            parseEmployeeObject.put(KEY_Admin, employee.getAdmin());
+
+            parseEmployeeObject.saveInBackground();
+        }
 
         ContentValues values = new ContentValues();
         values.put(KEY_Sync_id, parseEmployeeObject.getObjectId());
@@ -153,6 +176,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_First_name, employee.getFirst_name());
         values.put(KEY_Last_name, employee.getLast_name());
         values.put(KEY_Admin, employee.getAdmin());
+        values.put(KEY_Sync_timestamp, dateFormat.format(new Date()));
 
         // inserting row
         db.insert(TABLE_EMPLOYEES, null, values);
@@ -181,11 +205,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(4), cursor.getString(5));
 
             Log.d("getEmployee("+Eagle_id+")", String.valueOf(cursor.getString(3)) + " " + String.valueOf(cursor.getString(4)));
-
+            db.close();
             return employee;
         }
 
-
+        db.close();
         return null;
     }
 
@@ -193,14 +217,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<Employee> getAllEmployees(){
         List<Employee> employeeList = new ArrayList<Employee>();
         // select all query
-        String selectQuery = "Select * FROM " + TABLE_EMPLOYEES;
+        String selectQuery = "Select "
+                + KEY_Eagle_id + ","
+                + KEY_User_name + ","
+                + KEY_Password + ","
+                + KEY_First_name + ","
+                + KEY_Last_name + ","
+                + KEY_Admin + ","
+                + KEY_Sync_timestamp
+                + " FROM " + TABLE_EMPLOYEES;
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.moveToFirst();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         // looping through all rows and adding to the list
         if(cursor.moveToFirst()){
+
             do{
+
                 Employee employee = new Employee();
 
                 employee.setUser_name(cursor.getString(1));
@@ -208,11 +244,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 employee.setFirst_name(cursor.getString(3));
                 employee.setLast_name(cursor.getString(4));
                 employee.setAdmin(cursor.getString(5));
-
+                try {
+                    employee.setSync_timestamp(dateFormat.parse(cursor.getString(6)));
+                }catch(Exception e){
+                    //something wrong with the date string.
+                }
                 employeeList.add(employee);
             }while(cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         // return employee list
         return employeeList;
     }
@@ -227,7 +268,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         count = cursor.getCount();
 
         cursor.close();
-
+        db.close();
         // return count
         return count;
     }
@@ -258,12 +299,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     // object will be your employee row
-
+                    object.deleteInBackground();
                 } else {
                     // something went wrong
                     Log.d("Parse Deletion error", "Error deleting " + employee.getFirst_name() + " from Parse");
                 }
-                   object.deleteInBackground();
+
 
             }
         });

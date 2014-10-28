@@ -1,5 +1,8 @@
 package com.example.patrick.tasktracker;
 
+
+import java.util.Date;
+
 /**
  * Created by Patrick on 10/8/2014.
  */
@@ -9,14 +12,27 @@ public class Department {
     private String Department_name;
     private String Charged;
     private String Sync_id;
+    private Date Sync_timestamp;
+
+
 
     public Department(){}
 
-    public Department(int Department_id, String charged){
-       this.Department_id = Department_id;
-       this.Charged = Charged;
+    public Department(int Department_id,
+                      String charged,
+                      String Sync_id){
+        this.Department_id = Department_id;
+        this.Charged = charged;
+        this.Sync_id = Sync_id;
     }
 
+    public Date getSync_timestamp() {
+        return this.Sync_timestamp;
+    }
+
+    public void setSync_timestamp(Date sync_timestamp) {
+        this.Sync_timestamp = sync_timestamp;
+    }
     public String getSync_id() {
         return this.Sync_id;
     }
