@@ -3,6 +3,7 @@ package com.example.patrick.tasktracker;
 import android.app.Activity;
 
 import android.os.Bundle;
+
 import android.util.Log;
 
 import android.view.View;
@@ -19,13 +20,17 @@ import com.parse.ParseQuery;
 
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 
 public class HomepageActivity extends Activity {
-
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date checkpoint;
     /* Testing purposes only */
     //////////////////////////
 
@@ -53,6 +58,8 @@ public class HomepageActivity extends Activity {
     public void dropEntry(View view){
 
         rowlist = (TextView)findViewById(R.id.list);
+        SyncData();
+
         DatabaseHandler db = new DatabaseHandler(this);
         List<Employee> empList = db.getAllEmployees();
         if(empList.size() >0){
@@ -68,14 +75,20 @@ public class HomepageActivity extends Activity {
     }
 
     public void addRow(View view){
+        SyncData();
+        Date date = new Date(System.currentTimeMillis());
+
 
         DatabaseHandler db = new DatabaseHandler(this);
         textbox = (EditText)findViewById(R.id.entry);
-        Employee em = new Employee("pm01789", "password", textbox.getText().toString(), "Marino", "1", new Date());
+        Employee em = new Employee("pm01789", "password", textbox.getText().toString(), "Marino", "1", date);
         db.addEmployee(em, true);
 
         textview = (TextView)findViewById(R.id.textbox);
         textview.setText(String.valueOf(em.getEagle_id()));
+
+        db.close();
+        checkpoint = new Date(System.currentTimeMillis());
     }
     //////////////////////////////////
     /* Testing purposes only. */
@@ -90,6 +103,8 @@ public class HomepageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+        checkpoint = new Date(System.currentTimeMillis());
+
         SyncData();
 
     }
@@ -101,20 +116,21 @@ public class HomepageActivity extends Activity {
 
 
         if(db.getEmployeesCount() > 0) {
+
             List<Employee> tempEmpList = db.getAllEmployees();
             Employee em = db.getEmployee(tempEmpList.size());
 
-            Date ts = em.getSync_timestamp();
             Log.d("Notice", "Local db has employee rows");
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-            Log.d("Notice", "Name " + em.getFirst_name() + " Looking for date " + em.getSync_timestamp());
+            Log.d("Notice", "Name " + em.getFirst_name() + " Looking for date " + checkpoint);
 
-            query.whereLessThan("updatedAt", ts);
+            query.whereGreaterThan("updatedAt", checkpoint);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> objectList, ParseException e) {
                     Log.d("Notice", "Query returned " + objectList.size() + " entries");
                     if (e == null) {
                         for(ParseObject Employee : objectList){
+
                             Employee emp = new Employee((String)Employee.get("User_name"),
                                     (String)Employee.get("Password"),
                                     (String)Employee.get("First_name"),
@@ -132,14 +148,13 @@ public class HomepageActivity extends Activity {
                         // something went wrong
                         Log.d("Sync error", "Cannot sync employees table");
                     }
-
-
                 }
             });
         }
+
         if(db.getEmployeesCount() == 0){
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-            query.whereLessThan("updatedAt",new Date());
+            query.whereLessThan("updatedAt", checkpoint);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> objectList, ParseException e) {
                     Log.d("Notice", "Query returned " + objectList.size() + " entries");
@@ -162,17 +177,12 @@ public class HomepageActivity extends Activity {
                         // something went wrong
                         Log.d("Sync error", "Cannot sync employees table");
                     }
-
-
                 }
             });
-
         }else{
             Log.d("Sync error", "No entries to sync");
         }
-
-
         db.close();
+        checkpoint = new Date(System.currentTimeMillis());
     }
-
 }

@@ -29,13 +29,15 @@ public class Employee {
                     String Password,
                     String First_name,
                     String Last_name,
-                    String Admin){
+                    String Admin,
+                    Date Sync_timestamp){
         this.Eagle_id = Eagle_id;
         this.User_name = User_name;
         this.Password = Password;
         this.First_name = First_name;
         this.Last_name = Last_name;
         this.Admin = Admin;
+        this.Sync_timestamp = Sync_timestamp;
     }
 
     public Employee(String User_name,
