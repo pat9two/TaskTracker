@@ -59,11 +59,11 @@ public class HomepageActivity extends Activity {
 
         rowlist = (TextView)findViewById(R.id.list);
         SyncData();
-
+        textbox = (EditText)findViewById(R.id.entry);
         DatabaseHandler db = new DatabaseHandler(this);
         List<Employee> empList = db.getAllEmployees();
         if(empList.size() >0){
-            Employee em = db.getEmployee(empList.size());
+            Employee em = db.getEmployee(Integer.parseInt(textbox.getText().toString()));
             Log.d("Dropping", em.getFirst_name());
             db.deleteEmployee(em);
             rowlist.setText("");
@@ -127,8 +127,9 @@ public class HomepageActivity extends Activity {
             query.whereGreaterThan("updatedAt", checkpoint);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> objectList, ParseException e) {
-                    Log.d("Notice", "Query returned " + objectList.size() + " entries");
+
                     if (e == null) {
+                        Log.d("Notice", "Query returned " + objectList.size() + " entries");
                         for(ParseObject Employee : objectList){
 
                             Employee emp = new Employee((String)Employee.get("User_name"),
@@ -138,9 +139,14 @@ public class HomepageActivity extends Activity {
                                     (String)Employee.get("Admin"),
                                     (Date)Employee.get("updatedAt"));
 
-                            empList.add(emp);
+                            if((Integer)Employee.get("DeleteFlag") == 1){
+                                db.deleteEmployee(emp);
+                            }else {
+                                empList.add(emp);
+                            }
                         }
                         for(int i = 0; i < empList.size(); i++){
+
                             Log.d("Notice","Adding employee to local db");
                             db.addEmployee(empList.get(i), false);
                         }

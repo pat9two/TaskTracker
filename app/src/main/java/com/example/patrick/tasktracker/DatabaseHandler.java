@@ -12,6 +12,7 @@ package com.example.patrick.tasktracker;
         import com.parse.ParseException;
         import com.parse.ParseObject;
         import com.parse.ParseQuery;
+        import com.parse.SaveCallback;
 
         import java.text.DateFormat;
         import java.text.SimpleDateFormat;
@@ -151,12 +152,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
     // adding new employee
-    public void addEmployee(Employee employee, boolean newEntry){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
-        ParseObject parseEmployeeObject = new ParseObject("Employee");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public void addEmployee(final Employee employee, boolean newEntry){
+        final ParseObject parseEmployeeObject = new ParseObject("Employee");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final SQLiteDatabase db = this.getWritableDatabase();
 
+
+        Log.d("addEmployee", employee.getFirst_name() + " " + employee.getLast_name());
 
         if(newEntry) {
             parseEmployeeObject.put(KEY_User_name, employee.getUser_name());
@@ -164,26 +166,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             parseEmployeeObject.put(KEY_First_name, employee.getFirst_name());
             parseEmployeeObject.put(KEY_Last_name, employee.getLast_name());
             parseEmployeeObject.put(KEY_Admin, employee.getAdmin());
+            parseEmployeeObject.put("DeleteFlag", 0);
+            parseEmployeeObject.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        ContentValues values = new ContentValues();
+                        values.put(KEY_Sync_id, parseEmployeeObject.getObjectId());
+                        values.put(KEY_User_name, employee.getUser_name());
+                        values.put(KEY_Password, employee.getPassword());
+                        values.put(KEY_First_name, employee.getFirst_name());
+                        values.put(KEY_Last_name, employee.getLast_name());
+                        values.put(KEY_Admin, employee.getAdmin());
+                        values.put(KEY_Sync_timestamp, dateFormat.format(System.currentTimeMillis()));
+                        // inserting row
+                        db.insert(TABLE_EMPLOYEES, null, values);
 
-            parseEmployeeObject.saveInBackground();
+
+                        Log.d("Parse", parseEmployeeObject.getObjectId() + " " + parseEmployeeObject.get("First_name"));
+                        Log.d("Database",employee.getSync_id() + " " + employee.getFirst_name() +" inserted at " + System.currentTimeMillis());
+                    } else {
+                        Log.d("Parse", "Could not complete save");
+                    }
+                }
+            });
+
         }
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_Sync_id, parseEmployeeObject.getObjectId());
-        values.put(KEY_User_name, employee.getUser_name());
-        values.put(KEY_Password, employee.getPassword());
-        values.put(KEY_First_name, employee.getFirst_name());
-        values.put(KEY_Last_name, employee.getLast_name());
-        values.put(KEY_Admin, employee.getAdmin());
-        values.put(KEY_Sync_timestamp, dateFormat.format(System.currentTimeMillis()));
-
-
-
-        // inserting row
-        db.insert(TABLE_EMPLOYEES, null, values);
-
         db.close();
-        Log.d("Notice",employee.getFirst_name() +" inserted at " + System.currentTimeMillis());
+
     }
 
     // getting a single employee
@@ -193,16 +203,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Cursor cursor = db.query(TABLE_EMPLOYEES, new String[]{ KEY_Eagle_id,
-                        KEY_User_name, KEY_Password, KEY_First_name, KEY_Last_name,
-                        KEY_Admin, KEY_Sync_timestamp}, KEY_Eagle_id +  " =? ",
+                        KEY_User_name,
+                        KEY_Password,
+                        KEY_First_name,
+                        KEY_Last_name,
+                        KEY_Admin,
+                        KEY_Sync_timestamp}, KEY_Eagle_id +  " =? ",
                         new String[] { String.valueOf(Eagle_id) },
                         null, // group by
                         null, // having
                         null, // order by
                         null); // limit
-
-
-
 
         if(cursor.moveToFirst()) {
 
@@ -316,14 +327,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         query.getInBackground(employee.getSync_id(), new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
+                    Log.d("Parse", object.getObjectId() + " " + object.get("First_name") + " = " + employee.getFirst_name());
                     // object will be your employee row
-                    object.deleteInBackground();
+                    object.put("DeleteFlag", 1);
+
+                    object.saveInBackground();
                 } else {
                     // something went wrong
                     Log.d("Parse Deletion error", "Error deleting " + employee.getFirst_name() + " from Parse");
                 }
-
-
             }
         });
 
@@ -349,9 +361,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 
-public void addLocation(Location location, Department department){
+public void addLocation(Location location, Department department, Boolean newEntry){
         SQLiteDatabase db = this.getWritableDatabase();
         Log.d("addLocation", location.getLocation_id() + " " + location.getLocation_name());
+        ParseObject parseLocationObject  = new ParseObject("Employee");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(newEntry) {
+            parseLocationObject.put(KEY_Location_name, location.getLocation_name());
+            parseLocationObject.put("parent", ParseObject.createWithoutData("Department", department.getSync_id()));
+
+            parseLocationObject.saveInBackground();
+        }
 
         ContentValues values = new ContentValues();
         values.put(KEY_Location_id, location.getLocation_id());
@@ -368,8 +388,11 @@ public void addLocation(Location location, Department department){
     // getting a single location
     public Location getLocation(int Location_id){
         SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_LOCATION, new String[]{ KEY_Location_id, KEY_Location_name, KEY_Department_id}, KEY_Location_id +  " =? ",
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Cursor cursor = db.query(TABLE_LOCATION, new String[]{ KEY_Location_id,
+                        KEY_Location_name,
+                        KEY_Department_id,
+                        KEY_Sync_timestamp}, KEY_Location_id +  " =? ",
                         new String[] { String.valueOf(Location_id) },
                         null, // group by
                         null, // having
@@ -377,11 +400,18 @@ public void addLocation(Location location, Department department){
                         null); // limit
 
         if(cursor.moveToFirst()) {
+            Date date;
+            try{
+                date = dateFormat.parse(cursor.getString(3));
+            }catch(Exception e){
+                throw new IllegalArgumentException();
+            }
             // cursor.getString(0) is the Primary Key. so start at 1.
             Location location = new Location(Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1));
+                    cursor.getString(1),
+                    cursor.getString(2));
 
-            Log.d("getLocation("+Location_id+")", String.valueOf(cursor.getString(0)) + " " + String.valueOf(cursor.getString(1)));
+            Log.d("getLocation("+Location_id+")", location.getLocation_name() + " " + location.getDepartment_id());
 
             return location;
         }
