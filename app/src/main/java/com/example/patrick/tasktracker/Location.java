@@ -15,6 +15,7 @@ public class Location {
 
     public Location(){}
     public Location(int Location_id,
+                    String Sync_id,
                     String Location_name){
         this.Location_id = Location_id;
         this.Location_name = Location_name;
