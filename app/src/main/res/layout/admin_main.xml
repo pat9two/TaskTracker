@@ -36,7 +36,8 @@
         android:text="View Work Orders"
         android:layout_width="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/admin_spacing_1" />
+        android:layout_below="@id/admin_spacing_1"
+        android:onClick="viewWorkOrders"/>
 
     <Space
         android:id="@+id/admin_spacing_2"
@@ -50,7 +51,8 @@
         android:text="View Employees"
         android:layout_width="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/admin_spacing_2" />
+        android:layout_below="@id/admin_spacing_2"
+        android:onClick="viewEmployees"/>
 
     <Space
         android:id="@+id/admin_spacing_3"
@@ -64,7 +66,8 @@
         android:text="View Departments"
         android:layout_width="200dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/admin_spacing_3" />
+        android:layout_below="@id/admin_spacing_3"
+        android:onClick="viewDepartments"/>
 
     <Space
         android:id="@+id/admin_spacing_4"

@@ -8,8 +8,10 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!-- MAIN ACTIVITY-->
         <activity
-            android:name=".HomepageActivity"
+            android:name=".Activity_AdminMain"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +19,97 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- START DEPARTMENTS PARENT/CHILD STRUCTURE -->
+        <activity
+            android:name=".Activity_AdminDepartments"
+            android:label="Admin: View Departments"
+            android:parentActivityName=".Activity_AdminMain">
+
+        </activity>
+        <activity
+            android:name=".Activity_AdminNewDepartment"
+            android:label="Admin: New Department"
+            android:parentActivityName=".Activity_AdminDepartments">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_DepartmentLocInfo"
+            android:label="Admin: Department Location Info"
+            android:parentActivityName=".Activity_AdminNewDepartment">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_DepartmentAddLoc"
+            android:label="Admin: Add Location to Department"
+            android:parentActivityName=".Activity_DepartmentLocInfo">
+
+        </activity>
+        <!-- END DEPARTMENTS PARENT/CHILD STRUCTURE -->
+
+        <!-- START EMPLOYEE PARENT/CHILD STRUCTURE -->
+
+        <activity
+            android:name=".Activity_EmployeeMain"
+            android:label="Admin: Employees"
+            android:parentActivityName=".Activity_AdminMain">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_EmployeeNew"
+            android:label="Admin: New Employee"
+            android:parentActivityName=".Activity_EmployeeMain">
+
+        </activity>
+
+        <!-- END EMPLOYEE PARENT/CHILD STRUCTURE -->
+
+        <!-- START WORK ORDER PARENT/CHILD STRUCTURE -->
+
+        <activity
+            android:name=".Activity_AdminWoView"
+            android:label="Admin: Work Orders"
+            android:parentActivityName=".Activity_AdminMain">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_AdminWoNew"
+            android:label="Admin: New Work Order"
+            android:parentActivityName=".Activity_AdminWoView">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_AdminWoEmployee"
+            android:label="Admin: New Work Order"
+            android:parentActivityName=".Activity_AdminWoNew">
+
+        </activity>
+
+        <!-- END WORK ORDER PARENT/CHILD STRUCTURE -->
+
+        <!-- START USER PARENT/CHILD STRUCTURE -->
+
+        <activity
+            android:name=".Activity_UserMain"
+            android:label="User: Work Orders"
+            android:parentActivityName=".Activity_LoginMain">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_UserJobView"
+            android:label="User: Work Orders: View Details"
+            android:parentActivityName=".Activity_UserMain">
+
+        </activity>
+
+        <!-- END USER PARENT/CHILD STRUCTURE -->
+
     </application>
 
 </manifest>
