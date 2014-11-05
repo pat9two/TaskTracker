@@ -2,6 +2,7 @@ package com.example.patrick.tasktracker;
 
 import android.app.Activity;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -51,7 +52,6 @@ public class HomepageActivity extends Activity {
                 rowlist.append(em.getFirst_name() + " time: " + em.getSync_timestamp()+ "\n");
             }
         }
-
         db.close();
         checkpoint = new Date(System.currentTimeMillis());
     }
@@ -64,7 +64,9 @@ public class HomepageActivity extends Activity {
         DatabaseHandler db = new DatabaseHandler(this);
         List<Employee> empList = db.getAllEmployees();
         if(empList.size() >0){
-            Employee em = db.getEmployee(empList.size());
+            Cursor cursor = db.getData("SELECT Sync_id, Sync_timestamp FROM Employee ORDER BY Sync_timestamp DESC");
+
+            Employee em = db.getEmployee(cursor.getString(0));
             Log.d("Dropping", em.getFirst_name());
             db.deleteEmployee(em);
             rowlist.setText("");
@@ -111,49 +113,59 @@ public class HomepageActivity extends Activity {
     }
 
     public void SyncData(){
+        //Instantiate database handler
        final DatabaseHandler db = new DatabaseHandler(this);
+
+        //create temporary list for manipulation
         final List<Employee> empList = new ArrayList<Employee>();
         Log.d("Notice", "running SyncData()");
 
 
         if(db.getEmployeesCount() > 0) {
 
-            List<Employee> tempEmpList = db.getAllEmployees();
-            Employee em = db.getEmployee(tempEmpList.size());
+            Cursor cursor = db.getData("SELECT Sync_id, Sync_timestamp FROM Employee ORDER BY Sync_timestamp DESC");
 
-            Log.d("Notice", "Local db has employee rows");
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-            Log.d("Notice", "Name " + em.getFirst_name() + " Checkpoint " + checkpoint);
+            if(cursor.moveToFirst()) {
+                Employee em = db.getEmployee(cursor.getString(0));
 
-            query.whereGreaterThan("updatedAt", checkpoint);
-            query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> objectList, ParseException e) {
-                    Log.d("Notice", "Query returned " + objectList.size() + " entries");
-                    if (e == null) {
-                        for(ParseObject Employee : objectList){
+                Log.d("Notice", "Local db has employee rows");
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
+                Log.d("Notice", "Name " + em.getFirst_name() + " Checkpoint " + checkpoint);
 
-                            Employee emp = new Employee((String)Employee.get("User_name"),
-                                    (String)Employee.get("Password"),
-                                    (String)Employee.get("First_name"),
-                                    (String)Employee.get("Last_name"),
-                                    (String)Employee.get("Admin"),
-                                    new Date(System.currentTimeMillis()));
-                            emp.setSync_id(Employee.getObjectId());
-                            empList.add(emp);
+                query.whereGreaterThan("updatedAt", checkpoint);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> objectList, ParseException e) {
+                        Log.d("Notice", "Query returned " + objectList.size() + " entries");
+                        if (e == null) {
+                            for (ParseObject Employee : objectList) {
+
+                                Employee emp = new Employee((String) Employee.get("User_name"),
+                                        (String) Employee.get("Password"),
+                                        (String) Employee.get("First_name"),
+                                        (String) Employee.get("Last_name"),
+                                        (String) Employee.get("Admin"),
+                                        new Date(System.currentTimeMillis()));
+                                emp.setSync_id(Employee.getObjectId());
+                                if (Employee.get("DeleteFlag") == "1") {
+                                    db.deleteEmployee(emp);
+                                } else {
+                                    empList.add(emp);
+                                }
+                            }
+                            for (int i = 0; i < empList.size(); i++) {
+                                Log.d("Notice", "Adding employee to local db");
+                                db.addEmployee(empList.get(i), false);
+                            }
+                            checkpoint = new Date(System.currentTimeMillis());
+                            db.close();
+                        } else {
+                            // something went wrong
+                            Log.d("Sync error", "Cannot sync employees table");
+                            db.close();
                         }
-                        for(int i = 0; i < empList.size(); i++){
-                            Log.d("Notice","Adding employee to local db");
-                            db.addEmployee(empList.get(i), false);
-                        }
-                        checkpoint = new Date(System.currentTimeMillis());
-                        db.close();
-                    } else {
-                        // something went wrong
-                        Log.d("Sync error", "Cannot sync employees table");
-                        db.close();
                     }
-                }
-            });
+                });
+            }
         }else{
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
             query.whereLessThan("updatedAt", checkpoint);
@@ -161,19 +173,19 @@ public class HomepageActivity extends Activity {
                 public void done(List<ParseObject> objectList, ParseException e) {
                     Log.d("Empty database", "Query returned " + objectList.size() + " entries");
                     if (e == null) {
-                        for(ParseObject Employee : objectList){
+                        for (ParseObject Employee : objectList) {
                             Employee emp = new Employee(
-                                    (String)Employee.get("User_name"),
-                                    (String)Employee.get("Password"),
-                                    (String)Employee.get("First_name"),
-                                    (String)Employee.get("Last_name"),
-                                    (String)Employee.get("Admin"),
-                                    (Date)Employee.get("updatedAt"));
+                                    (String) Employee.get("User_name"),
+                                    (String) Employee.get("Password"),
+                                    (String) Employee.get("First_name"),
+                                    (String) Employee.get("Last_name"),
+                                    (String) Employee.get("Admin"),
+                                    (Date) Employee.get("updatedAt"));
                             emp.setSync_id(Employee.getObjectId());
                             empList.add(emp);
                         }
-                        for(int i = 0; i < empList.size(); i++){
-                            Log.d("Notice","Adding employee to local db");
+                        for (int i = 0; i < empList.size(); i++) {
+                            Log.d("Notice", "Adding employee to local db");
                             db.addEmployee(empList.get(i), false);
                         }
                         checkpoint = new Date(System.currentTimeMillis());
@@ -187,7 +199,5 @@ public class HomepageActivity extends Activity {
                 }
             });
         }
-
-
     }
 }

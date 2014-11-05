@@ -45,6 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // employee table column names
     private static final String KEY_Eagle_id = "Eagle_id";
+
     private static final String KEY_User_name = "User_name";
     private static final String KEY_First_name = "First_name";
     private static final String KEY_Last_name = "Last_name";
@@ -148,6 +149,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // create tables again
         onCreate(db);
     }
+
+    public Cursor getData(String query){
+        Log.d("getData",query);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        Log.d("getData", "cursor is " + cursor.getCount());
+        return cursor;
+    }
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------Employee Table Methods---------------------------------------------------------------
@@ -196,15 +205,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     // getting a single employee
-    public Employee getEmployee(int Eagle_id){
+    public Employee getEmployee(String Sync_id){
         SQLiteDatabase db = this.getReadableDatabase();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         Cursor cursor = db.query(TABLE_EMPLOYEES, new String[]{ KEY_Eagle_id,
                         KEY_User_name, KEY_Password, KEY_First_name, KEY_Last_name,
-                        KEY_Admin, KEY_Sync_timestamp}, KEY_Eagle_id +  " =? ",
-                        new String[] { String.valueOf(Eagle_id) },
+                        KEY_Admin, KEY_Sync_timestamp, KEY_Sync_id}, KEY_Sync_id +  " =? ",
+                        new String[] { String.valueOf(Sync_id) },
                         null, // group by
                         null, // having
                         null, // order by
@@ -226,7 +235,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.getString(1), cursor.getString(2), cursor.getString(3),
                     cursor.getString(4), cursor.getString(5), date);
 
-            Log.d("getEmployee("+Eagle_id+")", employee.getFirst_name() + " " + employee.getLast_name());
+            Log.d("getEmployee("+Sync_id+")", employee.getFirst_name() + " " + employee.getLast_name());
             db.close();
             return employee;
         }
@@ -316,8 +325,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_Admin, employee.getAdmin());
 
         // updating row
-        return db.update(TABLE_EMPLOYEES, values, KEY_Eagle_id + " = ?",
-                new String[] { String.valueOf(employee.getEagle_id()) });
+        return db.update(TABLE_EMPLOYEES, values, KEY_Sync_id + " = ?",
+                new String[] { String.valueOf(employee.getSync_id()) });
     }
 
     // deleting single employee
@@ -331,24 +340,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     // object will be your employee row
                     object.add("DeleteFlag", 1);
                     object.saveInBackground();
+
                 } else {
                     // something went wrong
                     Log.d("Parse Deletion error", "Error deleting " + employee.getFirst_name() + " from Parse");
                 }
-
-
             }
         });
 
-        db.delete(TABLE_EMPLOYEES, "Sync_id" + " = ?",
-                new String[] { String.valueOf(employee.getSync_id()) });
+        db.delete(TABLE_EMPLOYEES, "Sync_id" + " = ?", new String[] { String.valueOf(employee.getSync_id()) });
         db.close();
     }
-    public Cursor getData(String query){
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        return cursor;
-    }
+
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //--------------------------------------------------------------Employee Table Methods End-----------------------------------------------------------
@@ -399,8 +402,6 @@ public void addLocation(Location location, Department department){
 
             return location;
         }
-
-
         return null;
     }
 
