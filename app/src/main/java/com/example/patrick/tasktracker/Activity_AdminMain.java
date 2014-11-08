@@ -11,34 +11,32 @@ import android.widget.TextView;
  */
 public class Activity_AdminMain extends Activity {
     TextView title;
+    String username;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_main);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra(Activity_LoginMain.EXTRA_USERNAME);
+        username = intent.getStringExtra(Activity_LoginMain.EXTRA_USERNAME);
 
         title = (TextView)findViewById(R.id.admin_main_title);
         title.setText("Welcome " + username);
     }
 
-    public void viewWorkOrders(View view)
-    {
+    public void viewWorkOrders(View view){
 
     }
 
 
-    public void viewEmployees(View view)
-    {
+    public void viewEmployees(View view){
 
     }
 
 
-    public void viewDepartments(View view)
-    {
-
+    public void viewDepartments(View view){
+        Intent intent = new Intent(this, Activity_AdminDepartments.class);
+        startActivity(intent);
     }
 }

@@ -37,6 +37,7 @@
         android:inputType="text"
         android:layout_below="@id/dept_add_loc_spacing_1" />
 
+
     <Space
         android:id="@+id/dept_add_loc_spacing_2"
         android:layout_width="1dp"
@@ -49,7 +50,8 @@
         android:text="Add"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/dept_add_loc_spacing_2" />
+        android:layout_below="@id/dept_add_loc_spacing_2"
+        android:onClick="addLoc"/>
 
     <Button
         android:id="@+id/dept_add_loc_cancel_button"

@@ -28,13 +28,19 @@
         android:id="@+id/dept_spacing_1"
         android:layout_width="1dp"
         android:layout_height="35dp"/>
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_below="@id/dept_spacing_1"
+        android:id="@+id/dept_main_add_button"
+        android:onClick="addDepartment"/>
     <!-- create custom ListView based on Departments table-->
     <ListView
         android:id="@+id/departments_list_view"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_below="@id/dept_spacing_1"/>
+        android:layout_below="@id/dept_main_add_button"/>
 
 
 </RelativeLayout>

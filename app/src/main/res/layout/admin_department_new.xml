@@ -60,13 +60,11 @@
         <RadioButton android:id="@+id/new_dept_radio_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Yes"
-            android:onClick="onRadioButtonClicked" />
+            android:text="Yes" />
         <RadioButton android:id="@+id/new_dept_radio_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No"
-            android:onClick="onRadioButtonClicked" />
+            android:text="No" />
 
     </RadioGroup>
 
@@ -82,7 +80,8 @@
         android:text="Create"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/new_dept_spacing_3" />
+        android:layout_below="@id/new_dept_spacing_3"
+        android:onClick="addDep"/>
 
     <Button
         android:id="@+id/new_dept_cancel_button"
@@ -90,7 +89,8 @@
         android:text="Cancel"
         android:layout_width="100dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/new_dept_spacing_3" />
+        android:layout_below="@id/new_dept_spacing_3"
+        android:onClick="cancelDep"/>
 
 
 </RelativeLayout>

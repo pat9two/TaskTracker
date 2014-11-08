@@ -28,6 +28,7 @@ public class Activity_LoginMain extends Activity {
     EditText username;
     EditText password;
     TextView alert;
+
     public final static String EXTRA_USERNAME = "com.example.patrick.tasktracker.USERNAME";
 
     @Override
@@ -41,33 +42,41 @@ public class Activity_LoginMain extends Activity {
 
 
     public void LogIn(View view){
-        final Intent intent = new Intent(this, Activity_AdminMain.class);
+        final Intent adminIntent = new Intent(this, Activity_AdminMain.class);
+        final Intent userIntent = new Intent(this, Activity_UserMain.class);
+
         username = (EditText)findViewById(R.id.login_main_username_field);
         password = (EditText)findViewById(R.id.login_main_password_field);
         alert = (TextView)findViewById(R.id.login_main_greeting);
+
         DatabaseHandler db = new DatabaseHandler(this);
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-        query.whereEqualTo("First_name", username.getText().toString());
+        query.whereEqualTo("User_name", username.getText().toString());
         query.whereEqualTo("Password", password.getText().toString());
+
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(e == null && parseObjects.size() > 0){
+                    Log.d("Login", parseObjects.get(0).get("User_name").toString() + " " +  parseObjects.get(0).get("Admin").toString());// + " " + cursor.getString(1));
+                    String admin = parseObjects.get(0).get("Admin").toString();
+                    if(admin.equals("1")) {
+                        Log.d("Login", parseObjects.get(0).get("User_name").toString());// + " " + cursor.getString(1));
 
-                    Log.d("Login", parseObjects.get(0).get("First_name").toString());// + " " + cursor.getString(1));
-
-                    // if(username.getText().toString() == cursor.getString(0)){// && password.getText().toString() == cursor.getString(1)){
-                        intent.putExtra(EXTRA_USERNAME,parseObjects.get(0).get("First_name").toString());
-
-                        startActivity(intent);
+                        // if(username.getText().toString() == cursor.getString(0)){// && password.getText().toString() == cursor.getString(1)){
+                        adminIntent.putExtra(EXTRA_USERNAME, parseObjects.get(0).get("User_name").toString());
+                        startActivity(adminIntent);
 
                         alert.setText("Login Successful!");
-
+                    }else{
+                        userIntent.putExtra(EXTRA_USERNAME, parseObjects.get(0).get("User_name").toString());
+                        startActivity(userIntent);
+                    }
                 }else{
                     Log.d("Login", username.getText().toString() + " " + password.getText().toString());
                     Log.d("Login", "Incorrect username or password");
                 }
-
             }
         });
         //Cursor cursor = db.getData("Select User_name, Password FROM Employee WHERE User_name LIKE " + "'%" + username.getText().toString() + "%'");//+ " AND Password LIKE " + "'%" + password.getText().toString() + "%'");
