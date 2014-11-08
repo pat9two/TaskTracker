@@ -3,6 +3,7 @@ package com.example.patrick.tasktracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -21,6 +22,7 @@ public class Activity_AdminNewDepartment extends Activity {
     RadioGroup depRadioGroup;
     Intent intent;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -30,24 +32,31 @@ public class Activity_AdminNewDepartment extends Activity {
     }
     public void cancelDep(View view){
 
-        startActivity(intent);
+        finish();
     }
     public void addDep(View view){
         depName = (EditText)findViewById(R.id.new_dept_field);
         depRadioGroup = (RadioGroup)findViewById(R.id.new_dept_radio_group);
         int selectedButton = depRadioGroup.getCheckedRadioButtonId();
+
         ParseObject parseObject = new ParseObject("Department");
-        parseObject.add("Department_id", depName.getText().toString());
+
+        parseObject.put("Department_id", depName.getText().toString());
+
         if(selectedButton == 0){
-            parseObject.add("Charged", "1");
+            parseObject.put("Charged", "1");
         }else{
-            parseObject.add("Charged", "0");
+            parseObject.put("Charged", "0");
         }
+
         parseObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if(e == null){
-                    startActivity(intent);
+                    finish();
+                }else{
+                    Log.d("AddDepartment", "Exception  "+ e.toString());
+                    finish();
                 }
             }
         });
