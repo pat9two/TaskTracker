@@ -11,7 +11,8 @@ import android.widget.*;
 
 public class Activity_AdminWoNew extends Activity {
 
-    public void OnCreate(Bundle savedInstanceState)
+    @Override
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_new);

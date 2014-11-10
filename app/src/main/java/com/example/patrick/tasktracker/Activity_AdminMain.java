@@ -26,12 +26,14 @@ public class Activity_AdminMain extends Activity {
     }
 
     public void viewWorkOrders(View view){
-
+        Intent intent = new Intent(this, Activity_AdminWoView.class);
+        startActivity(intent);
     }
 
 
     public void viewEmployees(View view){
-
+        Intent intent = new Intent(this, Activity_EmployeeMain.class);
+        startActivity(intent);
     }
 
 

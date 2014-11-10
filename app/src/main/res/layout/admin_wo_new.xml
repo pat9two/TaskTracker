@@ -31,13 +31,6 @@
         android:layout_height="15dp"
         android:layout_below="@id/admin_new_title_string"/>
 
-    <!-- Info Button -->
-    <Button
-        android:id="@+id/admin_new_info_button"
-        android:layout_height="40dp"
-        android:layout_width="75dp"
-        android:text="@string/admin_new_info_button_label"
-        android:layout_below="@id/admin_new_spacing_1" />
 
     <Space
         android:id="@+id/admin_new_spacing_2"
@@ -114,7 +107,7 @@
     <EditText
     android:id="@+id/admin_new_workDesc_textBox"
     android:inputType="textMultiLine"
-    android:lines="4"
+    android:lines="3"
     android:maxLines="10"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
@@ -146,7 +139,7 @@
     <EditText
         android:id="@+id/admin_new_workMats_textBox"
         android:inputType="textMultiLine"
-        android:lines="4"
+        android:lines="3"
         android:maxLines="10"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"

@@ -29,12 +29,20 @@
         android:layout_width="1dp"
         android:layout_height="35dp"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emp_spacing_1"
+        android:id="@+id/emp_add_employee"
+        android:text = "Add Employee"
+        android:onClick="createNewEmployee"/>
+
     <!-- create custom ListView based on Departments table-->
     <ListView
         android:id="@+id/emp_list_view"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_below="@id/emp_spacing_1"/>
+        android:layout_below="@id/emp_add_employee"/>
 
 
 </RelativeLayout>

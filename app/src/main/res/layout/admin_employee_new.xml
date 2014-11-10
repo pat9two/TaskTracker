@@ -119,7 +119,8 @@
         android:text="Add"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/admin_addEmp_spacing_7" />
+        android:layout_below="@id/admin_addEmp_spacing_7"
+        android:onClick="AddEmp"/>
 
     <Button
         android:id="@+id/admin_addEmp_cancelButton"
