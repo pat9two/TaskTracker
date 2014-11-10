@@ -8,7 +8,14 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    android:id="@+id/emp_a">
+    android:id="@+id/a_emp_main"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/emp_main_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
     <TextView
         android:id="@+id/emp_main_title"
@@ -53,4 +60,5 @@
         android:layout_below="@id/emp_add_employee"/>
 
 
+    </RelativeLayout>
 </RelativeLayout>

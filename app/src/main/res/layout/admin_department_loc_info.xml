@@ -8,7 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    android:id="@+id/dept_a">
+    android:id="@+id/a_dept_loc_info"
+    android:fillViewport="true">
 
     <TextView
         android:id="@+id/dept_loc_main_title"
@@ -24,85 +25,97 @@
         android:layout_centerVertical ="true"
         android:layout_below="@id/dept_loc_main_title" />
 
-    <Space
-        android:id="@+id/dept_loc_spacing_1"
-        android:layout_width="1dp"
-        android:layout_height="35dp"/>
-
-    <EditText
-        android:id="@+id/new_dept_field"
+    <ScrollView
+        android:id="@+id/admin_dept_loc_info_scrollView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="New Department Name"
-        android:inputType="text"
-        android:layout_below="@id/dept_loc_spacing_1" />
-
-    <Space
-        android:id="@+id/dept_loc_spacing_2"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/new_dept_field"/>
-
-    <TextView
-        android:id="@+id/dept_loc_charged_label"
-        android:text="Charged?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/dept_loc_spacing_2" />
-
-    <RadioGroup
-        android:id="@+id/dept_loc_radio_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/dept_loc_charged_label">
-
-        <RadioButton android:id="@+id/dept_loc_radio_yes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yes"
-            android:onClick="onRadioButtonClicked" />
-        <RadioButton android:id="@+id/dept_loc_radio_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No"
-            android:onClick="onRadioButtonClicked" />
-
-    </RadioGroup>
-
-    <Space
-        android:id="@+id/dept_loc_spacing_3"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/dept_loc_radio_group" />
-
-    <ListView
-        android:id="@+id/dept_loc_view"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <Space
+            android:id="@+id/dept_loc_spacing_1"
+            android:layout_width="1dp"
+            android:layout_height="35dp"/>
+
+        <EditText
+            android:id="@+id/new_dept_field"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="New Department Name"
+            android:inputType="text"
+            android:layout_below="@id/dept_loc_spacing_1" />
+
+        <Space
+            android:id="@+id/dept_loc_spacing_2"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/new_dept_field"/>
+
+        <TextView
+            android:id="@+id/dept_loc_charged_label"
+            android:text="Charged?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dept_loc_spacing_2" />
+
+        <RadioGroup
+            android:id="@+id/dept_loc_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/dept_loc_charged_label">
+
+            <RadioButton android:id="@+id/dept_loc_radio_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:onClick="onRadioButtonClicked" />
+            <RadioButton android:id="@+id/dept_loc_radio_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:onClick="onRadioButtonClicked" />
+
+        </RadioGroup>
+
+        <Space
+            android:id="@+id/dept_loc_spacing_3"
+            android:layout_width="1dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/dept_loc_radio_group" />
+
+        <ListView
+            android:id="@+id/dept_loc_view"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_below="@id/dept_loc_spacing_3"/>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/footer"
         android:layout_width="fill_parent"
-        android:layout_below="@id/dept_loc_spacing_3"/>
-
-    <Space
-        android:id="@+id/dept_loc_spacing_4"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/dept_loc_view" />
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
+    <Button
+        android:id="@+id/dept_loc_info_remove_button"
+        android:layout_height="50dp"
+        android:text="Add Location"
+        android:textSize="14sp"
+        android:layout_width="100dp"
+        android:layout_alignParentLeft="true" />
 
     <Button
-        android:id="@+id/dept_loc_remove_button"
+        android:id="@+id/dept_loc_info_cancel_button"
         android:layout_height="50dp"
-        android:text="Remove Selected Location"
+        android:text="Remove Location"
+        android:textSize="14sp"
         android:layout_width="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/dept_loc_spacing_4" />
-
-    <Button
-        android:id="@+id/dept_loc_cancel_button"
-        android:layout_height="50dp"
-        android:text="Cancel"
-        android:layout_width="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/dept_loc_spacing_4" />
-
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

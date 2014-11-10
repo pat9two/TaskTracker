@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,12 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    android:id="@+id/dept_a"
-    android:fillViewport="true">
-<RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:id="@+id/a_emp_new">
+
     <TextView
         android:id="@+id/admin_addEmp_main_title"
         android:text="Admin: New Employee"
@@ -27,6 +23,17 @@
         android:layout_height="2dp"
         android:layout_centerVertical ="true"
         android:layout_below="@id/admin_addEmp_main_title" />
+
+    <ScrollView
+        android:id="@+id/admin_new_scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
     <Space
         android:id="@+id/admin_addEmp_spacing_1"
@@ -110,12 +117,16 @@
         android:hint="Confirm Password"
         android:inputType="text"
         android:layout_below="@id/admin_addEmp_spacing_6" />
+            </RelativeLayout>
+    </ScrollView>
 
-    <Space
-        android:id="@+id/admin_addEmp_spacing_7"
-        android:layout_width="1dp"
+    <!-- BUTTON FOOTER -->
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:layout_below="@id/admin_addEmp_cPass_field"/>
+        android:layout_alignParentBottom="true">
 
     <Button
         android:id="@+id/admin_addEmp_addButton"
@@ -123,7 +134,6 @@
         android:text="Add"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/admin_addEmp_spacing_7"
         android:onClick="AddEmp"/>
 
     <Button
@@ -131,7 +141,7 @@
         android:layout_height="50dp"
         android:text="Cancel"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/admin_addEmp_spacing_7" />
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
 </RelativeLayout>
-    </ScrollView>

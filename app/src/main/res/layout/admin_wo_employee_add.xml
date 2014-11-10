@@ -8,7 +8,13 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    >
+    android:id="@+id/a_wo_emp_add" >
+
+    <RelativeLayout
+        android:id="@+id/admin_wo_add_emp_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/footer">
 
     <!-- New Work Order Title String -->
     <TextView
@@ -59,25 +65,26 @@
         android:layout_width="fill_parent"
         android:layout_below="@id/admin_wo_add_emp_spacing_2"/>
 
-    <Space
-        android:id="@+id/admin_wo_add_emp_spacing_3"
-        android:layout_width="1dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/admin_wo_add_emp_listView"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true">
 
     <Button
         android:id="@+id/admin_wo_add_emp_cancel_button"
-        android:layout_height="40dp"
+        android:layout_height="70dp"
         android:layout_width="125dp"
-        android:text="Cancel"
-        android:layout_below="@id/admin_wo_add_emp_spacing_3" />
+        android:text="Cancel"/>
 
     <Button
         android:id="@+id/admin_wo_add_emp_addSelected_button"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_width="125dp"
         android:text="Add Selected"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/admin_wo_add_emp_spacing_3" />
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

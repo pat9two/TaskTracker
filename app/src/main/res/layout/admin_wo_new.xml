@@ -25,11 +25,22 @@
         android:layout_centerVertical ="true"
         android:layout_below="@id/admin_new_title_string" />
 
+    <ScrollView
+        android:id="@+id/admin_wo_new_scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/footer"
+        android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <Space
         android:id="@+id/admin_new_spacing_1"
         android:layout_width="1dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/admin_new_title_string"/>
+        android:layout_height="15dp" />
 
 
     <Space
@@ -171,28 +182,28 @@
         android:layout_toRightOf="@id/admin_new_schedule_label"
         android:layout_toEndOf="@id/admin_new_schedule_label" />
 
-    <Space
-        android:id="@+id/admin_new_spacing_9"
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_below="@id/admin_new_schedule_field" />
+        </RelativeLayout>
+    </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
     <Button
         android:id="@+id/admin_new_create_button"
         android:layout_height="50dp"
         android:text="Create"
         android:layout_width="100dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/admin_new_spacing_9" />
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:id="@+id/admin_new_cancel_button"
         android:layout_height="50dp"
         android:text="Cancel"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/admin_new_spacing_9" />
-
+        android:layout_alignParentRight="true" />
+    </RelativeLayout>
 
 
 </RelativeLayout>
