@@ -8,7 +8,7 @@ import android.app.Activity;
  */
 public class Activity_AdminWoEmployeeAdd extends Activity {
 
-    public void OnCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_employee_add);

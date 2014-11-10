@@ -37,6 +37,14 @@
         android:text = "Add Employee"
         android:onClick="createNewEmployee"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/emp_add_employee"
+        android:layout_toRightOf="@id/emp_add_employee"
+        android:text="Remove Employee"
+        android:onClick="removeEmployee"/>
+
     <!-- create custom ListView based on Departments table-->
     <ListView
         android:id="@+id/emp_list_view"

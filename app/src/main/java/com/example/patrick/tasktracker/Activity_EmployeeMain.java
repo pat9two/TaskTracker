@@ -59,4 +59,8 @@ public class Activity_EmployeeMain extends Activity {
         Intent intent = new Intent(this, Activity_EmployeeNew.class);
         startActivity(intent);
     }
+    public void removeEmployee(View view){
+        Intent intent = new Intent(this, Activity_EmployeeRemove.class);
+        startActivity(intent);
+    }
 }

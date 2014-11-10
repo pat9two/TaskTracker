@@ -7,7 +7,8 @@ import android.app.Activity;
  * Created by Shwaat on 11/9/2014.
  */
 public class Activity_EmployeeRemove extends Activity {
-    public void OnCreate(Bundle savedInstanceState)
+    @Override
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_employee_remove);
