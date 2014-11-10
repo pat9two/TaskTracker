@@ -58,6 +58,13 @@
             android:parentActivityName=".Activity_DepartmentLocInfo">
 
         </activity>
+
+        <activity
+            android:name=".Activity_DepartmentRemLoc"
+            android:label="Admin: Remove Location to Department"
+            android:parentActivityName=".Activity_DepartmentLocInfo">
+
+        </activity>
         <!-- END DEPARTMENTS PARENT/CHILD STRUCTURE -->
 
         <!-- START EMPLOYEE PARENT/CHILD STRUCTURE -->
@@ -72,6 +79,13 @@
         <activity
             android:name=".Activity_EmployeeNew"
             android:label="Admin: New Employee"
+            android:parentActivityName=".Activity_EmployeeMain">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_EmployeeRemove"
+            android:label="Admin: Remove Employee"
             android:parentActivityName=".Activity_EmployeeMain">
 
         </activity>
@@ -98,6 +112,20 @@
             android:name=".Activity_AdminWoEmployee"
             android:label="Admin: New Work Order"
             android:parentActivityName=".Activity_AdminWoNew">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_AdminWoEmployeeAdd"
+            android:label="Admin: Work Order- Add Employee"
+            android:parentActivityName=".Activity_AdminWoEmployee">
+
+        </activity>
+
+        <activity
+            android:name=".Activity_AdminWoEmployeeRemove"
+            android:label="Admin: Work Order- Remove Employee"
+            android:parentActivityName=".Activity_AdminWoEmployee">
 
         </activity>
 

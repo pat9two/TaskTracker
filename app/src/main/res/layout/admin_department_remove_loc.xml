@@ -1,0 +1,71 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity$PlaceholderFragment"
+    android:fillViewport="true"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/a_dept_rem">
+
+            <TextView
+                android:id="@+id/dept_rem_loc_main_title"
+                android:text="Admin: Department - Remove Location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:id="@+id/title_divider"
+                android:background="#1900ff"
+                android:layout_width = "fill_parent"
+                android:layout_height="2dp"
+                android:layout_centerVertical ="true"
+                android:layout_below="@id/dept_rem_loc_main_title" />
+
+            <Space
+                android:id="@+id/dept_rem_loc_spacing_1"
+                android:layout_width="1dp"
+                android:layout_height="35dp"/>
+
+            <ListView
+                android:id="@+id/dept_rem_loc_view"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_below="@id/dept_rem_loc_spacing_1"/>
+
+            <Space
+                android:id="@+id/dept_rem_loc_spacing_2"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/dept_rem_loc_view" />
+
+            <Button
+                android:id="@+id/dept_rem_loc_remove_button"
+                android:layout_height="50dp"
+                android:text="Remove Selected Location"
+                android:layout_width="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/dept_rem_loc_spacing_2" />
+
+            <Button
+                android:id="@+id/dept_rem_loc_cancel_button"
+                android:layout_height="50dp"
+                android:text="Cancel"
+                android:layout_width="100dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/dept_rem_loc_spacing_2" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
