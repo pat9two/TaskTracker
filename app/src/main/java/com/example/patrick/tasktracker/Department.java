@@ -26,6 +26,12 @@ public class Department {
         this.Sync_id = Sync_id;
     }
 
+    public Department(String Department_name,
+                      String Charged){
+        this.Department_name = Department_name;
+        this.Charged = Charged;
+    }
+
     public Date getSync_timestamp() {
         return this.Sync_timestamp;
     }
@@ -33,6 +39,7 @@ public class Department {
     public void setSync_timestamp(Date sync_timestamp) {
         this.Sync_timestamp = sync_timestamp;
     }
+
     public String getSync_id() {
         return this.Sync_id;
     }
@@ -40,6 +47,7 @@ public class Department {
     public void setSync_id(String sync_id) {
         this.Sync_id = sync_id;
     }
+
     public String getDepartment_name() {
         return this.Department_name;
     }

@@ -31,7 +31,6 @@ public class Activity_AdminNewDepartment extends Activity {
         intent = new Intent(this, Activity_AdminDepartments.class);
     }
     public void cancelDep(View view){
-
         finish();
     }
     public void addDep(View view){
@@ -40,7 +39,6 @@ public class Activity_AdminNewDepartment extends Activity {
         int selectedButton = depRadioGroup.getCheckedRadioButtonId();
 
         ParseObject parseObject = new ParseObject("Department");
-
         parseObject.put("Department_id", depName.getText().toString());
 
         if(selectedButton == 0){

@@ -59,12 +59,11 @@ public class Activity_LoginMain extends Activity {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(e == null && parseObjects.size() > 0){
-                    Log.d("Login", parseObjects.get(0).get("User_name").toString() + " " +  parseObjects.get(0).get("Admin").toString());// + " " + cursor.getString(1));
+                    Log.d("Login", parseObjects.get(0).get("User_name").toString() + " " +  parseObjects.get(0).get("Admin").toString());
                     String admin = parseObjects.get(0).get("Admin").toString();
                     if(admin.equals("1")) {
-                        Log.d("Login", parseObjects.get(0).get("User_name").toString());// + " " + cursor.getString(1));
+                        Log.d("Login", parseObjects.get(0).get("User_name").toString());
 
-                        // if(username.getText().toString() == cursor.getString(0)){// && password.getText().toString() == cursor.getString(1)){
                         adminIntent.putExtra(EXTRA_USERNAME, parseObjects.get(0).get("User_name").toString());
                         startActivity(adminIntent);
 
@@ -79,7 +78,6 @@ public class Activity_LoginMain extends Activity {
                 }
             }
         });
-        //Cursor cursor = db.getData("Select User_name, Password FROM Employee WHERE User_name LIKE " + "'%" + username.getText().toString() + "%'");//+ " AND Password LIKE " + "'%" + password.getText().toString() + "%'");
 
 
     }

@@ -53,13 +53,6 @@
         </activity>
 
         <activity
-            android:name=".Activity_DepartmentAddLoc"
-            android:label="Admin: Add Location to Department"
-            android:parentActivityName=".Activity_DepartmentLocInfo">
-
-        </activity>
-
-        <activity
             android:name=".Activity_DepartmentRemLoc"
             android:label="Admin: Remove Location to Department"
             android:parentActivityName=".Activity_DepartmentLocInfo">

@@ -8,7 +8,8 @@ import android.app.Activity;
  */
 public class Activity_DepartmentRemLoc extends Activity {
 
-    public void OnCreate(Bundle savedInstanceState)
+    @Override
+    public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_department_remove_loc);
