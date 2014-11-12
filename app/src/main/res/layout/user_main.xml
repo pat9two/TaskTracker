@@ -54,11 +54,6 @@
         android:layout_height="30dp"
         android:layout_below="@id/user_main_title" />
 
-    <Space
-        android:id="@+id/user_spacing_3"
-        android:layout_width="1dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/user_main_title" />
 
 
     <EditText
@@ -67,7 +62,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/search_by_job_label"
         android:inputType="text"
-        android:layout_below="@id/user_spacing_3" />
+        android:layout_below="@id/user_spacing_2" />
 
     <Button
         android:id="@+id/user_search_button"

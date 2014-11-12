@@ -51,6 +51,7 @@ public class Activity_DepartmentLocInfo extends Activity {
                 new ParseQueryAdapter.QueryFactory<ParseObject>() {
                     public ParseQuery create() {
                         ParseQuery query = new ParseQuery("Location");
+                        query.include("Department");
                         query.whereEqualTo("parent", DepObjectId);
                         return query;
                     }
@@ -93,8 +94,6 @@ public class Activity_DepartmentLocInfo extends Activity {
                     }
                 }
             });
-
-
         }
     }
     public Boolean CheckFields(){
@@ -108,5 +107,4 @@ public class Activity_DepartmentLocInfo extends Activity {
         //All statements passed.
         return true;
     }
-
 }

@@ -68,7 +68,7 @@
     <!-- Department Drop down box -->
     <TextView
         android:id="@+id/user_view_department_value"
-        android:text="DEPARTMENT VALUE"
+        android:text="DEPARTMENT"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/user_view_spacing_2"
@@ -93,7 +93,7 @@
     <!-- Department Drop down box -->
     <TextView
         android:id="@+id/user_view_location_value"
-        android:text="LOCATION VALUE"
+        android:text="LOCATION"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/user_view_spacing_3"
@@ -120,9 +120,8 @@
         android:layout_height="20dp"
         android:layout_below="@id/user_view_workDesc_label" />
 
-    <EditText
-        android:id="@+id/user_view_workDesc_textBox"
-        android:inputType="textMultiLine"
+    <TextView
+        android:id="@+id/user_view_workDesc_value"
         android:lines="4"
         android:maxLines="10"
         android:layout_height="wrap_content"
@@ -136,7 +135,7 @@
         android:id="@+id/user_view_spacing_6"
         android:layout_width="1dp"
         android:layout_height="20dp"
-        android:layout_below="@id/user_view_workDesc_textBox" />
+        android:layout_below="@id/user_view_workDesc_value" />
 
     <TextView
         android:id="@+id/user_view_workMats_label"
@@ -154,9 +153,8 @@
 
 
 
-    <EditText
-        android:id="@+id/user_view_workMats_textBox"
-        android:inputType="textMultiLine"
+    <TextView
+        android:id="@+id/user_view_workMats_value"
         android:lines="4"
         android:maxLines="10"
         android:layout_height="wrap_content"
@@ -170,7 +168,7 @@
         android:id="@+id/user_view_spacing_8"
         android:layout_width="1dp"
         android:layout_height="20dp"
-        android:layout_below="@id/user_view_workMats_textBox" />
+        android:layout_below="@id/user_view_workMats_value" />
 
     <TextView
         android:id="@+id/user_view_schedule_label"
@@ -180,12 +178,10 @@
         android:layout_below="@id/user_view_spacing_8"
         />
 
-    <EditText
-        android:id="@+id/user_view_schedule_field"
+    <TextView
+        android:id="@+id/user_view_schedule_value"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="MM/DD/YYYY"
-        android:inputType="text"
         android:layout_below="@id/user_view_spacing_8"
         android:layout_toRightOf="@id/user_view_schedule_label"
         android:layout_toEndOf="@id/user_view_schedule_label" />
