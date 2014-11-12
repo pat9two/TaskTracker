@@ -23,13 +23,15 @@
         <!-- START DEPARTMENTS PARENT/CHILD STRUCTURE -->
         <activity
             android:name=".HomepageActivity"
-            android:label="homepage">
+            android:label="homepage"
+            android:theme="@style/Theme.AppCompat.Light">
 
         </activity>
         <activity
             android:name=".Activity_AdminMain"
             android:label="@string/app_name"
-            android:parentActivityName=".Activity_LoginMain">
+            android:parentActivityName=".Activity_LoginMain"
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
 
         <activity

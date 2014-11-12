@@ -156,4 +156,33 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/admin_info_save_button"
+            android:layout_height="50dp"
+            android:text="Save"
+            android:layout_width="100dp"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            android:id="@+id/admin_info_delete_button"
+            android:layout_height="50dp"
+            android:text="Delete"
+            android:layout_width="100dp"
+            android:layout_toRightOf="@id/admin_info_save_button"
+            android:layout_toLeftOf="@id/admin_info_cancel_button"/>
+
+        <Button
+            android:id="@+id/admin_info_cancel_button"
+            android:layout_height="50dp"
+            android:text="Cancel"
+            android:layout_width="100dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
 </RelativeLayout>
