@@ -45,7 +45,7 @@ public class Activity_AdminDepartments extends Activity {
         mainAdapter.setTextKey("Department_id");
 
         //not used
-        adapter = new AdminDepartmentListViewAdapter(this);
+        //adapter = new AdminDepartmentListViewAdapter(this);
 
         departmentListView = (ListView)findViewById(R.id.departments_list_view);
         departmentListView.setAdapter(mainAdapter);
