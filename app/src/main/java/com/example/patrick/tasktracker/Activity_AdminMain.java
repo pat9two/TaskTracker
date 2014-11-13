@@ -13,7 +13,6 @@ public class Activity_AdminMain extends Activity {
     TextView title;
     String username;
 
-    @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_main);

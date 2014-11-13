@@ -1,23 +1,20 @@
 package com.example.patrick.tasktracker;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 /**
  * Created by Shwaat on 11/3/2014.
  */
-public class Activity_AdminWoView extends Activity {
+public class Activity_AdminWoView extends ActionBarActivity {
     ParseQueryAdapter<ParseObject> mainAdapter;
     ListView workOrderListView;
     @Override
@@ -65,5 +62,13 @@ public class Activity_AdminWoView extends Activity {
         //search employees
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.wo_actionbar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

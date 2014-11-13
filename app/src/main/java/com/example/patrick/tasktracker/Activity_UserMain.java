@@ -2,8 +2,10 @@ package com.example.patrick.tasktracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,7 +17,7 @@ import com.parse.ParseQueryAdapter;
 /**
  * Created by Shwaat on 11/3/2014.
  */
-public class Activity_UserMain extends Activity {
+public class Activity_UserMain extends ActionBarActivity {
     ListView userWorkOrderListView;
     ParseQueryAdapter<ParseObject> mainAdapter;
     @Override
@@ -52,5 +54,13 @@ public class Activity_UserMain extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_actionbar, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
