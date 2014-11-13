@@ -70,6 +70,7 @@ public class Activity_LoginMain extends Activity {
                         alert.setText("Login Successful!");
                     }else{
                         userIntent.putExtra(EXTRA_USERNAME, parseObjects.get(0).get("User_name").toString());
+                        userIntent.putExtra("objectId", parseObjects.get(0).getObjectId());
                         startActivity(userIntent);
                     }
                 }else{

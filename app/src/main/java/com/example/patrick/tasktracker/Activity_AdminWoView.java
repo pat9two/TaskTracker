@@ -34,6 +34,7 @@ public class Activity_AdminWoView extends ActionBarActivity {
         workOrderListView = (ListView)findViewById(R.id.job_list_view);
         workOrderListView.setAdapter(mainAdapter);
         mainAdapter.loadObjects();
+
 //Needs AdminWoInfo java class...
       /*  workOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

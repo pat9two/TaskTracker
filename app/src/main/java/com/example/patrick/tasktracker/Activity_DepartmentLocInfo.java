@@ -1,5 +1,6 @@
 package com.example.patrick.tasktracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -31,7 +32,7 @@ import bolts.Task;
  */
 public class Activity_DepartmentLocInfo extends Activity {
     ListView listView;
-    String DepObjectId;
+    Department DepObject;
     ParseQueryAdapter<ParseObject> mainAdapter;
     EditText locName;
 
@@ -39,46 +40,49 @@ public class Activity_DepartmentLocInfo extends Activity {
     public void onCreate(Bundle savedInstanceState)
     {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
-
+        final Context context = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_department_loc_info);
 
         Intent intent = getIntent();
-        DepObjectId = intent.getStringExtra("extra");
+        DepObject = intent.getParcelableExtra("extra");
+        final ParseObject po = new ParseObject("Department");
+        po.put("objectId", DepObject.getSync_id());
+        po.put("Department_id", DepObject.getDepartment_name());
+        po.put("Charged", DepObject.getChargedStatus());
+        Log.d("DepLocInfo", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
 
 
-        ParseQueryAdapter.QueryFactory<ParseObject> factory =
-                new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                    public ParseQuery create() {
-                        ParseQuery query = new ParseQuery("Location");
-                        query.include("Department");
-                        query.whereEqualTo("parent", DepObjectId);
-                        return query;
-                    }
-                };
-        mainAdapter = new ParseQueryAdapter<ParseObject>(this, factory);
-        mainAdapter.setTextKey("Location_id");
+        ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");
+        depquery.whereEqualTo("objectId", DepObject.getSync_id());
+        depquery.findInBackground(new FindCallback<ParseObject>() {
+                  @Override
+                  public void done(final List<ParseObject> parseObjects, ParseException e) {
+                      ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
+                          public ParseQuery create() {
+                              ParseQuery query = new ParseQuery("Location");
+                              query.whereEqualTo("parent", parseObjects.get(0));
+                              return query;
+                          }
+                      };
 
-        mainAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<ParseObject>() {
-            @Override
-            public void onLoading() {
-
-            }
-
-            @Override
-            public void onLoaded(List<ParseObject> parseObjects, Exception e) {
-
-            }
+                      mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
+                      mainAdapter.setTextKey("Location_id");
+                      listView = (ListView)findViewById(R.id.dept_loc_view);
+                      listView.setAdapter(mainAdapter);
+                      mainAdapter.loadObjects();
+              }
         });
-        listView = (ListView)findViewById(R.id.dept_loc_view);
-        listView.setAdapter(mainAdapter);
-        mainAdapter.loadObjects();
     }
+
+
+
+
     public void addLoc(View view){
         locName = (EditText)findViewById(R.id.new_dept_field);
         if(CheckFields()) {
             //ParseObject.createwithoutData("Department", DepObjectId);
-            ParseObject po = ParseObject.createWithoutData("Department", DepObjectId);
+            ParseObject po = ParseObject.createWithoutData("Department", DepObject.getSync_id());
             ParseObject parseObject = new ParseObject("Location");
             parseObject.put("Location_id", locName.getText().toString().trim());
             parseObject.put("parent", po);

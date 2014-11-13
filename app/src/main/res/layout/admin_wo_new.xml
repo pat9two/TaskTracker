@@ -195,14 +195,16 @@ ju
         android:layout_height="50dp"
         android:text="Create"
         android:layout_width="100dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:onClick="save"/>
 
     <Button
         android:id="@+id/admin_new_cancel_button"
         android:layout_height="50dp"
         android:text="Cancel"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="cancel"/>
     </RelativeLayout>
 
 

@@ -30,8 +30,9 @@ public class Activity_UserJobView extends Activity {
     Long resumed;
     Boolean startPressed = false;
     Boolean pausePressed = false;
-    String passedObjectid;
-
+    String workOrderId;
+    ParseQuery<ParseObject> query;
+    ParseObject po;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -40,21 +41,22 @@ public class Activity_UserJobView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_main);
         Intent intent = getIntent();
-        passedObjectid = intent.getStringExtra("Extra");
+        workOrderId = intent.getStringExtra("");
 
         depValue = (TextView)findViewById(R.id.user_view_department_value);
         locValue = (TextView)findViewById(R.id.user_view_location_value);
         descValue= (TextView)findViewById(R.id.user_view_workDesc_value);
         dateValue = (TextView)findViewById(R.id.user_view_schedule_value);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("WorkOrder");
+        query = ParseQuery.getQuery("WorkOrder");
         query.include("Department");
         query.include("Location");
-        query.whereEqualTo("objectId", passedObjectid);
+        query.whereEqualTo("objectId", workOrderId);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(e == null){
+                    po = parseObjects.get(0);
                     depValue.setText(parseObjects.get(0).getString("Department_id"));
                     locValue.setText(parseObjects.get(0).getString("Location_id"));
                     descValue.setText(parseObjects.get(0).getString("description"));
@@ -68,6 +70,8 @@ public class Activity_UserJobView extends Activity {
         if(!startPressed) {
             start = System.currentTimeMillis();
             startPressed = true;
+
+            //put this time started into the relational table of employee -- workorder (many to many)
         }
     }
     public void Stop(){
@@ -78,6 +82,8 @@ public class Activity_UserJobView extends Activity {
             int hours = (int) (elapsed / 3600000);
             int minutes = (int) (elapsed - hours * 3600000) / 60000;
             int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
+
+            //put this time elapsed and time stopped into the relational table of employee -- workorder (many to many)
         }//else do nothing.
     }
     public void Pause(){

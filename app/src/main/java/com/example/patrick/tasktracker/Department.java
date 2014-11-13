@@ -1,13 +1,16 @@
 package com.example.patrick.tasktracker;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by Patrick on 10/8/2014.
  */
 
-public class Department {
+public class Department implements Parcelable {
     private int Department_id;
     private String Department_name;
     private String Charged;
@@ -26,10 +29,20 @@ public class Department {
         this.Sync_id = Sync_id;
     }
 
-    public Department(String Department_name,
+    public Department(String objectId,
+            String Department_name,
                       String Charged){
+        this.Sync_id = objectId;
         this.Department_name = Department_name;
         this.Charged = Charged;
+    }
+
+    public Department(Parcel in){
+        String[] data = new String[3];
+        in.readStringArray(data);
+        Sync_id = data[0];
+        Department_name = data[1];
+        Charged = data[2];
     }
 
     public Date getSync_timestamp() {
@@ -72,4 +85,30 @@ public class Department {
         this.Charged = Charged;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeStringArray(new String[]{
+                Sync_id,
+                Department_name,
+                Charged
+        });
+    }
+    public static final Parcelable.Creator<Department>CREATOR = new Parcelable.Creator<Department>() {
+
+        @Override
+        public Department createFromParcel(Parcel source) {
+            return new Department(source);
+        }
+
+        @Override
+        public Department[] newArray(int size) {
+            return new Department[size];
+        }
+
+    };
 }

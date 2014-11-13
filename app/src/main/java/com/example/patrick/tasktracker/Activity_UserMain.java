@@ -20,6 +20,8 @@ import com.parse.ParseQueryAdapter;
 public class Activity_UserMain extends ActionBarActivity {
     ListView userWorkOrderListView;
     ParseQueryAdapter<ParseObject> mainAdapter;
+    String username;
+    String objectId;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -28,6 +30,9 @@ public class Activity_UserMain extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_main);
 
+        Intent intent = getIntent();
+        username = intent.getStringExtra(Activity_LoginMain.EXTRA_USERNAME);
+        objectId = intent.getStringExtra("objectId");
 
         Log.d("UserMain", "main");
 
@@ -49,8 +54,9 @@ public class Activity_UserMain extends ActionBarActivity {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
 
                 Intent intent = new Intent(view.getContext(), Activity_UserJobView.class);
-                intent.putExtra("extra", po.getObjectId());
-                Log.d("UserMainWorkorders", " " +po.getObjectId());
+                intent.putExtra("workOrderId", po.getObjectId());
+                intent.putExtra("userId", objectId);
+                Log.d("UserMainWorkorders", " " +po.getObjectId() + " Workorder: " + objectId);
                 startActivity(intent);
             }
         });
