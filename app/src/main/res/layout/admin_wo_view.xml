@@ -12,6 +12,12 @@
     android:orientation="vertical"
     >
 
+    <RelativeLayout
+        android:id="@+id/admin_wo_employee_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/footer">
+
     <TextView
         android:id="@+id/admin_wo_view_title"
         android:text="Admin: Work Orders"
@@ -51,5 +57,28 @@
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:layout_below="@id/task_search_button"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/admin_wo_view_create_button"
+            android:layout_height="70dp"
+            android:layout_width="125dp"
+            android:text="Create WO"
+            android:layout_alignParentBottom="true"/>
+
+        <Button
+            android:id="@+id/admin_wo_view_delete_button"
+            android:layout_height="70dp"
+            android:layout_width="125dp"
+            android:text="Delete WO"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
 
 </RelativeLayout>
