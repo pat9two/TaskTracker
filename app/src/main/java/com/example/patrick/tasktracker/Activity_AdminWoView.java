@@ -1,9 +1,12 @@
 package com.example.patrick.tasktracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -48,6 +51,18 @@ public class Activity_AdminWoView extends ActionBarActivity {
             }
         }); */
     }
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.admin_wo_create_item:
+                Intent intent = new Intent(this, Activity_AdminWoNew.class);
+                this.startActivity(intent);
+                break;
+            case R.id.admin_wo_search_item:
+                //display search bar.
+                break;
+        }
+        return true;
+    }
 
     public void runSearch(){
         EditText SearchCriteria = (EditText)findViewById(R.id.search_job_field);
@@ -62,7 +77,6 @@ public class Activity_AdminWoView extends ActionBarActivity {
 
         //search employees
 
-
     }
 
     @Override
@@ -70,6 +84,7 @@ public class Activity_AdminWoView extends ActionBarActivity {
 // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wo_view_actionbar, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 }
