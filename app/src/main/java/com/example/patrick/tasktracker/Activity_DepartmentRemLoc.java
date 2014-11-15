@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,50 +67,42 @@ public class Activity_DepartmentRemLoc extends Activity {
                     }
                 };
 
-                adapter = new QueryAdapterDeptRemoveLoc(context, factory);
+                adapter = new QueryAdapterDeptRemoveLoc(context, factory, listToRemove);
                 adapter.setTextKey("Location_id");
                 listView = (ListView) findViewById(R.id.dept_rem_loc_view);
                 listView.setAdapter(adapter);
                 adapter.loadObjects();
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        CheckBox cb = (CheckBox)view.findViewById(R.id.remove_loc_checkbox);
+                        ParseObject po = (ParseObject) parent.getItemAtPosition(position);
+
+                        if(!cb.isChecked()) {
+                            cb.setChecked(true);
+                            Log.d("DepRemLoc", "Added to list: " + po.get("Location_id"));
+                            listToRemove.add(po);
+                        }else{
+                            cb.setChecked(false);
+                            Log.d("DepRemLoc", "Removed from list: " + po.get("Location_id"));
+                            listToRemove.remove(po);
+                        }
+                    }
+                });
             }
         });
-    }
-
-    public void addToList(View view)
-    {
-        boolean checked = ((CheckBox) view).isChecked();
-
-        if(view.getId() == R.id.remove_loc_checkbox)
-        {
-            if(checked)
-            {
-                // add to list to be removed
-            }
-        }
     }
 
     public void removeLoc(View view){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete Record: Are you sure?")
-                .setTitle("Warning");
+        builder.setMessage("Delete Location: Are you sure?").setTitle("Warning");
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Remove loc
-                dialog.cancel();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        /*
-            for (int i=0; i<listToRemove.size(); i++)
-            {
-                ParseObject parseObject = listToRemove.get(i);
-                parseObject.deleteInBackground(new DeleteCallback() {
+                ParseObject.deleteAllInBackground(listToRemove, new DeleteCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
@@ -120,25 +114,33 @@ public class Activity_DepartmentRemLoc extends Activity {
 
                             // START REMOVAL TOAST
                             Context toastContext = getApplicationContext();
-                            CharSequence text = "Location Removed.";
+                            CharSequence text = "Locations Removed.";
                             int duration = Toast.LENGTH_SHORT;
 
                             Toast.makeText(toastContext, text, duration).show();
                             // END REMOVAL TOAST
-                        }
-                        else {
+                        } else {
                             Context toastContext = getApplicationContext();
                             CharSequence text = "Something went wrong...";
                             int duration = Toast.LENGTH_SHORT;
 
                             Toast.makeText(toastContext, text, duration).show();
+                            Log.d("DepartmentRemLoc", e.toString());
                         }
-
                     }
                 });
-            }*/
-        }
+                dialog.cancel();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
+    }
     public void cancelAction(View view)
     {
         finish();
