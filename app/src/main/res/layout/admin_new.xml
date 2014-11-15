@@ -129,6 +129,7 @@
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
+    android:focusable="false"
     android:layout_below="@id/admin_new_spacing_5"
     />
 
@@ -161,6 +162,7 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
+        android:focusable="false"
         android:layout_below="@id/admin_new_spacing_7"
         />
 
@@ -184,6 +186,7 @@
         android:layout_height="wrap_content"
         android:hint="MM/DD/YYYY"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_new_spacing_8"
         android:layout_toRightOf="@id/admin_new_schedule_label"
         android:layout_toEndOf="@id/admin_new_schedule_label" />

@@ -62,6 +62,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/search_by_job_label"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/user_spacing_2" />
 
     <Button

@@ -32,9 +32,10 @@ public class QueryAdapterDeptRemoveLoc extends ParseQueryAdapter<ParseObject> {
     public View getItemView(ParseObject parseobject, View v, ViewGroup parent) {
         ViewHolder holder = null;
         if (v == null) {
-                          //this is the layout file that contains a Relative layout containing a TextView and Checkbox element.
+            //this is the layout file that contains a Relative layout containing a TextView and Checkbox element.
             v = View.inflate(getContext(), R.layout.remove_loc_listview_item, null);
             holder = new ViewHolder();
+            holder.location = (TextView)v.findViewById(R.id.remove_loc_lv_item_title);
             holder.checkbox = (CheckBox) v.findViewById(R.id.checkbox);
             v.setTag(holder);
         }
@@ -42,12 +43,6 @@ public class QueryAdapterDeptRemoveLoc extends ParseQueryAdapter<ParseObject> {
             holder = (ViewHolder) v.getTag();
         }
         super.getItemView(parseobject, v, parent);
-                                        //this id reference is for the TextView inside the custom layout for the item
-        holder.location = (TextView)v.findViewById(R.id.remove_loc_lv_item_title);
-        holder.location.setText(parseobject.getString("Location_id"));
-        // same thing -> checkbox
-        holder.checkbox = (CheckBox)v.findViewById(R.id.remove_loc_checkbox);
-        holder.checkbox.setText("");
         return v;
 }
 

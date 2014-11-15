@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_main_username_field_label"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/login_spacing_2" />
 
     <EditText
@@ -56,6 +57,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/login_main_password_field_label"
         android:inputType="textPassword"
+        android:focusable="false"
         android:layout_below="@id/login_main_username_field" />
 
     <Space

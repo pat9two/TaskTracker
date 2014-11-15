@@ -47,7 +47,8 @@
             android:layout_height="wrap_content"
             android:hint="New Location Name"
             android:inputType="text"
-            android:layout_below="@id/dept_loc_spacing_1" />
+            android:layout_below="@id/dept_loc_spacing_1"
+            android:focusable="false"/>
 
         <Space
             android:id="@+id/dept_loc_spacing_2"

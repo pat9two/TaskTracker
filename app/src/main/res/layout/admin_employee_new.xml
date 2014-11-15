@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:hint="First Name"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_1" />
 
     <Space
@@ -60,6 +61,7 @@
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_2" />
 
     <Space
@@ -74,6 +76,7 @@
         android:layout_height="wrap_content"
         android:hint="Eagle ID"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_3" />
 
     <Space
@@ -88,6 +91,7 @@
         android:layout_height="wrap_content"
         android:hint="User Name"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_4" />
 
     <Space
@@ -102,6 +106,7 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_5" />
 
     <Space
@@ -116,6 +121,7 @@
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
         android:inputType="text"
+        android:focusable="false"
         android:layout_below="@id/admin_addEmp_spacing_6" />
             </RelativeLayout>
     </ScrollView>

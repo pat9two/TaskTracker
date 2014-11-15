@@ -16,7 +16,7 @@
         android:text="@string/admin_new_title_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-ju
+
     <View
         android:id="@+id/title_divider"
         android:background="#1900ff"
@@ -123,6 +123,7 @@ ju
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
+    android:focusable="false"
     android:layout_below="@id/admin_new_spacing_5"
     />
 
@@ -155,6 +156,7 @@ ju
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
+        android:focusable="false"
         android:layout_below="@id/admin_new_spacing_7"
         />
 
