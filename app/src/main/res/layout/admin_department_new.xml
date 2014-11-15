@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:hint="New Department Name"
         android:inputType="text"
-        android:focusable="false"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/new_dept_spacing_1" />
 
     <Space

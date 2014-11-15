@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:hint="Search Criteria"
         android:inputType="text"
-        android:focusable="false"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/title_divider" />
 
     <Button
