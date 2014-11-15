@@ -37,8 +37,7 @@ public class Activity_DepartmentLocInfo extends Activity {
     EditText locName;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
         final Context context = this;
         super.onCreate(savedInstanceState);
@@ -56,31 +55,29 @@ public class Activity_DepartmentLocInfo extends Activity {
         ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");
         depquery.whereEqualTo("objectId", DepObject.getSync_id());
         depquery.findInBackground(new FindCallback<ParseObject>() {
-                  @Override
-                  public void done(final List<ParseObject> parseObjects, ParseException e) {
-                      ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                          public ParseQuery create() {
-                              ParseQuery query = new ParseQuery("Location");
-                              query.whereEqualTo("parent", parseObjects.get(0));
-                              return query;
-                          }
-                      };
+            @Override
+            public void done(final List<ParseObject> parseObjects, ParseException e) {
+                ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
+                    public ParseQuery create() {
+                        ParseQuery query = new ParseQuery("Location");
+                        query.whereEqualTo("parent", parseObjects.get(0));
+                        return query;
+                    }
+                };
 
-                      mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
-                      mainAdapter.setTextKey("Location_id");
-                      listView = (ListView)findViewById(R.id.dept_loc_view);
-                      listView.setAdapter(mainAdapter);
-                      mainAdapter.loadObjects();
-              }
+                mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
+                mainAdapter.setTextKey("Location_id");
+                listView = (ListView) findViewById(R.id.dept_loc_view);
+                listView.setAdapter(mainAdapter);
+                mainAdapter.loadObjects();
+            }
         });
     }
 
 
-
-
-    public void addLoc(View view){
-        locName = (EditText)findViewById(R.id.new_dept_field);
-        if(CheckFields()) {
+    public void addLoc(View view) {
+        locName = (EditText) findViewById(R.id.new_dept_field);
+        if (CheckFields()) {
             //ParseObject.createwithoutData("Department", DepObjectId);
             ParseObject po = ParseObject.createWithoutData("Department", DepObject.getSync_id());
             ParseObject parseObject = new ParseObject("Location");
@@ -89,7 +86,7 @@ public class Activity_DepartmentLocInfo extends Activity {
             parseObject.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    if(e == null){
+                    if (e == null) {
                         //refreshes current activity.
                         Intent intent = getIntent();
                         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -100,15 +97,23 @@ public class Activity_DepartmentLocInfo extends Activity {
             });
         }
     }
-    public Boolean CheckFields(){
-       
-            if(locName.getText().toString().trim().isEmpty()){
-                //Field cannot be left blank
-                locName.setError("Field cannot be left blank");
-                return false;
-            }
+
+    public Boolean CheckFields() {
+
+        if (locName.getText().toString().trim().isEmpty()) {
+            //Field cannot be left blank
+            locName.setError("Field cannot be left blank");
+            return false;
+        }
 
         //All statements passed.
         return true;
     }
+
+    public void viewRemoveLoc(View view) {
+        Intent intent = new Intent(view.getContext(), Activity_DepartmentRemLoc.class);
+        intent.putExtra("extra", DepObject);
+        startActivity(intent);
+    }
+
 }
