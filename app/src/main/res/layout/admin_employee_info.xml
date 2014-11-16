@@ -123,11 +123,18 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/admin_addEmp_cancelButton"
+            android:id="@+id/admin_emp_info_saveButton"
             android:layout_height="50dp"
-            android:text="Done"
-            android:layout_centerHorizontal="true"
-            android:layout_width="100dp"/>
+            android:text="Save"
+            android:layout_width="100dp"
+            android:layout_alignParentLeft="true" />
+
+        <Button
+            android:id="@+id/admin_emp_info_cancelButton"
+            android:layout_height="50dp"
+            android:text="Cancel"
+            android:layout_width="100dp"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
 </RelativeLayout>
