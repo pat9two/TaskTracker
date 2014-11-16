@@ -74,6 +74,19 @@ public class Activity_DepartmentLocInfo extends Activity {
         });
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if(mainAdapter != null) {
+            mainAdapter.notifyDataSetChanged();
+            Intent intent = getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            startActivity(intent);
+        }
+    }
+
 
     public void addLoc(View view) {
         locName = (EditText) findViewById(R.id.new_dept_field);
@@ -112,7 +125,14 @@ public class Activity_DepartmentLocInfo extends Activity {
 
     public void viewRemoveLoc(View view) {
         Intent intent = new Intent(view.getContext(), Activity_DepartmentRemLoc.class);
-        intent.putExtra("extra", DepObject);
+        if(DepObject != null) {
+            intent.putExtra("extra", DepObject);
+        }
+        else {
+            DepObject = intent.getParcelableExtra("extra");
+            intent.putExtra("extra", DepObject);
+        }
+
         startActivity(intent);
     }
 

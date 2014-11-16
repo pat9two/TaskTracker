@@ -62,7 +62,8 @@
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:inputType="text"
-        android:focusable="false"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_2" />
 
     <Space
@@ -128,7 +129,7 @@
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_6" />
-            </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 
     <!-- BUTTON FOOTER -->
