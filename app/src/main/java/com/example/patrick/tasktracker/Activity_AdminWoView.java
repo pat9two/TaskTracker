@@ -54,8 +54,8 @@ public class Activity_AdminWoView extends ActionBarActivity {
     }
 
     public void runSearch(){
-        EditText SearchCriteria = (EditText)findViewById(R.id.search_job_field);
-        String searchTerm = SearchCriteria.getText().toString().trim();
+       // EditText SearchCriteria = (EditText)findViewById(R.id.search_job_field);
+        //String searchTerm = SearchCriteria.getText().toString().trim();
         //search all tables for the searchcritera. limited to departments locations, orders with employees assigned.
 
         //search departments
