@@ -1,9 +1,13 @@
 package com.example.patrick.tasktracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -32,11 +36,11 @@ public class Activity_AdminWoView extends ActionBarActivity {
         //adapter = new AdminworkOrderListViewAdapter(this);
 
         workOrderListView = (ListView)findViewById(R.id.job_list_view);
+        mainAdapter.setTextKey("description");
         workOrderListView.setAdapter(mainAdapter);
         mainAdapter.loadObjects();
 
-//Needs AdminWoInfo java class...
-      /*  workOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        workOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
@@ -46,7 +50,7 @@ public class Activity_AdminWoView extends ActionBarActivity {
                 Log.d("AdminWorkOrders", " " + po.getObjectId());
                 startActivity(intent);
             }
-        }); */
+        });
     }
 
     public void runSearch(){

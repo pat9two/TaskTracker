@@ -42,6 +42,7 @@ public class Activity_EmployeeNew extends Activity {
 
         if(CheckFields()){
             ParseObject po = new ParseObject("Employee");
+
             po.put("First_name", info[0].getText().toString().trim());
             po.put("Last_name", info[1].getText().toString().trim());
             po.put("Eagle_id", Integer.parseInt(info[2].getText().toString().trim()));

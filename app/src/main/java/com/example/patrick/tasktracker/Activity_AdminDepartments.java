@@ -46,6 +46,7 @@ public class Activity_AdminDepartments extends Activity {
 
 
         departmentListView = (ListView)findViewById(R.id.departments_list_view);
+        departmentListView.setPadding(0,5,0,5);
         departmentListView.setAdapter(mainAdapter);
         mainAdapter.loadObjects();
 

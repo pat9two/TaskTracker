@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -52,6 +53,15 @@ public class Activity_EmployeeMain extends ActionBarActivity {
                     }
                     listAdapter.addAll(employees);
                     employeeListView.setAdapter(listAdapter);
+
+                    employeeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            ParseObject po = (ParseObject)parent.getItemAtPosition(position);
+                           // Intent intent = new Intent(view.getContext(), Activity_adminEmployeeInfo.class);
+                           // intent.putExtra("extra", po.getObjectId());
+                        }
+                    });
                 }
             }
         });

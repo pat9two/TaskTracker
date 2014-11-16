@@ -68,7 +68,8 @@
             android:id="@+id/dept_loc_view"
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:layout_below="@id/dept_loc_spacing_3"/>
+            android:layout_below="@id/dept_loc_spacing_3"
+            />
         </RelativeLayout>
     </ScrollView>
 
