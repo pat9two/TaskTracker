@@ -92,7 +92,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_actionbar, menu);
+        inflater.inflate(R.menu.wo_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 }

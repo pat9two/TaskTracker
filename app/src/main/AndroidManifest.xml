@@ -132,7 +132,7 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoInfo"
-            android:label="Admin: New Work Order"
+            android:label="Admin: Work Orders"
             android:parentActivityName=".Activity_AdminWoView"
             android:windowSoftInputMode="stateHidden">
 
