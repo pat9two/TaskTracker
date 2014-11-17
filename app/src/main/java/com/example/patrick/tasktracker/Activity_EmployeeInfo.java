@@ -35,7 +35,6 @@ public class Activity_EmployeeInfo extends Activity {
 
         // getIntent of the activity
         intent = getIntent();
-        Log.d("Employee", "info");
         // set the content view to the proper layout
         setContentView(R.layout.admin_employee_info);
 
@@ -45,7 +44,7 @@ public class Activity_EmployeeInfo extends Activity {
         lastName = (TextView)findViewById(R.id.admin_emp_info_lName);
         eagleId = (TextView)findViewById(R.id.admin_emp_info_eID);
         userName = (TextView)findViewById(R.id.admin_emp_info_user);
-
+        Log.d("Employee", "objectId");
         ParseQuery<ParseObject> empinfoquery = ParseQuery.getQuery("Employee");
         empinfoquery.getInBackground(objectId, new GetCallback<ParseObject>(){
             public void done(ParseObject object, ParseException e){
@@ -56,7 +55,7 @@ public class Activity_EmployeeInfo extends Activity {
                     eagleId.append(object.getString("Eagle_id"));
                     userName.append(object.getString("User_name"));
                 }else{
-                    Log.d("Employeeinfo", e.toString());
+                    Log.d("Employee", e.toString());
                 }
             }
         });

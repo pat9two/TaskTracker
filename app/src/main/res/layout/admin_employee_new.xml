@@ -153,7 +153,8 @@
         android:layout_height="50dp"
         android:text="Cancel"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="cancelAction"/>
     </RelativeLayout>
 
 </RelativeLayout>

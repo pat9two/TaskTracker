@@ -38,8 +38,7 @@
             android:name=".Activity_AdminDepartments"
             android:label="Admin: View Departments"
             android:parentActivityName=".Activity_AdminMain"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
         <activity
@@ -111,7 +110,8 @@
             android:name=".Activity_EmployeeRemove"
             android:label="Admin: Remove Employee"
             android:parentActivityName=".Activity_EmployeeMain"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         </activity>
 
