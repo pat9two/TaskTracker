@@ -19,7 +19,7 @@
     <!-- New Work Order Title String -->
     <TextView
         android:id="@+id/admin_wo_emp_title_string"
-        android:text="Work Order: Employees"
+        android:text="Work Order: Active Employees"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -51,7 +51,7 @@
         android:layout_width="175dp"
         android:text="Assign Employees"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/admin_wo_emp_spacing_1" />
+        android:layout_below="@id/admin_wo_emp_spacing_1"/>
 
     <Space
         android:id="@+id/admin_wo_emp_spacing_2"
@@ -83,7 +83,8 @@
         android:id="@+id/admin_wo_emp_assign_button"
         android:layout_height="70dp"
         android:layout_width="125dp"
-        android:text="Assign Employee" />
+        android:text="Assign Employee"
+        android:onClick="addEmployee"/>
 
     <Button
         android:id="@+id/admin_wo_emp_remove_button"

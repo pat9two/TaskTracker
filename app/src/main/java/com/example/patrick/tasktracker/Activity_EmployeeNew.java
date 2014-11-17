@@ -41,18 +41,19 @@ public class Activity_EmployeeNew extends Activity {
         info[5] = Confirm_password;
 
         if(CheckFields()){
-            ParseObject po = new ParseObject("Employee");
+            final ParseObject po = new ParseObject("Employee");
 
             po.put("First_name", info[0].getText().toString().trim());
             po.put("Last_name", info[1].getText().toString().trim());
-            po.put("Eagle_id", Integer.parseInt(info[2].getText().toString().trim()));
-            po.put("Username", info[3].getText().toString().trim());
+            po.put("Eagle_id", info[2].getText().toString().trim());
+            po.put("User_name", info[3].getText().toString().trim());
             po.put("Password", info[4].getText().toString().trim());
             po.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if(e == null){
                         //finishes adding employee and returns to employee list.
+                        Log.d("AddEmployee", po.getString("First_name") + " " + po.getString("Last_name"));
                         finish();
                     }else{
                         Log.d("AddEmployee", e.toString());
