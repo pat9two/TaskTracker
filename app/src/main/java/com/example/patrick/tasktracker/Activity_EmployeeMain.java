@@ -15,6 +15,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,38 +34,10 @@ public class Activity_EmployeeMain extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_employee_main);
         employeeListView = (ListView)findViewById(R.id.emp_list_view);
-        listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        ParseQueryAdapter<ParseObject> adapter = new ParseQueryAdapter<ParseObject>(this, "Employee");
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
+        employeeListView.setAdapter(adapter);
 
-        query.findInBackground(new FindCallback<ParseObject>() {
-            //This code is ran after the query is finished.
-            @Override
-            public void done(List<ParseObject> objectList, ParseException e) {
-                Log.d("Employees", String.valueOf(objectList.size()));
-                //If no exception and object list has at least one object.
-                if(e == null && objectList.size() != 0){
-                    employees = new ArrayList<String>();
-                    //Add the first name and last name to the employees Arraylist.
-                    //Need to create a custom ListView adapter that adds number of assigned jobs.
-                    for(int i = 0; i < objectList.size(); i++){
-                        employees.add(objectList.get(i).get("First_name").toString() + " " + objectList.get(i).get("Last_name").toString());
-                        Log.d("Employees", "Populate " + objectList.get(i).get("First_name").toString() + objectList.get(i).get("Last_name").toString());
-                    }
-                    listAdapter.addAll(employees);
-                    employeeListView.setAdapter(listAdapter);
-
-                    employeeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ParseObject po = (ParseObject)parent.getItemAtPosition(position);
-                           // Intent intent = new Intent(view.getContext(), Activity_adminEmployeeInfo.class);
-                           // intent.putExtra("extra", po.getObjectId());
-                        }
-                    });
-                }
-            }
-        });
     }
 
     public void createNewEmployee(View view){

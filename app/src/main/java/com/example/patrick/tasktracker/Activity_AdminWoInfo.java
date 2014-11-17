@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -28,6 +30,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
     TextView description;
     TextView materials;
     TextView schedule;
+
     public void onCreate(Bundle savedInstanceState) {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
 
@@ -92,7 +95,24 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.wo_actionbar, menu);
+        inflater.inflate(R.menu.wo_info_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.admin_wo_info_item:
+                assignedEmployees();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void assignedEmployees(){
+        Intent intent = new Intent(this, Activity_AdminWoEmployee.class);
+        intent.putExtra("extra", objectId);
+        startActivity(intent);
     }
 }
