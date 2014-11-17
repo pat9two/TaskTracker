@@ -87,6 +87,17 @@
         <activity
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
+            android:name=".Activity_EmployeeInfo"
+            android:label="Admin: Employees"
+            android:parentActivityName=".Activity_EmployeeMain"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_EmployeeNew"
             android:label="Admin: New Employee"
             android:parentActivityName=".Activity_EmployeeMain"

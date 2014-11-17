@@ -17,6 +17,6 @@
     <item android:id="@+id/action_search"
     android:title="Search"
     android:icon="@drawable/ic_action_search"
-    TaskTracker:showAsAction="always"
-    android:actionViewClass="android.support.v7.widget.SearchView"/>
+    TaskTracker:showAsAction="ifRoom|collapseActionView"
+    TaskTracker:actionViewClass="android.support.v7.widget.SearchView"/>
 </menu>

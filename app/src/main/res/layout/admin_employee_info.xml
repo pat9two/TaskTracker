@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/admin_addEmp_main_title"
-        android:text="Admin: New Employee"
+        android:text="Admin: Employee Info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -44,7 +44,7 @@
                 android:id="@+id/admin_emp_info_fName"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="First Name"
+                android:text="First Name: "
                 android:layout_below="@id/admin_emp_info_spacing_1" />
 
             <Space
@@ -55,7 +55,7 @@
 
             <TextView
                 android:id="@+id/admin_emp_info_lName"
-                android:text="Last Name"
+                android:text="Last Name: "
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/admin_emp_info_spacing_2" />
@@ -70,7 +70,7 @@
                 android:id="@+id/admin_emp_info_eID"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Eagle ID"
+                android:text="Eagle ID: "
                 android:layout_below="@id/admin_emp_info_spacing_3" />
 
             <Space
@@ -83,34 +83,9 @@
                 android:id="@+id/admin_emp_info_user"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="User Name: "
                 android:layout_below="@id/admin_emp_info_spacing_4" />
 
-            <Space
-                android:id="@+id/admin_emp_info_spacing_5"
-                android:layout_width="1dp"
-                android:layout_height="15dp"
-                android:layout_below="@id/admin_emp_info_user"/>
-
-            <TextView
-                android:id="@+id/admin_emp_info_pass"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:layout_below="@id/admin_emp_info_spacing_5" />
-
-            <Space
-                android:id="@+id/admin_emp_info_spacing_6"
-                android:layout_width="1dp"
-                android:layout_height="15dp"
-                android:layout_below="@id/admin_emp_info_pass"/>
-
-            <TextView
-                android:id="@+id/admin_emp_info_cPass"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Confirm Password"
-                android:layout_below="@id/admin_emp_info_spacing_6" />
         </RelativeLayout>
     </ScrollView>
 
@@ -123,18 +98,12 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/admin_emp_info_saveButton"
-            android:layout_height="50dp"
-            android:text="Save"
-            android:layout_width="100dp"
-            android:layout_alignParentLeft="true" />
-
-        <Button
             android:id="@+id/admin_emp_info_cancelButton"
             android:layout_height="50dp"
-            android:text="Cancel"
-            android:layout_width="100dp"
-            android:layout_alignParentRight="true" />
+            android:text="Done"
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="cancelAction"/>
     </RelativeLayout>
 
 </RelativeLayout>
