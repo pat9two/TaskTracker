@@ -26,7 +26,7 @@ public class Activity_EmployeeInfo extends Activity {
     TextView lastName;
     TextView eagleId;
     TextView userName;
-    ParseQueryAdapter<ParseObject> mainAdapter;
+    TextView adminRights;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -44,7 +44,7 @@ public class Activity_EmployeeInfo extends Activity {
         lastName = (TextView)findViewById(R.id.admin_emp_info_lName);
         eagleId = (TextView)findViewById(R.id.admin_emp_info_eID);
         userName = (TextView)findViewById(R.id.admin_emp_info_user);
-
+        adminRights = (TextView)findViewById(R.id.admin_emp_info_admin);
         Log.d("Employee", "objectId");
         ParseQuery<ParseObject> empinfoquery = ParseQuery.getQuery("Employee");
         empinfoquery.getInBackground(objectId, new GetCallback<ParseObject>(){
@@ -54,6 +54,19 @@ public class Activity_EmployeeInfo extends Activity {
                     lastName.append(object.getString("Last_name"));
                     eagleId.append(object.getString("Eagle_id"));
                     userName.append(object.getString("User_name"));
+
+                    if(object.getString("Admin") == "1")
+                    {
+                        adminRights.append("Yes");
+                    }
+                    else if(object.getString("Admin") == "0")
+                    {
+                        adminRights.append("No");
+                    }
+                    else {
+                        adminRights.append("Error Value");
+                    }
+
                 }else{
                     Log.d("Employee", e.toString());
                 }

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -15,6 +17,8 @@ import com.parse.SaveCallback;
  */
 public class Activity_EmployeeNew extends Activity {
     EditText First_name, Last_name, Eagle_id, Username, Password, Confirm_password;
+    RadioGroup adminButtonGroup;
+    RadioButton adminYes, adminNo;
     EditText[] info = new EditText[6];
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -28,6 +32,9 @@ public class Activity_EmployeeNew extends Activity {
         Username = (EditText)findViewById(R.id.admin_addEmp_user_field);
         Password = (EditText)findViewById(R.id.admin_addEmp_pass_field);
         Confirm_password = (EditText)findViewById(R.id.admin_addEmp_cPass_field);
+        adminButtonGroup = (RadioGroup)findViewById(R.id.admin_addEmp_new_status);
+        adminYes = (RadioButton)findViewById(R.id.admin_addEmp_radio_yes);
+        adminNo = (RadioButton)findViewById(R.id.admin_addEmp_radio_no);
     }
 
     public void AddEmp(View view){
@@ -48,6 +55,20 @@ public class Activity_EmployeeNew extends Activity {
             po.put("Eagle_id", info[2].getText().toString().trim());
             po.put("User_name", info[3].getText().toString().trim());
             po.put("Password", info[4].getText().toString().trim());
+
+            String adminValue = "0";
+            // Sets administrator based on the radio button that was selected.
+            if(adminYes.isChecked())
+                {
+                    adminValue = "1";
+                }
+            else
+                if(adminNo.isChecked())
+                    {
+                        adminValue = "0";
+                    }
+            po.put("Admin", adminValue);
+
             po.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -61,7 +82,6 @@ public class Activity_EmployeeNew extends Activity {
                     }
                 }
             });
-            //Administrator must be set in Parse.com data view.
         }
     }
 
