@@ -44,12 +44,12 @@ public class Activity_EmployeeInfo extends Activity {
         lastName = (TextView)findViewById(R.id.admin_emp_info_lName);
         eagleId = (TextView)findViewById(R.id.admin_emp_info_eID);
         userName = (TextView)findViewById(R.id.admin_emp_info_user);
+
         Log.d("Employee", "objectId");
         ParseQuery<ParseObject> empinfoquery = ParseQuery.getQuery("Employee");
         empinfoquery.getInBackground(objectId, new GetCallback<ParseObject>(){
             public void done(ParseObject object, ParseException e){
                 if(e == null){
-
                     firstName.append(object.getString("First_name"));
                     lastName.append(object.getString("Last_name"));
                     eagleId.append(object.getString("Eagle_id"));

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 
+import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -25,6 +26,7 @@ public class Activity_AdminWoNew extends Activity {
     ParseQueryAdapter<ParseObject> locationSpinnerAdapter;
     String selectedDepartment;
     String selectedLocation;
+    int counter;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -46,10 +48,10 @@ public class Activity_AdminWoNew extends Activity {
                 final ParseObject departmentObject = (ParseObject)parent.getItemAtPosition(position);
                 selectedDepartment = departmentObject.getObjectId();
 
-                ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory() {
+                ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
                     @Override
-                    public ParseQuery create() {
-                        ParseQuery<ParseObject> query = new ParseQuery("Location");
+                    public ParseQuery<ParseObject> create() {
+                        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Location");
                         query.whereEqualTo("parent", departmentObject.getObjectId());
                         return query;
                     }
@@ -61,6 +63,16 @@ public class Activity_AdminWoNew extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 //do nothing
+            }
+        });
+
+        ParseQuery<ParseObject> numOfWorkorders = new ParseQuery<ParseObject>("WorkOrder");
+        numOfWorkorders.countInBackground(new CountCallback() {
+            @Override
+            public void done(int i, ParseException e) {
+                if(e == null){
+                    counter = i;
+                }
             }
         });
 
@@ -89,6 +101,7 @@ public class Activity_AdminWoNew extends Activity {
 
             po.put("description", descriptionBox.getText().toString());
             po.put("materials", materialsBox.getText().toString());
+            po.put("workorderId", counter+1);
 
             po.saveInBackground(new SaveCallback() {
                 @Override

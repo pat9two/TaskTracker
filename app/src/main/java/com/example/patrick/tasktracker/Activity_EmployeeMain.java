@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.CountCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -36,9 +37,11 @@ public class Activity_EmployeeMain extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_employee_main);
         ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
-            public ParseQuery create() {
-                ParseQuery query = new ParseQuery("Employee");
+            @Override
+            public ParseQuery<ParseObject> create() {
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Employee");
                 query.orderByDescending("createdAt");
+
                 return query;
             }
         };

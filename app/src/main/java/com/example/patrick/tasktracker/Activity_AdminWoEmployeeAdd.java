@@ -95,11 +95,12 @@ public class Activity_AdminWoEmployeeAdd extends ActionBarActivity {
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, int id) {
                             //Iterate through the list and add to the workorder relation "assignedEmployees"
-                            ParseRelation<ParseObject> relation = workOrder.getRelation("assignedEmployees");
+                            ParseObject workorder_employee = new ParseObject("WorkOrder_Employee");
+                            workorder_employee.put("workorder", workOrder);
                             for(ParseObject po : listToAdd){
-                                relation.add(po);
+                                workorder_employee.put("employee",po);
                             }
-                            workOrder.saveInBackground(new SaveCallback() {
+                            workorder_employee.saveInBackground(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
                                     if(e == null) {
