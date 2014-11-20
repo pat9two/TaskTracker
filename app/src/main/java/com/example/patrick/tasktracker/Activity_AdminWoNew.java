@@ -41,7 +41,7 @@ public class Activity_AdminWoNew extends Activity {
 
         departmentSpinnerAdapter = new ParseQueryAdapter<ParseObject>(this, "Department");
         departmentSpinner.setAdapter(departmentSpinnerAdapter);
-
+        departmentSpinnerAdapter.setTextKey("Department_id");
         departmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -52,11 +52,12 @@ public class Activity_AdminWoNew extends Activity {
                     @Override
                     public ParseQuery<ParseObject> create() {
                         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Location");
-                        query.whereEqualTo("parent", departmentObject.getObjectId());
+                        query.whereEqualTo("parent", departmentObject);
                         return query;
                     }
                 };
                     locationSpinnerAdapter = new ParseQueryAdapter<ParseObject>(view.getContext(), factory);
+                    locationSpinnerAdapter.setTextKey("Location_id");
                     locationSpinner.setAdapter(locationSpinnerAdapter);
             }
 

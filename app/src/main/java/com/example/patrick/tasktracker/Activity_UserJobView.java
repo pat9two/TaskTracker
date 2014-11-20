@@ -70,8 +70,32 @@ public class Activity_UserJobView extends Activity {
             public void done(List<ParseObject> parseObjects, ParseException e) {
                 if(e == null){
                     po = parseObjects.get(0);
-                    depValue.setText(po.getString("Department_id"));
-                    locValue.setText(po.getString("Location_id"));
+                    ParseObject dep = parseObjects.get(0).getParseObject("department");
+                    ParseObject loc = parseObjects.get(0).getParseObject("location");
+                    //ParseObject wo_emp
+                    ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
+                    depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>(){
+                        public void done(ParseObject object, ParseException e){
+                            if(e == null){
+
+                                depValue.setText(object.getString("Department_id"));
+                            }else{
+                                Log.d("adminwoinfo", e.toString());
+                            }
+                        }
+                    });
+                    ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
+                    locquery.whereEqualTo("objectId", loc.getObjectId());
+                    locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>(){
+                        public void done(ParseObject object, ParseException e){
+                            if(e == null){
+
+                                locValue.setText(object.getString("Location_id"));
+                            }else{
+                                Log.d("adminwoinfo", e.toString());
+                            }
+                        }
+                    });
                     descValue.setText(po.getString("description"));
                     dateValue.setText(po.getString("scheduleDate"));
 

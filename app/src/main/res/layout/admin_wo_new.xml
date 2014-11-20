@@ -61,8 +61,8 @@
     <!-- Department Drop down box -->
     <Spinner
         android:id="@+id/admin_new_departmentSpinner"
-        android:layout_width="125dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         android:layout_below="@id/admin_new_spacing_2"
@@ -87,8 +87,8 @@
     <!-- Department Drop down box -->
     <Spinner
         android:id="@+id/admin_new_locationSpinner"
-        android:layout_width="125dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"
         android:layout_below="@id/admin_new_spacing_3"
