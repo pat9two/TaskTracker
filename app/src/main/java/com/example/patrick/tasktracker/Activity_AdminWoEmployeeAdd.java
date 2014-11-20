@@ -1,7 +1,6 @@
 package com.example.patrick.tasktracker;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,16 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseRelation;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
@@ -35,7 +30,6 @@ public class Activity_AdminWoEmployeeAdd extends ActionBarActivity {
     QueryAdapterWorkorderEmployeeAdd adapter;
     ArrayList<ParseObject> listToAdd = new ArrayList<ParseObject>();
     ListView listview;
-    ParseObject wo;
     public void onCreate(Bundle savedInstanceState)
     {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");

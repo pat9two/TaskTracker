@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -75,5 +76,41 @@ public class Activity_AdminWoView extends ActionBarActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wo_view_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.admin_wo_create_item:
+                woCreateOption();
+                return true;
+            case R.id.admin_wo_assign_emp_item:
+                // do create wo employees stuff
+                return true;
+            case R.id.admin_wo_search_item:
+                // do search stuff
+                runSearch();
+                return true;
+            case R.id.admin_wo_refresh_item:
+                refreshActivity();
+                return true;
+            case R.id.admin_wo_settings_item:
+                // do settings stuff
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void woCreateOption(){
+        Intent intent = new Intent(this, Activity_AdminWoNew.class);
+        startActivity(intent);
+    }
+
+    public void refreshActivity()
+    {
+        finish();
+        startActivity(getIntent());
     }
 }

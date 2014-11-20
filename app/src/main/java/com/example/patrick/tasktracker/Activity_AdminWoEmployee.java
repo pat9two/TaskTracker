@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.view.View;
 
@@ -39,5 +40,23 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
         Intent intent = new Intent(this, Activity_AdminWoEmployeeAdd.class);
         intent.putExtra("extra", workorderId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.admin_wo_search_item:
+                // do search stuff
+                return true;
+            case R.id.admin_wo_refresh_item:
+                // do refresh stuff
+                return true;
+            case R.id.admin_wo_settings_item:
+                // do settings stuff
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

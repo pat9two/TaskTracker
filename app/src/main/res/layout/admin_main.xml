@@ -72,7 +72,7 @@
     <Space
         android:id="@+id/admin_spacing_4"
         android:layout_width="1dp"
-        android:layout_height="75dp"
+        android:layout_height="35dp"
         android:layout_below="@id/admin_main_dept_button"/>
 
     <Button
