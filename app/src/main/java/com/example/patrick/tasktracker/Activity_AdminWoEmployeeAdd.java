@@ -94,7 +94,7 @@ public class Activity_AdminWoEmployeeAdd extends ActionBarActivity {
                             for(ParseObject po : listToAdd){
                                 workorder_employee.put("employee",po);
                             }
-                            workorder_employee.saveInBackground(new SaveCallback() {
+                            workorder_employee.saveAllInBackground(listToAdd, new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
                                     if(e == null) {

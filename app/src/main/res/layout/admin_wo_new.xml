@@ -202,7 +202,7 @@
         android:text="Create"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:onClick="save"/>
+        android:onClick="saveWorkOrder"/>
 
     <Button
         android:id="@+id/admin_new_cancel_button"

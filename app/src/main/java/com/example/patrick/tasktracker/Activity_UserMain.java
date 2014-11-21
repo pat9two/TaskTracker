@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -19,6 +20,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseRelation;
+
+import java.util.List;
 
 /**
  * Created by Shwaat on 11/3/2014.
@@ -41,7 +44,7 @@ public class Activity_UserMain extends ActionBarActivity {
         username = intent.getStringExtra(Activity_LoginMain.EXTRA_USERNAME);
         objectId = intent.getStringExtra("objectId");
 
-        Log.d("UserMain", "main");
+        Log.d("UserMain", ""+objectId);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
@@ -51,9 +54,19 @@ public class Activity_UserMain extends ActionBarActivity {
                     ParseQueryAdapter.QueryFactory<ParseObject> woQuery = new ParseQueryAdapter.QueryFactory<ParseObject>() {
                         @Override
                         public ParseQuery<ParseObject> create() {
-                            ParseQuery<ParseObject> factoryquery = ParseQuery.getQuery("WorkOrder");
-                            factoryquery.whereEqualTo("assignedEmployees", parseObject);
-                            return factoryquery;
+                            final ParseQuery<ParseObject> workorderQuery = ParseQuery.getQuery("WorkOrder");
+
+                            ParseQuery<ParseObject> factoryquery = ParseQuery.getQuery("WorkOrder_Employee");
+                            factoryquery.whereEqualTo("employee", parseObject.getObjectId());
+                            factoryquery.findInBackground(new FindCallback<ParseObject>() {
+                                @Override
+                                public void done(List<ParseObject> parseObjects, ParseException e) {
+                                    for(ParseObject po : parseObjects){
+                                        workorderQuery.whereEqualTo("objectId", po.getObjectId());
+                                    }
+                                }
+                            });
+                            return workorderQuery;
                         }
                     };
 
@@ -80,15 +93,11 @@ public class Activity_UserMain extends ActionBarActivity {
                             startActivity(intent);
                         }
                     });
+                }else{
+                    Log.d("UserMain", e.toString());
                 }
             }
         });
-
-
-
-
-
-
 
     }
 

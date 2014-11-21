@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import android.view.View;
@@ -17,7 +18,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 
 
-public class Activity_AdminWoNew extends Activity {
+public class Activity_AdminWoNew extends ActionBarActivity {
     Spinner departmentSpinner;
     Spinner locationSpinner;
     EditText descriptionBox;
@@ -92,7 +93,7 @@ public class Activity_AdminWoNew extends Activity {
         });
 
     }
-    public void save() {
+    public void saveWorkOrder(View view) {
         if (!selectedDepartment.isEmpty() || !selectedLocation.isEmpty()){
             ParseObject po = new ParseObject("WorkOrder");
             //links to a department row
@@ -120,7 +121,7 @@ public class Activity_AdminWoNew extends Activity {
         }
     }
 
-    public void cancel(){
+    public void cancel(View view){
         finish();
     }
 }
