@@ -46,6 +46,7 @@ public class Activity_AdminWoView extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
 
+
                 Intent intent = new Intent(view.getContext(), Activity_AdminWoInfo.class);
                 intent.putExtra("extra", po.getObjectId());
                 Log.d("AdminWorkOrders", " " + po.getObjectId());

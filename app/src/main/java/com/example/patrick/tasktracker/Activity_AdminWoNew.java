@@ -1,6 +1,7 @@
 package com.example.patrick.tasktracker;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import com.parse.SaveCallback;
 
 
 public class Activity_AdminWoNew extends ActionBarActivity {
+    Button scheduleDateButton;
     Spinner departmentSpinner;
     Spinner locationSpinner;
     EditText descriptionBox;
@@ -39,6 +41,7 @@ public class Activity_AdminWoNew extends ActionBarActivity {
         locationSpinner = (Spinner)findViewById(R.id.admin_new_locationSpinner);
         descriptionBox = (EditText)findViewById(R.id.admin_new_workDesc_textBox);
         materialsBox = (EditText)findViewById(R.id.admin_new_workMats_textBox);
+        scheduleDateButton = (Button)findViewById(R.id.admin_new_schedule_button);
 
         departmentSpinnerAdapter = new ParseQueryAdapter<ParseObject>(this, "Department");
         departmentSpinner.setAdapter(departmentSpinnerAdapter);
@@ -103,8 +106,9 @@ public class Activity_AdminWoNew extends ActionBarActivity {
 
             po.put("description", descriptionBox.getText().toString());
             po.put("materials", materialsBox.getText().toString());
+            //
             po.put("workorderId", counter+1);
-
+            po.put("scheduleDate", scheduleDateButton.getText().toString().trim());
             po.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -124,4 +128,12 @@ public class Activity_AdminWoNew extends ActionBarActivity {
     public void cancel(View view){
         finish();
     }
+
+    public void showDatePickerDialog(View view){
+        DialogFragment newFragment = new AdminWoNew_setDate();
+        newFragment.show(getFragmentManager(), "datePicker");
+
+    }
+
+
 }

@@ -38,6 +38,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         setContentView(R.layout.admin_wo_info);
         Intent intent = getIntent();
         objectId  = intent.getStringExtra("extra");
+        Log.d("WoInfo", "intent extra objectId: " + objectId);
         department = (TextView)findViewById(R.id.admin_wo_info_dept_label_value);
         location = (TextView)findViewById(R.id.admin_wo_info_loc_label_value);
         description = (TextView)findViewById(R.id.admin_wo_info_desc_label_value);
@@ -48,36 +49,35 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         ParseQuery<ParseObject> woquery = ParseQuery.getQuery("WorkOrder");
         woquery.include("department");
         woquery.include("location");
-        woquery.findInBackground(new FindCallback<ParseObject>() {
+        woquery.getInBackground(objectId, new GetCallback<ParseObject>() {
             @Override
-            public void done(final List<ParseObject> parseObjects, ParseException e) {
-                if(e == null){
-                    ParseObject wo = parseObjects.get(0);
-                    ParseObject dep = parseObjects.get(0).getParseObject("department");
-                    ParseObject loc = parseObjects.get(0).getParseObject("location");
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    ParseObject wo = parseObject;
+                    ParseObject dep = parseObject.getParseObject("department");
+                    ParseObject loc = parseObject.getParseObject("location");
 
                     Log.d("adminWoInfo", "Department objectId: " + dep.getObjectId());
                     Log.d("adminWoInfo", "Location objectId: " + loc.getObjectId());
 
                     ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
-                    depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>(){
-                        public void done(ParseObject object, ParseException e){
-                            if(e == null){
+                    depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
 
                                 department.setText(object.getString("Department_id"));
-                            }else{
+                            } else {
                                 Log.d("adminwoinfo", e.toString());
                             }
                         }
                     });
                     ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
                     locquery.whereEqualTo("objectId", loc.getObjectId());
-                    locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>(){
-                        public void done(ParseObject object, ParseException e){
-                            if(e == null){
-
+                    locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, ParseException e) {
+                            if (e == null) {
                                 location.setText(object.getString("Location_id"));
-                            }else{
+                            } else {
                                 Log.d("adminwoinfo", e.toString());
                             }
                         }
@@ -89,6 +89,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
                 }
             }
         });
+
     }
 
     @Override

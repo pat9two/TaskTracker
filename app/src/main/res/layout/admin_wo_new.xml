@@ -176,17 +176,26 @@
         android:layout_below="@id/admin_new_spacing_8"
         />
 
-    <EditText
-        android:id="@+id/admin_new_schedule_field"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/admin_new_schedule_value"
         android:layout_height="wrap_content"
-        android:hint="MM/DD/YYYY"
-        android:inputType="text"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
+        android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_8"
         android:layout_toRightOf="@id/admin_new_schedule_label"
-        android:layout_toEndOf="@id/admin_new_schedule_label" />
+        android:layout_toEndOf="@id/admin_new_schedule_label"
+        />
+
+    <Button
+        android:id="@+id/admin_new_schedule_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:text="Date"
+        android:layout_below="@id/admin_new_spacing_8"
+        android:layout_toRightOf="@id/admin_new_schedule_value"
+        android:layout_toEndOf="@id/admin_new_schedule_value"
+        android:onClick="showDatePickerDialog"/>
 
         </RelativeLayout>
     </ScrollView>
