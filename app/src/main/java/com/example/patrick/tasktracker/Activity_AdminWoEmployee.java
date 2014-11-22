@@ -32,7 +32,7 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.wo_actionbar, menu);
+        inflater.inflate(R.menu.main_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -46,14 +46,9 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.admin_wo_search_item:
-                // do search stuff
-                return true;
             case R.id.admin_wo_refresh_item:
-                // do refresh stuff
-                return true;
-            case R.id.admin_wo_settings_item:
-                // do settings stuff
+                finish();
+                startActivity(getIntent());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

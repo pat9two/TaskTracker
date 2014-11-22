@@ -96,9 +96,6 @@ public class Activity_AdminWoView extends ActionBarActivity {
             case R.id.admin_wo_refresh_item:
                 refreshActivity();
                 return true;
-            case R.id.admin_wo_settings_item:
-                // do settings stuff
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

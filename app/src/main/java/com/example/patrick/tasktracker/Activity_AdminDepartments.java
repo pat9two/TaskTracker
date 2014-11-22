@@ -1,10 +1,14 @@
 package com.example.patrick.tasktracker;
 
 
-import android.app.Activity;
+import android.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -25,7 +29,7 @@ import java.util.List;
 /**
  * Created by Shwaat on 11/2/2014.
  */
-public class Activity_AdminDepartments extends Activity {
+public class Activity_AdminDepartments extends ActionBarActivity {
 
     ListView departmentListView;
 
@@ -67,5 +71,26 @@ public class Activity_AdminDepartments extends Activity {
     public void addDepartment(View view){
         Intent intent = new Intent(this, Activity_AdminNewDepartment.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu items for use in the action bar
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_actionbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.admin_employee_refresh_item:
+                finish();
+                startActivity(getIntent());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

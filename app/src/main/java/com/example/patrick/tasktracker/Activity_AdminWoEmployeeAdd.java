@@ -4,7 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by Shwaat on 11/9/2014.
  */
-public class Activity_AdminWoEmployeeAdd extends ActionBarActivity {
+public class Activity_AdminWoEmployeeAdd extends Activity {
     String workorderId;
     QueryAdapterWorkorderEmployeeAdd adapter;
     ArrayList<ParseObject> listToAdd = new ArrayList<ParseObject>();
@@ -71,13 +71,6 @@ public class Activity_AdminWoEmployeeAdd extends ActionBarActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.wo_actionbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
     public void addEmployee(final View view){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("WorkOrder");
         query.getInBackground(workorderId, new GetCallback<ParseObject>() {
