@@ -25,11 +25,13 @@ import java.util.List;
  * Created by Shwaat on 11/3/2014.
  */
 public class Activity_UserJobView extends Activity {
+    //variables for the xml elements.
     TextView depValue;
     TextView locValue;
     TextView descValue;
     TextView dateValue;
     TextView matsValue;
+    //variables for time keeping.
     Long start;
     Long stop;
     Long elapsed;
@@ -37,11 +39,14 @@ public class Activity_UserJobView extends Activity {
     Long resumed;
     Boolean startPressed = false;
     Boolean pausePressed = false;
+    Boolean resumePressed = false;
+    //variables for querying the parse database
     String workOrderId;
     String userId;
     ParseQuery<ParseObject> query;
     ParseObject po;
     ParseObject relationObject;
+
     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,54 +56,56 @@ public class Activity_UserJobView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_job_view);
         Intent intent = getIntent();
+        //assigns data that was passed from previous activity.
         workOrderId = intent.getStringExtra("workOrderId");
         userId = intent.getStringExtra("userId");
 
+        //sets variables to their respective xml elements.
         depValue = (TextView)findViewById(R.id.user_view_department_value);
         locValue = (TextView)findViewById(R.id.user_view_location_value);
         descValue = (TextView)findViewById(R.id.user_view_workDesc_value);
         dateValue = (TextView)findViewById(R.id.user_view_schedule_value);
         matsValue = (TextView)findViewById(R.id.user_view_workMats_value);
 
-
-        query = ParseQuery.getQuery("WorkOrder");
-        query.include("department");
-        query.include("location");
-        query.getInBackground(workOrderId, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                if (e == null) {
-                    po = parseObject;
-                    ParseObject dep = po.getParseObject("department");
-                    ParseObject loc = po.getParseObject("location");
-                    depValue.setText(dep.getString("Department_id"));
-                    locValue.setText(loc.getString("Location_id"));
-
-                    descValue.setText(po.getString("description"));
-                    dateValue.setText(po.getString("scheduleDate"));
-                    matsValue.setText(po.getString("materials"));
-                }
-            }
-        });
-        ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("Workorder_Employee");
+        //gets all work WorkOrder_Employee objects and includes the tables from the FK pointers "workorder" and "employee" columns.
+        ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("WorkOrder_Employee");
         wo_emp.include("workorder");
         wo_emp.include("employee");
-        wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
-        wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", userId));
-        wo_emp.findInBackground(new FindCallback<ParseObject>() {
+        wo_emp.getInBackground(workOrderId, new GetCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
+            public void done(ParseObject parseObject, ParseException e) {
                 if(e == null){
-                    if(parseObjects.size() != 0){
-                        relationObject = parseObjects.get(0);
-                    }else{
-                        Log.d("UserJobView", "There are no emp_wo with these parameters.");
-                    }
+                    relationObject = parseObject;
+                    //gets the WorkOrder object related to the single WorkOrder_Employee object in order to populate xml elements with data.
+                    query = ParseQuery.getQuery("WorkOrder");
+                    query.include("department");
+                    query.include("location");
+                    query.getInBackground(parseObject.getParseObject("workorder").getObjectId(), new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+                            if (e == null) {
+                                po = parseObject;
+                                ParseObject dep = po.getParseObject("department");
+                                ParseObject loc = po.getParseObject("location");
+                                depValue.setText(dep.getString("Department_id"));
+                                locValue.setText(loc.getString("Location_id"));
+
+                                descValue.setText(po.getString("description"));
+                                dateValue.setText(po.getString("scheduleDate"));
+                                matsValue.setText(po.getString("materials"));
+                            } else {
+                                Log.d("UserJobView", "Workorder " + e.toString());
+                            }
+                        }
+                    });
+                }else{
+                    Log.d("UserJobView","Wo_emp " + e.toString());
                 }
             }
         });
     }
 
+    //Start button pressed on the device.
     public void Start(View view){
         if(!startPressed) {
             start = System.currentTimeMillis();
@@ -109,38 +116,52 @@ public class Activity_UserJobView extends Activity {
         }
         //start has already been pressed. do nothing.
     }
+    //Stop button pressed on the device.
     public void Stop(View view){
         if(startPressed ) {
-
             stop = System.currentTimeMillis();
-            elapsed = stop - start;
+
             final int hours = (int) (elapsed / 3600000);
             final int minutes = (int) (elapsed - hours * 3600000) / 60000;
             final int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
 
-            //put this time elapsed and time stopped into the relational table of employee -- workorder (many to many)
-            relationObject.put("Stop_time", sdf.format(stop));
-            relationObject.put("Elapsed_time", ""+hours+":"+minutes+":"+seconds);
-            relationObject.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    Log.d("UserJobView", "Elapsed time = " + hours+":"+minutes+":"+seconds);
-                    finish();
-                }
-            });
+            //resumePressed only true after pause was pressed.
+            if(resumePressed) {
+                elapsed += stop - resumed;
+            }else if(pausePressed) {
+                //the timer was not resumed. keeps time elapsed from time that pause was pressed.
+                relationObject.put("Elapsed_time", elapsed);
+            }else{
+                //if neither pause nor resume was pressed, then only use start and stop time for elapsed time.
+                // elapsed = stop - start;
+                //put this time elapsed and time stopped into the relational table of employee -- workorder (many to many)
+                relationObject.put("Stop_time", sdf.format(stop));
+                relationObject.put("Elapsed_time", ""+hours+":"+minutes+":"+seconds);
+                relationObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d("UserJobView", "Elapsed time = " + hours+":"+minutes+":"+seconds);
+                        finish();
+                    }
+                });
+            }
+
         }//else do nothing.
     }
+    //Pause button pressed on the device.
     public void Pause(View view){
         if(startPressed){
             paused = System.currentTimeMillis();
+            //the current elapsed time will be from start timestamp to when pause was pressed.
             elapsed = paused - start;
             pausePressed = true;
-        }
+        }//else do nothing.
     }
+    //Resume button pressed on the device.
     public void Resume(View view){
         if(pausePressed){
+            pausePressed = false;
             resumed = System.currentTimeMillis();
-            elapsed += resumed - paused;
-        }
+        }//else do nothing.
     }
 }
