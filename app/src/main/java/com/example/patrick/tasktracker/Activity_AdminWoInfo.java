@@ -116,4 +116,8 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         intent.putExtra("extra", objectId);
         startActivity(intent);
     }
+
+    public void cancelAction(View view){
+        finish();
+    }
 }

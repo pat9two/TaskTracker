@@ -32,32 +32,10 @@
         android:layout_below="@id/admin_wo_emp_title_string" />
 
     <Space
-        android:id="@+id/admin_wo_emp_spacing_1"
-        android:layout_width="1dp"
-        android:layout_height="15dp"
-        android:layout_below="@id/admin_wo_emp_title_string"/>
-
-    <!-- Info Button -->
-    <Button
-        android:id="@+id/admin_wo_emp_info_button"
-        android:layout_height="40dp"
-        android:layout_width="75dp"
-        android:text="Info"
-        android:layout_below="@id/admin_wo_emp_spacing_1" />
-
-    <Button
-        android:id="@+id/admin_wo_emp_assign_tab"
-        android:layout_height="40dp"
-        android:layout_width="175dp"
-        android:text="Assign Employees"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/admin_wo_emp_spacing_1"/>
-
-    <Space
         android:id="@+id/admin_wo_emp_spacing_2"
         android:layout_width="1dp"
         android:layout_height="15dp"
-        android:layout_below="@id/admin_wo_emp_assign_tab"/>
+        android:layout_below="@id/title_divider"/>
 
     <ListView
         android:id="@+id/admin_wo_emp_listView"

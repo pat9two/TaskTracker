@@ -28,7 +28,6 @@ import java.util.List;
  */
 public class Activity_EmployeeMain extends ActionBarActivity {
     ListView employeeListView;
-    ParseObject empObj;
     QueryAdapterEmployee listAdapter;
 
     @Override
@@ -54,11 +53,9 @@ public class Activity_EmployeeMain extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
-                empObj = po;
-                String objId = po.getString("objectId");
 
                 Intent intent = new Intent(view.getContext(), Activity_EmployeeInfo.class);
-                intent.putExtra("employeeObjId", objId);
+                intent.putExtra("employeeObjId", po.getObjectId());
                 Log.d("AdminEmployee", " " +po.getObjectId());
                 startActivity(intent);
             }

@@ -125,4 +125,9 @@ public class Activity_EmployeeNew extends Activity {
         //All statements passed.
         return true;
     }
+
+    public void cancelAction(View view)
+    {
+        finish();
+    }
 }

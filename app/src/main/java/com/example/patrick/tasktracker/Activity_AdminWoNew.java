@@ -19,7 +19,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 
 
-public class Activity_AdminWoNew extends ActionBarActivity {
+public class Activity_AdminWoNew extends Activity {
     Button scheduleDateButton;
     Spinner departmentSpinner;
     Spinner locationSpinner;
