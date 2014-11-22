@@ -82,19 +82,23 @@ public class Activity_AdminWoEmployeeAdd extends Activity {
                     builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                         public void onClick(final DialogInterface dialog, int id) {
                             //Iterate through the list and add to the workorder relation "assignedEmployees"
-                            ParseObject workorder_employee = new ParseObject("WorkOrder_Employee");
-                            workorder_employee.put("workorder", workOrder);
                             for(ParseObject po : listToAdd){
+                                ParseObject workorder_employee = new ParseObject("WorkOrder_Employee");
+                                workorder_employee.put("workorder", workOrder);
+
                                 workorder_employee.put("employee",po);
-                            }
-                            workorder_employee.saveAllInBackground(listToAdd, new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if(e == null) {
-                                        dialog.cancel();
+                                Log.d("WoEmployeeAdd", po.getString("First_name"));
+                                workorder_employee.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if(e == null) {
+                                            dialog.cancel();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            finish();
+
 
                         }
                     });

@@ -3,7 +3,7 @@ package com.example.patrick.tasktracker;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +20,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseRelation;
+
 
 import java.util.List;
 
@@ -47,36 +47,34 @@ public class Activity_UserMain extends ActionBarActivity {
 
         Log.d("UserMain", ""+objectId);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-        query.getInBackground(objectId, new GetCallback<ParseObject>() {
+        //gets all workorder_employee table objects, then finds where employee column equal to the employee object.
+        ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+        wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", objectId));
+        wo_emp.findInBackground(new FindCallback<ParseObject>() {
+            //when query calls back, run done() method.
             @Override
-            public void done(final ParseObject parseObject, ParseException e) {
-                if(e == null){
-                    ParseQueryAdapter.QueryFactory<ParseObject> woQuery = new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                        @Override
+            public void done(final List<ParseObject> parseObjects, ParseException e) {
+                if (e == null) {
+                    Log.d("UserMain", "returned workorder_employee objects = " + parseObjects.size());
+                    //query factory for the List View adapter.
+                    ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
                         public ParseQuery<ParseObject> create() {
-                            final ParseQuery<ParseObject> workorderQuery = ParseQuery.getQuery("WorkOrder");
-
-                            ParseQuery<ParseObject> factoryquery = ParseQuery.getQuery("WorkOrder_Employee");
-                            factoryquery.whereEqualTo("employee", parseObject.getObjectId());
-                            factoryquery.findInBackground(new FindCallback<ParseObject>() {
-                                @Override
-                                public void done(List<ParseObject> parseObjects, ParseException e) {
-                                    for(ParseObject po : parseObjects){
-                                        workorderQuery.whereEqualTo("objectId", po.getObjectId());
-                                    }
-                                }
-                            });
-                            return workorderQuery;
+                            Log.d("UserMain", "ParseQuery Factory Create() method.");
+                            //gets all workorder table objects.
+                            ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("WorkOrder");
+                            for (ParseObject po : parseObjects) {
+                                query1.whereEqualTo("objectId", po.getParseObject("workorder"));
+                                Log.d("UserMain", "Workorderquery where equal to " +po.getParseObject("workorder").getObjectId());
+                            }
+                            return query1;
                         }
                     };
-
-                    mainAdapter = new ParseQueryAdapter<ParseObject>(context, woQuery);
+                    mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
 
                     //not used yet. adapter to add multiple elements to a listitem.
                     //adapter = new AdminuserWorkOrderListViewAdapter(this);
 
-                    userWorkOrderListView = (ListView)findViewById(R.id.user_employee_list_view);
+                    userWorkOrderListView = (ListView) findViewById(R.id.user_employee_list_view);
                     mainAdapter.setTextKey("description");
                     userWorkOrderListView.setAdapter(mainAdapter);
 

@@ -54,25 +54,28 @@ public class Activity_DepartmentLocInfo extends Activity {
 
         ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");
         depquery.whereEqualTo("objectId", DepObject.getSync_id());
-        depquery.findInBackground(new FindCallback<ParseObject>() {
+        depquery.getInBackground(DepObject.getSync_id(), new GetCallback<ParseObject>() {
             @Override
-            public void done(final List<ParseObject> parseObjects, ParseException e) {
-                ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                    public ParseQuery create() {
-                        ParseQuery query = new ParseQuery("Location");
-                        query.whereEqualTo("parent", parseObjects.get(0));
-                        return query;
-                    }
-                };
+            public void done(final ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
+                        public ParseQuery create() {
+                            ParseQuery query = new ParseQuery("Location");
+                            query.whereEqualTo("parent", parseObject);
+                            return query;
+                        }
+                    };
 
-                mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
-                mainAdapter.setTextKey("Location_id");
-                listView = (ListView) findViewById(R.id.dept_loc_view);
-                listView.setAdapter(mainAdapter);
-                mainAdapter.loadObjects();
+                    mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
+                    mainAdapter.setTextKey("Location_id");
+                    listView = (ListView) findViewById(R.id.dept_loc_view);
+                    listView.setAdapter(mainAdapter);
+                    mainAdapter.loadObjects();
+                }
             }
         });
     }
+
 
     @Override
     public void onResume()
