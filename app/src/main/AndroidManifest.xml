@@ -110,9 +110,7 @@
             android:name=".Activity_EmployeeRemove"
             android:label="Admin: Remove Employee"
             android:parentActivityName=".Activity_EmployeeMain"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <!-- END EMPLOYEE PARENT/CHILD STRUCTURE -->

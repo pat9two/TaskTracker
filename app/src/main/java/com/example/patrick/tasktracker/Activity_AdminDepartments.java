@@ -73,6 +73,11 @@ public class Activity_AdminDepartments extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void remDepartment(View view){
+        Intent intent = new Intent(this, Activity_AdminNewDepartment.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 // Inflate the menu items for use in the action bar

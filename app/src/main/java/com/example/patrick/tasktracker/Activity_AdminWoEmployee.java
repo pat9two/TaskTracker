@@ -42,6 +42,13 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void remEmployee(View view)
+    {
+        Intent intent = new Intent(this, Activity_AdminWoEmployeeRemove.class);
+        intent.putExtra("extra", workorderId);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
