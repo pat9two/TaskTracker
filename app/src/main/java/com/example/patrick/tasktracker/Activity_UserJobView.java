@@ -29,6 +29,7 @@ public class Activity_UserJobView extends Activity {
     TextView locValue;
     TextView descValue;
     TextView dateValue;
+    TextView matsValue;
     Long start;
     Long stop;
     Long elapsed;
@@ -57,73 +58,45 @@ public class Activity_UserJobView extends Activity {
         locValue = (TextView)findViewById(R.id.user_view_location_value);
         descValue = (TextView)findViewById(R.id.user_view_workDesc_value);
         dateValue = (TextView)findViewById(R.id.user_view_schedule_value);
-
+        matsValue = (TextView)findViewById(R.id.user_view_workMats_value);
 
 
         query = ParseQuery.getQuery("WorkOrder");
         query.include("department");
         query.include("location");
-        query.include("Workorder_Employee");
-        query.whereEqualTo("objectId", workOrderId);
-        query.findInBackground(new FindCallback<ParseObject>() {
+        query.getInBackground(workOrderId, new GetCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
-                if(e == null){
-                    po = parseObjects.get(0);
-                    ParseObject dep = parseObjects.get(0).getParseObject("department");
-                    ParseObject loc = parseObjects.get(0).getParseObject("location");
-                    //ParseObject wo_emp
-                    ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
-                    depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>(){
-                        public void done(ParseObject object, ParseException e){
-                            if(e == null){
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    po = parseObject;
+                    ParseObject dep = po.getParseObject("department");
+                    ParseObject loc = po.getParseObject("location");
+                    depValue.setText(dep.getString("Department_id"));
+                    locValue.setText(loc.getString("Location_id"));
 
-                                depValue.setText(object.getString("Department_id"));
-                            }else{
-                                Log.d("adminwoinfo", e.toString());
-                            }
-                        }
-                    });
-                    ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
-                    locquery.whereEqualTo("objectId", loc.getObjectId());
-                    locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>(){
-                        public void done(ParseObject object, ParseException e){
-                            if(e == null){
-
-                                locValue.setText(object.getString("Location_id"));
-                            }else{
-                                Log.d("adminwoinfo", e.toString());
-                            }
-                        }
-                    });
                     descValue.setText(po.getString("description"));
                     dateValue.setText(po.getString("scheduleDate"));
-
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("Employee");
-                    query.getInBackground(userId, new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject employee, ParseException e) {
-                            if(e == null){
-                                ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("Workorder_Employee");
-                                wo_emp.whereEqualTo("workorder", po);
-                                wo_emp.whereEqualTo("employee", employee);
-                                wo_emp.findInBackground(new FindCallback<ParseObject>() {
-                                    @Override
-                                    public void done(List<ParseObject> parseObjects, ParseException e) {
-                                        if(e == null){
-                                            relationObject = parseObjects.get(0);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    });
-
+                    matsValue.setText(po.getString("materials"));
                 }
             }
         });
-
-
+        ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("Workorder_Employee");
+        wo_emp.include("workorder");
+        wo_emp.include("employee");
+        wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
+        wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", userId));
+        wo_emp.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if(e == null){
+                    if(parseObjects.size() != 0){
+                        relationObject = parseObjects.get(0);
+                    }else{
+                        Log.d("UserJobView", "There are no emp_wo with these parameters.");
+                    }
+                }
+            }
+        });
     }
 
     public void Start(View view){

@@ -46,6 +46,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         schedule = (TextView)findViewById(R.id.admin_wo_info_schedule_label_value);
         //ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
        // ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
+
         ParseQuery<ParseObject> woquery = ParseQuery.getQuery("WorkOrder");
         woquery.include("department");
         woquery.include("location");

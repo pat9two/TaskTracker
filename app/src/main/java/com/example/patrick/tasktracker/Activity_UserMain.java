@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -22,6 +23,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,8 +36,7 @@ public class Activity_UserMain extends ActionBarActivity {
     String objectId;
     final Context context = this;
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState){
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
 
         super.onCreate(savedInstanceState);
@@ -46,59 +47,40 @@ public class Activity_UserMain extends ActionBarActivity {
         objectId = intent.getStringExtra("objectId");
 
         Log.d("UserMain", ""+objectId);
+        ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>(){
+            public ParseQuery<ParseObject> create() {
+                //gets all workorder_employee table objects,
+                // then finds where employee column equal to the employee object.
+                ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                wo_emp.include("workorder");
+                wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", objectId));
 
-        //gets all workorder_employee table objects, then finds where employee column equal to the employee object.
-        ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
-        wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", objectId));
-        wo_emp.findInBackground(new FindCallback<ParseObject>() {
-            //when query calls back, run done() method.
+                return wo_emp;
+            }
+        };
+        mainAdapter = new QueryAdapterUserMain(context, factory);
+
+        //not used yet. adapter to add multiple elements to a listitem.
+        //adapter = new AdminuserWorkOrderListViewAdapter(this);
+
+        userWorkOrderListView = (ListView) findViewById(R.id.user_employee_list_view);
+        userWorkOrderListView.setAdapter(mainAdapter);
+
+
+        userWorkOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void done(final List<ParseObject> parseObjects, ParseException e) {
-                if (e == null) {
-                    Log.d("UserMain", "returned workorder_employee objects = " + parseObjects.size());
-                    //query factory for the List View adapter.
-                    ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                        public ParseQuery<ParseObject> create() {
-                            Log.d("UserMain", "ParseQuery Factory Create() method.");
-                            //gets all workorder table objects.
-                            ParseQuery<ParseObject> query1 = new ParseQuery<ParseObject>("WorkOrder");
-                            for (ParseObject po : parseObjects) {
-                                query1.whereEqualTo("objectId", po.getParseObject("workorder"));
-                                Log.d("UserMain", "Workorderquery where equal to " +po.getParseObject("workorder").getObjectId());
-                            }
-                            return query1;
-                        }
-                    };
-                    mainAdapter = new ParseQueryAdapter<ParseObject>(context, factory);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ParseObject po = (ParseObject) parent.getItemAtPosition(position);
 
-                    //not used yet. adapter to add multiple elements to a listitem.
-                    //adapter = new AdminuserWorkOrderListViewAdapter(this);
-
-                    userWorkOrderListView = (ListView) findViewById(R.id.user_employee_list_view);
-                    mainAdapter.setTextKey("description");
-                    userWorkOrderListView.setAdapter(mainAdapter);
-
-                    mainAdapter.loadObjects();
-
-                    userWorkOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            ParseObject po = (ParseObject) parent.getItemAtPosition(position);
-
-                            Intent intent = new Intent(view.getContext(), Activity_UserJobView.class);
-                            intent.putExtra("workOrderId", po.getObjectId());
-                            intent.putExtra("userId", objectId);
-                            Log.d("UserMainWorkorders", "WorkOrder:" + po.getObjectId() + " Employee: " + objectId);
-                            startActivity(intent);
-                        }
-                    });
-                }else{
-                    Log.d("UserMain", e.toString());
-                }
+                Intent intent = new Intent(view.getContext(), Activity_UserJobView.class);
+                intent.putExtra("workOrderId", po.getObjectId());
+                intent.putExtra("userId", objectId);
+                Log.d("UserMainWorkorders", "WorkOrder: " + po.getObjectId() + " Employee: " + objectId);
+                startActivity(intent);
             }
         });
-
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -120,4 +102,5 @@ public class Activity_UserMain extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
