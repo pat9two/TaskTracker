@@ -37,6 +37,7 @@ public class Activity_UserJobView extends Activity {
     Long resumed;
     Boolean startPressed = false;
     Boolean pausePressed = false;
+    Boolean resumePressed = false;
     String workOrderId;
     String userId;
     ParseQuery<ParseObject> query;
@@ -61,39 +62,37 @@ public class Activity_UserJobView extends Activity {
         matsValue = (TextView)findViewById(R.id.user_view_workMats_value);
 
 
-        query = ParseQuery.getQuery("WorkOrder");
-        query.include("department");
-        query.include("location");
-        query.getInBackground(workOrderId, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                if (e == null) {
-                    po = parseObject;
-                    ParseObject dep = po.getParseObject("department");
-                    ParseObject loc = po.getParseObject("location");
-                    depValue.setText(dep.getString("Department_id"));
-                    locValue.setText(loc.getString("Location_id"));
-
-                    descValue.setText(po.getString("description"));
-                    dateValue.setText(po.getString("scheduleDate"));
-                    matsValue.setText(po.getString("materials"));
-                }
-            }
-        });
-        ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("Workorder_Employee");
+        ParseQuery<ParseObject> wo_emp = ParseQuery.getQuery("WorkOrder_Employee");
         wo_emp.include("workorder");
         wo_emp.include("employee");
-        wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
-        wo_emp.whereEqualTo("employee", ParseObject.createWithoutData("Employee", userId));
-        wo_emp.findInBackground(new FindCallback<ParseObject>() {
+        wo_emp.getInBackground(workOrderId, new GetCallback<ParseObject>() {
             @Override
-            public void done(List<ParseObject> parseObjects, ParseException e) {
+            public void done(ParseObject parseObject, ParseException e) {
                 if(e == null){
-                    if(parseObjects.size() != 0){
-                        relationObject = parseObjects.get(0);
-                    }else{
-                        Log.d("UserJobView", "There are no emp_wo with these parameters.");
-                    }
+                    relationObject = parseObject;
+                    query = ParseQuery.getQuery("WorkOrder");
+                    query.include("department");
+                    query.include("location");
+                    query.getInBackground(parseObject.getParseObject("workorder").getObjectId(), new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+                            if (e == null) {
+                                po = parseObject;
+                                ParseObject dep = po.getParseObject("department");
+                                ParseObject loc = po.getParseObject("location");
+                                depValue.setText(dep.getString("Department_id"));
+                                locValue.setText(loc.getString("Location_id"));
+
+                                descValue.setText(po.getString("description"));
+                                dateValue.setText(po.getString("scheduleDate"));
+                                matsValue.setText(po.getString("materials"));
+                            } else {
+                                Log.d("UserJobView", "Workorder " + e.toString());
+                            }
+                        }
+                    });
+                }else{
+                    Log.d("UserJobView","Wo_emp " + e.toString());
                 }
             }
         });
@@ -111,13 +110,20 @@ public class Activity_UserJobView extends Activity {
     }
     public void Stop(View view){
         if(startPressed ) {
-
             stop = System.currentTimeMillis();
-            elapsed = stop - start;
+
             final int hours = (int) (elapsed / 3600000);
             final int minutes = (int) (elapsed - hours * 3600000) / 60000;
             final int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
 
+            if(pausePressed) {
+                relationObject.put("Elapsed_time", elapsed);
+            }else if(resumePressed) {
+                elapsed += stop - resumed;
+            }
+
+
+            elapsed = stop - start;
             //put this time elapsed and time stopped into the relational table of employee -- workorder (many to many)
             relationObject.put("Stop_time", sdf.format(stop));
             relationObject.put("Elapsed_time", ""+hours+":"+minutes+":"+seconds);
@@ -133,14 +139,15 @@ public class Activity_UserJobView extends Activity {
     public void Pause(View view){
         if(startPressed){
             paused = System.currentTimeMillis();
+            //the current elapsed time will be from start timestamp to when pause was pressed.
             elapsed = paused - start;
             pausePressed = true;
         }
     }
     public void Resume(View view){
         if(pausePressed){
+            pausePressed = false;
             resumed = System.currentTimeMillis();
-            elapsed += resumed - paused;
         }
     }
 }
