@@ -24,14 +24,14 @@ public class QueryAdapterWorkorderEmployeeRem extends ParseQueryAdapter<ParseObj
     }
 
     @Override
-    public View getItemView(final ParseObject parseobject, View v, ViewGroup parent) {
-        ViewHolder holder = null;
+    public View getItemView(final ParseObject workorderObject, View v, ViewGroup parent) {
+        ViewHolder holder;
         if (v == null) {
             //this is the layout file that contains a Relative layout containing a TextView and Checkbox element.
             v = View.inflate(getContext(), R.layout.admin_wo_employee_add_listitem, null);
             holder = new ViewHolder();
             holder.name = (TextView)v.findViewById(R.id.admin_wo_emp_add_name);
-            holder.name.setText(parseobject.getParseObject("employee").get("First_name").toString() + " ");
+            holder.name.setText(workorderObject.getParseObject("employee").get("First_name").toString() + " ");
             holder.checkbox = (CheckBox)v.findViewById(R.id.admin_wo_emp_add_checkbox);
             final CheckBox checkbox = holder.checkbox;
             v.setTag(holder);
@@ -41,13 +41,13 @@ public class QueryAdapterWorkorderEmployeeRem extends ParseQueryAdapter<ParseObj
                 public void onClick(View v) {
                     final boolean isChecked = checkbox.isChecked();
                     if(isChecked) {
-                        Log.d("WoEmpAdd", "Added to list: " + parseobject.getString("First_name") + " " + parseobject.getString("Last_name"));
+                        Log.d("WoEmpAdd", "Added to list: " + workorderObject.getString("First_name") + " " + workorderObject.getString("Last_name"));
 
-                        listToRem.add(parseobject);
+                        listToRem.add(workorderObject);
                         checkbox.setChecked(true);
                     }else{
-                        Log.d("WoEmpAdd", "Removed from list: " + parseobject.getString("First_name") + " " + parseobject.getString("Last_name"));
-                        listToRem.remove(parseobject);
+                        Log.d("WoEmpAdd", "Removed from list: " + workorderObject.getString("First_name") + " " + workorderObject.getString("Last_name"));
+                        listToRem.remove(workorderObject);
                         checkbox.setChecked(false);
                     }
                 }

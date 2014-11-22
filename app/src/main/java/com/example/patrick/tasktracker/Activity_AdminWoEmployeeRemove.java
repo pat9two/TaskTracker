@@ -47,6 +47,7 @@ public class Activity_AdminWoEmployeeRemove extends Activity {
             @Override
             public ParseQuery<ParseObject> create() {
                 ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                wo_emp.include("employee");
                 wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
                 return wo_emp;
             }
