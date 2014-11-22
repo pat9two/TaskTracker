@@ -131,4 +131,9 @@ public class Activity_AdminWoEmployeeRemove extends Activity {
             Toast.makeText(toastContext, text, duration).show();
         }
     }
+
+    public void cancelAction(View view)
+    {
+        finish();
+    }
 }

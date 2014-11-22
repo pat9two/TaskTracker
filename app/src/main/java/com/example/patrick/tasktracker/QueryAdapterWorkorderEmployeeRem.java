@@ -31,7 +31,7 @@ public class QueryAdapterWorkorderEmployeeRem extends ParseQueryAdapter<ParseObj
             v = View.inflate(getContext(), R.layout.admin_wo_employee_add_listitem, null);
             holder = new ViewHolder();
             holder.name = (TextView)v.findViewById(R.id.admin_wo_emp_add_name);
-            holder.name.setText(workorderObject.getParseObject("employee").get("First_name").toString() + " ");
+            holder.name.setText(workorderObject.getParseObject("employee").get("First_name").toString() + " " + workorderObject.getParseObject("employee").get("Last_name").toString());
             holder.checkbox = (CheckBox)v.findViewById(R.id.admin_wo_emp_add_checkbox);
             final CheckBox checkbox = holder.checkbox;
             v.setTag(holder);

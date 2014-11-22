@@ -7,8 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ListView;
 
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 
 /**
@@ -16,16 +18,30 @@ import com.parse.ParseQueryAdapter;
  */
 public class Activity_AdminWoEmployee extends ActionBarActivity {
 //display all employees attached to this work order.
-    String workorderId;
+    String workOrderId;
+    QueryAdapterWorkorderEmployee adapter;
+    ListView listview;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_employee);
         Intent intent = getIntent();
-        workorderId = intent.getStringExtra("extra");
+        workOrderId = intent.getStringExtra("extra");
 
-        //ParseQueryAdapter<ParseObject>
+        ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
+            @Override
+            public ParseQuery<ParseObject> create() {
+                ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                wo_emp.include("employee");
+                wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
+                return wo_emp;
+            }
+        };
+        adapter = new QueryAdapterWorkorderEmployee(this, factory);
+        listview = (ListView)findViewById(R.id.admin_wo_emp_listView);
+        listview.setAdapter(adapter);
+        adapter.loadObjects();
     }
 
     @Override
@@ -38,14 +54,14 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
 
     public void addEmployee(View view){
         Intent intent = new Intent(this, Activity_AdminWoEmployeeAdd.class);
-        intent.putExtra("extra", workorderId);
+        intent.putExtra("extra", workOrderId);
         startActivity(intent);
     }
 
     public void remEmployee(View view)
     {
         Intent intent = new Intent(this, Activity_AdminWoEmployeeRemove.class);
-        intent.putExtra("extra", workorderId);
+        intent.putExtra("extra", workOrderId);
         startActivity(intent);
     }
 
@@ -53,7 +69,7 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
-            case R.id.admin_wo_refresh_item:
+            case R.id.admin_employee_refresh_item:
                 finish();
                 startActivity(getIntent());
                 return true;

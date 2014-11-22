@@ -55,14 +55,16 @@
         android:id="@+id/admin_wo_rem_emp_cancel_button"
         android:layout_height="70dp"
         android:layout_width="125dp"
-        android:text="Cancel"/>
+        android:text="Cancel"
+        android:onClick="cancelAction"/>
 
     <Button
         android:id="@+id/admin_wo_rem_emp_removeSelected_button"
         android:layout_height="70dp"
         android:layout_width="125dp"
         android:text="Remove Selected"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="remEmployee"/>
 
     </RelativeLayout>
 
