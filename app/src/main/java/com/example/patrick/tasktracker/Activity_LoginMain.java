@@ -141,7 +141,6 @@ public class Activity_LoginMain extends Activity {
             query.whereLessThan("updatedAt", checkpoint);
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> objectList, ParseException e) {
-                    Log.d("Empty database", "Query returned " + objectList.size() + " entries");
                     if (e == null) {
                         for (ParseObject Employee : objectList) {
                             Employee emp = new Employee(
