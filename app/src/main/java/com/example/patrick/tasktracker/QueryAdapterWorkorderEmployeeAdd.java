@@ -17,9 +17,9 @@ import java.util.ArrayList;
  */
 public class QueryAdapterWorkorderEmployeeAdd extends ParseQueryAdapter<ParseObject> {
     ArrayList<ParseObject> listToAdd;
-    public QueryAdapterWorkorderEmployeeAdd(Context context, QueryFactory<ParseObject> factory,ArrayList<ParseObject> listToRemove) {
+    public QueryAdapterWorkorderEmployeeAdd(Context context, QueryFactory<ParseObject> factory,ArrayList<ParseObject> listToAdd) {
         super(context, factory);
-        this.listToAdd = listToRemove;
+        this.listToAdd = listToAdd;
     }
 
     @Override
