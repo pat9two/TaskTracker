@@ -111,4 +111,13 @@ public class Activity_AdminWoView extends ActionBarActivity {
         finish();
         startActivity(getIntent());
     }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        startActivity(intent);
+    }
 }

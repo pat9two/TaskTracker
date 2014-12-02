@@ -40,4 +40,8 @@ public class Activity_AdminMain extends Activity {
         Intent intent = new Intent(this, Activity_AdminDepartments.class);
         startActivity(intent);
     }
+
+    public void logoutAction(View view){
+        finish();
+    }
 }

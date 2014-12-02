@@ -2,6 +2,7 @@ package com.example.patrick.tasktracker;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -98,27 +99,29 @@ public class Activity_AdminWoNew extends Activity {
     }
     public void saveWorkOrder(View view) {
         if (!selectedDepartment.isEmpty() || !selectedLocation.isEmpty()){
-            ParseObject po = new ParseObject("WorkOrder");
-            //links to a department row
-            po.put("department", ParseObject.createWithoutData("Department", selectedDepartment));
-            //links to a location row
-            po.put("location", ParseObject.createWithoutData("Location", selectedLocation));
+            if(checkFields()) {
+                ParseObject po = new ParseObject("WorkOrder");
+                //links to a department row
+                po.put("department", ParseObject.createWithoutData("Department", selectedDepartment));
+                //links to a location row
+                po.put("location", ParseObject.createWithoutData("Location", selectedLocation));
 
-            po.put("description", descriptionBox.getText().toString());
-            po.put("materials", materialsBox.getText().toString());
-            //
-            po.put("workorderId", counter+1);
-            po.put("scheduleDate", scheduleDateButton.getText().toString().trim());
-            po.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if(e == null){
-                        finish();
-                    }else{
-                        Log.d("AdminWoNew", "" + e.toString());
+                po.put("description", descriptionBox.getText().toString());
+                po.put("materials", materialsBox.getText().toString());
+                //
+                po.put("workorderId", counter + 1);
+                po.put("scheduleDate", scheduleDateButton.getText().toString().trim());
+                po.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            finish();
+                        } else {
+                            Log.d("AdminWoNew", "" + e.toString());
+                        }
                     }
-                }
-            });
+                });
+            }
         }else{
             //show error for spinner not selected
             Log.d("AdminWorkorderNew", "must have selection in department spinner/location spinner");
@@ -135,5 +138,32 @@ public class Activity_AdminWoNew extends Activity {
 
     }
 
+    public Boolean checkFields(){
+        if(descriptionBox.getText().toString().trim().isEmpty()){
+            descriptionBox.setError("Cannot be empty.");
+            return false;
+        }
+        if(locationSpinner.getSelectedItem().toString().isEmpty()){
+            // START TOAST
+            Context toastContext = getApplicationContext();
+            CharSequence text = "Workorder needs a location.";
+            int duration = Toast.LENGTH_SHORT;
 
+            Toast.makeText(toastContext, text, duration).show();
+            // END TOAST
+            return false;
+        }
+        if(departmentSpinner.getSelectedItem().toString().isEmpty()){
+            // START TOAST
+            Context toastContext = getApplicationContext();
+            CharSequence text = "Workorder needs a department.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast.makeText(toastContext, text, duration).show();
+            // END TOAST
+            return false;
+        }
+        //materials box is allowed to be empty
+        return true;
+    }
 }
