@@ -143,7 +143,7 @@ public class Activity_AdminWoNew extends Activity {
             descriptionBox.setError("Cannot be empty.");
             return false;
         }
-        if(locationSpinner.getSelectedItem().toString().isEmpty()){
+        if(locationSpinner.getSelectedItem() == null){
             // START TOAST
             Context toastContext = getApplicationContext();
             CharSequence text = "Workorder needs a location.";

@@ -60,7 +60,8 @@
                 android:layout_width="125dp"
                 android:textSize="14sp"
                 android:text="Cancel"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:onClick="cancelAction"/>
 
             <Button
                 android:id="@+id/emp_rem_removeSelected_button"
@@ -69,7 +70,8 @@
                 android:textSize="14sp"
                 android:text="Remove Selected"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true"
+                android:onClick="removeEmployee"/>
             </RelativeLayout>
 
 
