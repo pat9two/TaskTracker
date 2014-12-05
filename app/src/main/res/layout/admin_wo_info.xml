@@ -183,7 +183,8 @@
             android:text="Delete"
             android:layout_width="100dp"
             android:layout_toRightOf="@id/admin_info_save_button"
-            android:layout_toLeftOf="@id/admin_info_cancel_button"/>
+            android:layout_toLeftOf="@id/admin_info_cancel_button"
+            android:onClick="deleteWorkorder"/>
 
     </RelativeLayout>
 
