@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -35,6 +36,7 @@ public class Activity_DepartmentLocInfo extends Activity {
     Department DepObject;
     ParseQueryAdapter<ParseObject> mainAdapter;
     EditText locName;
+    TextView isCharged, deptName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,20 @@ public class Activity_DepartmentLocInfo extends Activity {
         Intent intent = getIntent();
         DepObject = intent.getParcelableExtra("extra");
         final ParseObject po = new ParseObject("Department");
+        deptName = (TextView) findViewById(R.id.dept_loc_main_title);
+        isCharged = (TextView) findViewById(R.id.dept_loc_is_charged);
+
+        deptName.append("" + DepObject.getDepartment_name());
+
+        if(DepObject.getChargedStatus() == "0")
+        {
+            isCharged.append("Yes");
+        }
+        else
+        {
+            isCharged.append("No");
+        }
+
         po.put("objectId", DepObject.getSync_id());
         po.put("Department_id", DepObject.getDepartment_name());
         po.put("Charged", DepObject.getChargedStatus());

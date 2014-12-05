@@ -79,9 +79,14 @@ public class Activity_LoginMain extends Activity {
                 }
             }
         });
-
-
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        alert.setText("Logged out Successfully!");
+    }
+
     public void SyncData(){
         //Instantiate database handler
         final DatabaseHandler db = new DatabaseHandler(this);

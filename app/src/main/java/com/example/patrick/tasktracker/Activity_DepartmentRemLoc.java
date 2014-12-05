@@ -48,10 +48,7 @@ public class Activity_DepartmentRemLoc extends Activity {
         Intent intent = getIntent();
         DepObject = intent.getParcelableExtra("extra");
         final ParseObject po = new ParseObject("Department");
-        po.put("objectId", DepObject.getSync_id());
-        po.put("Department_id", DepObject.getDepartment_name());
-        po.put("Charged", DepObject.getChargedStatus());
-        Log.d("DepLocInfo", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
+        Log.d("DepRemove", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
 
 
         ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");

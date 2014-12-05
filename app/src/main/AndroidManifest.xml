@@ -14,7 +14,7 @@
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_LoginMain"
-            android:label="Login">
+            android:label="TaskTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,7 +56,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_DepartmentLocInfo"
             android:label="Department: Location Info"
-            android:parentActivityName=".Activity_AdminNewDepartment"
+            android:parentActivityName=".Activity_AdminDepartments"
             android:windowSoftInputMode="stateHidden">
 
         </activity>

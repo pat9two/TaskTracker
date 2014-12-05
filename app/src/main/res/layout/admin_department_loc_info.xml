@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/dept_loc_main_title"
-        android:text="Admin: Department Location Info."
+        android:text="Admin: Dept: "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -41,13 +41,26 @@
             android:layout_width="1dp"
             android:layout_height="35dp"/>
 
+        <TextView
+            android:id="@+id/dept_loc_is_charged"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Is a charged account? : "
+            android:layout_below="@id/dept_loc_spacing_1" />
+
+            <Space
+                android:id="@+id/dept_loc_spacing_1_2"
+                android:layout_width="1dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/dept_loc_is_charged"/>
+
         <EditText
             android:id="@+id/new_dept_field"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="New Location Name"
             android:inputType="text"
-            android:layout_below="@id/dept_loc_spacing_1"
+            android:layout_below="@id/dept_loc_spacing_1_2"
             android:descendantFocusability="beforeDescendants"
             android:focusableInTouchMode="true"/>
 
@@ -62,7 +75,7 @@
             android:id="@+id/dept_loc_spacing_3"
             android:layout_width="1dp"
             android:layout_height="60dp"
-            android:layout_below="@id/dept_loc_spacing_1" />
+            android:layout_below="@id/dept_loc_spacing_2" />
 
         <ListView
             android:id="@+id/dept_loc_view"
