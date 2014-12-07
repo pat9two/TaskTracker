@@ -6,9 +6,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * Created by Shwaat on 11/3/2014.
- */
+
 public class Activity_AdminMain extends Activity {
     TextView title;
     String username;
@@ -24,23 +22,25 @@ public class Activity_AdminMain extends Activity {
         title.setText("Welcome " + username);
     }
 
+    //button on click method
     public void viewWorkOrders(View view){
         Intent intent = new Intent(this, Activity_AdminWoView.class);
         startActivity(intent);
     }
 
-
+    //button on click method
     public void viewEmployees(View view){
         Intent intent = new Intent(this, Activity_EmployeeMain.class);
         startActivity(intent);
     }
 
-
+    //button on click method
     public void viewDepartments(View view){
         Intent intent = new Intent(this, Activity_AdminDepartments.class);
         startActivity(intent);
     }
 
+    //button on click method
     public void logoutAction(View view)
     {
         finish();
