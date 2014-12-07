@@ -65,34 +65,42 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
                     ParseObject dep = parseObject.getParseObject("department");
                     ParseObject loc = parseObject.getParseObject("location");
 
-                    Log.d("adminWoInfo", "Department objectId: " + dep.getObjectId());
-                    Log.d("adminWoInfo", "Location objectId: " + loc.getObjectId());
+                    if(dep != null && loc != null) {
+                        Log.d("adminWoInfo", "Department objectId: " + dep.getObjectId());
+                        Log.d("adminWoInfo", "Location objectId: " + loc.getObjectId());
 
-                    ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
-                    depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>() {
-                        public void done(ParseObject object, ParseException e) {
-                            if (e == null) {
+                        ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
+                        depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, ParseException e) {
+                                if (e == null) {
 
-                                department.setText(object.getString("Department_id"));
-                            } else {
-                                Log.d("adminwoinfo", e.toString());
+                                    department.setText(object.getString("Department_id"));
+                                } else {
+                                    Log.d("adminwoinfo", e.toString());
+                                }
                             }
-                        }
-                    });
-                    ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
-                    locquery.whereEqualTo("objectId", loc.getObjectId());
-                    locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>() {
-                        public void done(ParseObject object, ParseException e) {
-                            if (e == null) {
-                                location.setText(object.getString("Location_id"));
-                            } else {
-                                Log.d("adminwoinfo", e.toString());
+                        });
+                        ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
+                        locquery.whereEqualTo("objectId", loc.getObjectId());
+                        locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, ParseException e) {
+                                if (e == null) {
+                                    location.setText(object.getString("Location_id"));
+                                } else {
+                                    Log.d("adminwoinfo", e.toString());
+                                }
                             }
-                        }
-                    });
-                    description.setText(wo.getString("description"));
-                    materials.setText(wo.getString("materials"));
-                    schedule.setText(wo.getString("scheduleDate"));
+                        });
+                        description.setText(wo.getString("description"));
+                        materials.setText(wo.getString("materials"));
+                        schedule.setText(wo.getString("scheduleDate"));
+                    }
+                    else
+                        location.setText("Null");
+                        department.setText("Null");
+                        description.setText(wo.getString("description"));
+                        materials.setText(wo.getString("materials"));
+                        schedule.setText(wo.getString("scheduleDate"));
 
                 }
             }

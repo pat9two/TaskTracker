@@ -82,7 +82,7 @@ public class Activity_AdminDepartments extends ActionBarActivity {
 
     //on click button method to remove a department. Navigates to next activity.
     public void remDepartment(View view){
-        Intent intent = new Intent(this, Activity_DepartmentRemLoc.class);
+        Intent intent = new Intent(this, Activity_DepartmentRem.class);
         startActivity(intent);
     }
 
