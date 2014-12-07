@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class Activity_AdminWoEmployeeRemove extends Activity {
 
-    String workOrderId, empObjId;
+    String workOrderId;
     QueryAdapterWorkorderEmployeeRem adapter;
     ArrayList<ParseObject> listToRemove = new ArrayList<ParseObject>();
     ListView listview;
@@ -40,23 +40,30 @@ public class Activity_AdminWoEmployeeRemove extends Activity {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_employee_remove);
+        //get data passed from previous activity
         Intent intent = getIntent();
         workOrderId = intent.getStringExtra("extra");
 
+        //parse query factory used to populate adapter.
         ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
             @Override
             public ParseQuery<ParseObject> create() {
+                //get all Workorder_Employee table objects.
                 ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                //include the employee objects referenced from the WorkOrder_Employee table.
                 wo_emp.include("employee");
                 wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
                 return wo_emp;
             }
         };
+        //uses custom adapter in order to use a custom xml listitem.
+        //listtoremove hold the user selected employees to remove from the workorder.
         adapter = new QueryAdapterWorkorderEmployeeRem(this, factory, listToRemove);
         listview = (ListView)findViewById(R.id.admin_wo_rem_emp_listView);
         listview.setAdapter(adapter);
         adapter.loadObjects();
 
+        //on list item click, add to the removal list if not selected already. remove if selected.
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
