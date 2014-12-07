@@ -59,7 +59,7 @@ public class Activity_AdminDepartments extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
                 Department dep = new Department(po.getObjectId(), po.get("Department_id").toString(), po.get("Charged").toString());
-
+                Log.d("AdminDepartments", "Charged status is : " + po.getString("Charged"));
                 Intent intent = new Intent(view.getContext(), Activity_DepartmentLocInfo.class);
                 intent.putExtra("extra", dep);
                 Log.d("AdminDepartments", " " +po.getObjectId());

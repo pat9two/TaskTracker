@@ -53,7 +53,12 @@ public class Activity_DepartmentLocInfo extends Activity {
 
         deptName.append("" + DepObject.getDepartment_name());
 
-        if(DepObject.getChargedStatus() == "0")
+        po.put("objectId", DepObject.getSync_id());
+        po.put("Department_id", DepObject.getDepartment_name());
+        po.put("Charged", DepObject.getChargedStatus());
+        Log.d("DepLocInfo", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
+
+        if(po.getString("Charged").contentEquals("1"))
         {
             isCharged.append("Yes");
         }
@@ -62,10 +67,7 @@ public class Activity_DepartmentLocInfo extends Activity {
             isCharged.append("No");
         }
 
-        po.put("objectId", DepObject.getSync_id());
-        po.put("Department_id", DepObject.getDepartment_name());
-        po.put("Charged", DepObject.getChargedStatus());
-        Log.d("DepLocInfo", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
+
 
 
         ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");
