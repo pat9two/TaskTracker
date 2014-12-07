@@ -37,9 +37,13 @@ public class Activity_AdminNewDepartment extends Activity {
         intent = new Intent(this, Activity_AdminDepartments.class);
 
     }
+    //button on click method
     public void cancelDep(View view){
+        //go back to previous activity.
         finish();
     }
+
+    //button on click method
     public void addDep(View view){
         depName = (EditText)findViewById(R.id.new_dept_field);
         depRadioGroup = (RadioGroup)findViewById(R.id.new_dept_radio_group);
