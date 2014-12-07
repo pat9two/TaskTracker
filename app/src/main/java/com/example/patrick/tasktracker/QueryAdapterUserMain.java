@@ -16,6 +16,7 @@ public class QueryAdapterUserMain extends  ParseQueryAdapter<ParseObject>{
         super(context, factory);
     }
 
+    //returns custom list item view of the workorder number along with the description.
     @Override
     public View getItemView(final ParseObject parseobject, View v, ViewGroup parent) {
         ViewHolder holder = null;

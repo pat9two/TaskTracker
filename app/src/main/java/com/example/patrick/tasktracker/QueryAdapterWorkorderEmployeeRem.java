@@ -13,9 +13,7 @@ import com.parse.ParseQueryAdapter;
 
 import java.util.ArrayList;
 
-/**
- * Created by Shwaat on 11/22/2014.
- */
+
 public class QueryAdapterWorkorderEmployeeRem extends ParseQueryAdapter<ParseObject> {
     ArrayList<ParseObject> listToRem;
     public QueryAdapterWorkorderEmployeeRem(Context context, ParseQueryAdapter.QueryFactory<ParseObject> factory,ArrayList<ParseObject> listToRemove) {
@@ -36,6 +34,7 @@ public class QueryAdapterWorkorderEmployeeRem extends ParseQueryAdapter<ParseObj
             final CheckBox checkbox = holder.checkbox;
             v.setTag(holder);
 
+            //listener to run when user presses on the checkbox.
             holder.checkbox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

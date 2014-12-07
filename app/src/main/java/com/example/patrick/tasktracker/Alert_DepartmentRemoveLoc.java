@@ -6,10 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-
-/**
- * Created by Shwaat on 11/13/2014.
- */
+//not used.
 public class Alert_DepartmentRemoveLoc extends DialogFragment
 {
     @Override

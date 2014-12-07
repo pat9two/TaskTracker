@@ -6,9 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-/**
- * Created by Patrick on 12/1/2014.
- */
+//not used.
 public class Alert_WorkorderRemove extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)

@@ -60,8 +60,7 @@ public class Activity_UserMain extends ActionBarActivity {
         };
         mainAdapter = new QueryAdapterUserMain(context, factory);
 
-        //not used yet. adapter to add multiple elements to a listitem.
-        //adapter = new AdminuserWorkOrderListViewAdapter(this);
+
 
         userWorkOrderListView = (ListView) findViewById(R.id.user_employee_list_view);
         userWorkOrderListView.setAdapter(mainAdapter);
