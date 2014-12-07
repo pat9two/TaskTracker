@@ -26,9 +26,7 @@ import com.parse.ParseQueryAdapter;
 
 import java.util.List;
 
-/**
- * Created by Shwaat on 11/11/2014.
- */
+
 public class Activity_AdminWoInfo extends ActionBarActivity {
     String objectId;
     TextView department;
@@ -46,18 +44,19 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         Intent intent = getIntent();
         objectId  = intent.getStringExtra("extra");
         Log.d("WoInfo", "intent extra objectId: " + objectId);
+        //set all xml elements to the local variables
         department = (TextView)findViewById(R.id.admin_wo_info_dept_label_value);
         location = (TextView)findViewById(R.id.admin_wo_info_loc_label_value);
         description = (TextView)findViewById(R.id.admin_wo_info_desc_label_value);
         materials = (TextView)findViewById(R.id.admin_wo_info_mats_label_value);
         schedule = (TextView)findViewById(R.id.admin_wo_info_schedule_label_value);
-        //ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
-       // ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
 
+        //parse query to get all information referenced by the WorkOrder table.
         ParseQuery<ParseObject> woquery = ParseQuery.getQuery("WorkOrder");
         woquery.include("department");
         woquery.include("location");
         woquery.getInBackground(objectId, new GetCallback<ParseObject>() {
+            //after all WorkOrder objects are retreived, run this.
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 if (e == null) {
@@ -65,21 +64,25 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
                     ParseObject dep = parseObject.getParseObject("department");
                     ParseObject loc = parseObject.getParseObject("location");
 
+                    //checks if there are missing references from deletion of departments and locations.
                     if(dep != null && loc != null) {
+                        //log statements.
                         Log.d("adminWoInfo", "Department objectId: " + dep.getObjectId());
                         Log.d("adminWoInfo", "Location objectId: " + loc.getObjectId());
 
+                        //shows the department value in the app.
                         ParseQuery<ParseObject> depquery = ParseQuery.getQuery("Department");
                         depquery.getInBackground(dep.getObjectId(), new GetCallback<ParseObject>() {
                             public void done(ParseObject object, ParseException e) {
                                 if (e == null) {
-
                                     department.setText(object.getString("Department_id"));
                                 } else {
+                                    //log exception
                                     Log.d("adminwoinfo", e.toString());
                                 }
                             }
                         });
+                        //shows the location value in the app.
                         ParseQuery<ParseObject> locquery = ParseQuery.getQuery("Location");
                         locquery.whereEqualTo("objectId", loc.getObjectId());
                         locquery.getInBackground(loc.getObjectId(), new GetCallback<ParseObject>() {
@@ -87,21 +90,22 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
                                 if (e == null) {
                                     location.setText(object.getString("Location_id"));
                                 } else {
+                                    //log exception
                                     Log.d("adminwoinfo", e.toString());
                                 }
                             }
                         });
+                        //shows description, materials, and schedule in the app.
                         description.setText(wo.getString("description"));
                         materials.setText(wo.getString("materials"));
                         schedule.setText(wo.getString("scheduleDate"));
-                    }
-                    else
+                    }else{
                         location.setText("Null");
                         department.setText("Null");
                         description.setText(wo.getString("description"));
                         materials.setText(wo.getString("materials"));
                         schedule.setText(wo.getString("scheduleDate"));
-
+                    }
                 }
             }
         });
@@ -110,7 +114,7 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu items for use in the action bar
+        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.wo_info_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
@@ -127,11 +131,14 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         }
     }
 
+    //button on click method. navigate to next activity. pass the object id of the workorder.
     public void assignedEmployees(){
         Intent intent = new Intent(this, Activity_AdminWoEmployee.class);
         intent.putExtra("extra", objectId);
         startActivity(intent);
     }
+
+    //button on click method. deletes the workorder that is currently being viewed.
     public void deleteWorkorder(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -176,8 +183,6 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         dialog.show();
 
     }
-
-
     public void cancelAction(View view){
         finish();
     }
