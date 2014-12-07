@@ -37,16 +37,18 @@ public class Activity_AdminWoNew extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_new);
-
+        //set xml elements to local variables.
         departmentSpinner = (Spinner)findViewById(R.id.admin_new_departmentSpinner);
         locationSpinner = (Spinner)findViewById(R.id.admin_new_locationSpinner);
         descriptionBox = (EditText)findViewById(R.id.admin_new_workDesc_textBox);
         materialsBox = (EditText)findViewById(R.id.admin_new_workMats_textBox);
         scheduleDateButton = (Button)findViewById(R.id.admin_new_schedule_button);
 
+        //set adapter to the spinner in order to populate it with deparments
         departmentSpinnerAdapter = new ParseQueryAdapter<ParseObject>(this, "Department");
         departmentSpinner.setAdapter(departmentSpinnerAdapter);
         departmentSpinnerAdapter.setTextKey("Department_id");
+        //when a department is selected from the first spinner, the 2nd spinner (locations) will be populated with the related locations.
         departmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -77,6 +79,7 @@ public class Activity_AdminWoNew extends Activity {
             @Override
             public void done(int i, ParseException e) {
                 if(e == null){
+                    //counter in order to display the number a workorder has.
                     counter = i;
                 }
             }
@@ -87,18 +90,19 @@ public class Activity_AdminWoNew extends Activity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
                 selectedLocation = po.getObjectId();
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
-
     }
+
+    //button on click method
     public void saveWorkOrder(View view) {
+        //checks if there are values selected in both spinners. (drop downs)
         if (!selectedDepartment.isEmpty() || !selectedLocation.isEmpty()){
+            //checks if the fields are filled in correctly via checkFields() method.
             if(checkFields()) {
                 ParseObject po = new ParseObject("WorkOrder");
                 //links to a department row
@@ -115,8 +119,10 @@ public class Activity_AdminWoNew extends Activity {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
+                            //finishes current activity and returns to previous activity.
                             finish();
                         } else {
+                            //log exception.
                             Log.d("AdminWoNew", "" + e.toString());
                         }
                     }
@@ -128,16 +134,19 @@ public class Activity_AdminWoNew extends Activity {
         }
     }
 
+    //button on click method. returns to previous activity doing no actions.
     public void cancel(View view){
         finish();
     }
 
+    //button on click method. shows the date picker popup.
     public void showDatePickerDialog(View view){
+        //custom dialog fragment to show only month, day, and year.
         DialogFragment newFragment = new AdminWoNew_setDate();
         newFragment.show(getFragmentManager(), "datePicker");
-
     }
 
+    //method to validate field entries. fields cannot be empty.
     public Boolean checkFields(){
         if(descriptionBox.getText().toString().trim().isEmpty()){
             descriptionBox.setError("Cannot be empty.");
