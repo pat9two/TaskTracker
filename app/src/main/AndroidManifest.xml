@@ -54,6 +54,16 @@
         <activity
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
+            android:name=".Activity_DepartmentRem"
+            android:label="Admin: Remove Department"
+            android:parentActivityName=".Activity_AdminDepartments"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_DepartmentLocInfo"
             android:label="Department: Location Info"
             android:parentActivityName=".Activity_AdminDepartments"

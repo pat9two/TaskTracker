@@ -74,7 +74,7 @@ public class Activity_AdminDepartments extends ActionBarActivity {
     }
 
     public void remDepartment(View view){
-        Intent intent = new Intent(this, Activity_DepartmentRemLoc.class);
+        Intent intent = new Intent(this, Activity_DepartmentRem.class);
         startActivity(intent);
     }
 

@@ -15,7 +15,7 @@ public class Alert_EmployeeRemove extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Confirm: Remove Location?")
+        builder.setMessage("Confirm: Remove Employee?")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // DELETE
