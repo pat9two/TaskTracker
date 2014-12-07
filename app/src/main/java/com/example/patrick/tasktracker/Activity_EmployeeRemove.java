@@ -36,7 +36,10 @@ public class Activity_EmployeeRemove extends Activity {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
 
         super.onCreate(savedInstanceState);
+        //set xml layout
         setContentView(R.layout.admin_employee_remove);
+
+        //query factory to be used by adapter. gets all employee objects.
         ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
             @Override
             public ParseQuery<ParseObject> create() {
@@ -44,11 +47,13 @@ public class Activity_EmployeeRemove extends Activity {
                 return query;
             }
         };
+        //custom adapter to show employee with a checkbox in each listitem.
         adapter = new QueryAdapterEmpRemove(this, factory, listToRemove);
         listview = (ListView)findViewById(R.id.emp_rem_list_view);
         listview.setAdapter(adapter);
         adapter.loadObjects();
 
+        //set listener for when user presses on a listitem or the checkbox in order to add or remove an employee from being removed.
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -68,6 +73,7 @@ public class Activity_EmployeeRemove extends Activity {
         });
     }
 
+    //button on click method. removes all employees contained in listtoremove.
     public void removeEmployee(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -114,6 +120,7 @@ public class Activity_EmployeeRemove extends Activity {
         dialog.show();
 
     }
+    //button on click method. does nothing and returns to previous activity.
     public void cancelAction(View view)
     {
         finish();

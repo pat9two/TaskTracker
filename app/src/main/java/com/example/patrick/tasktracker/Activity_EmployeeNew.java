@@ -24,8 +24,10 @@ public class Activity_EmployeeNew extends Activity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        //set xml layout
         setContentView(R.layout.admin_employee_new);
 
+        //set local variables to xml elements.
         First_name = (EditText)findViewById(R.id.admin_addEmp_fName_field);
         Last_name = (EditText)findViewById(R.id.admin_addEmp_lName_field);
         Eagle_id = (EditText)findViewById(R.id.admin_addEmp_eID_field);
@@ -39,7 +41,7 @@ public class Activity_EmployeeNew extends Activity {
 
     public void AddEmp(View view){
 
-
+        //for use in checkFields() method.
         info[0] = First_name;
         info[1] = Last_name;
         info[2] = Eagle_id;
@@ -47,6 +49,7 @@ public class Activity_EmployeeNew extends Activity {
         info[4] = Password;
         info[5] = Confirm_password;
 
+        //if all fields are valid, run code.
         if(CheckFields()){
             final ParseObject po = new ParseObject("Employee");
 
@@ -56,6 +59,7 @@ public class Activity_EmployeeNew extends Activity {
             po.put("User_name", info[3].getText().toString().trim());
             po.put("Password", info[4].getText().toString().trim());
 
+            //if no radio button selection is made, admin value defaults 0.
             String adminValue = "0";
             // Sets administrator based on the radio button that was selected.
             if(adminYes.isChecked())
