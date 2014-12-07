@@ -29,23 +29,21 @@ public class Activity_AdminWoView extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_view);
-
+        //create adapter to populate listview
         mainAdapter = new ParseQueryAdapter<ParseObject>(this, "WorkOrder");
+        //the value that will be shown is the TextKey.
         mainAdapter.setTextKey("WorkOrder_id");
-
-        //not used
-        //adapter = new AdminworkOrderListViewAdapter(this);
 
         workOrderListView = (ListView)findViewById(R.id.job_list_view);
         mainAdapter.setTextKey("description");
         workOrderListView.setAdapter(mainAdapter);
         mainAdapter.loadObjects();
 
+        //when a user presses on the listitem, it will navigate to the work order info activity
         workOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseObject po = (ParseObject)parent.getItemAtPosition(position);
-
 
                 Intent intent = new Intent(view.getContext(), Activity_AdminWoInfo.class);
                 intent.putExtra("extra", po.getObjectId());
@@ -55,21 +53,6 @@ public class Activity_AdminWoView extends ActionBarActivity {
         });
     }
 
-    public void runSearch(){
-       // EditText SearchCriteria = (EditText)findViewById(R.id.search_job_field);
-        //String searchTerm = SearchCriteria.getText().toString().trim();
-        //search all tables for the searchcritera. limited to departments locations, orders with employees assigned.
-
-        //search departments
-
-        //search locations
-
-        //search workorder id
-
-        //search employees
-
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,10 +72,6 @@ public class Activity_AdminWoView extends ActionBarActivity {
             case R.id.admin_wo_assign_emp_item:
                 // do create wo employees stuff
                 return true;
-            case R.id.admin_wo_search_item:
-                // do search stuff
-                runSearch();
-                return true;
             case R.id.admin_wo_refresh_item:
                 refreshActivity();
                 return true;
@@ -101,6 +80,7 @@ public class Activity_AdminWoView extends ActionBarActivity {
         }
     }
 
+    //button on click method to create new work order
     public void woCreateOption(){
         Intent intent = new Intent(this, Activity_AdminWoNew.class);
         startActivity(intent);

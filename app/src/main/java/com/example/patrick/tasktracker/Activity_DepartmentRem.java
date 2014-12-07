@@ -35,19 +35,24 @@ public class Activity_DepartmentRem extends Activity {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
 
         super.onCreate(savedInstanceState);
+        //set xml layout file.
         setContentView(R.layout.admin_department_remove);
+        //query factory for adapter use.
         ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
             @Override
             public ParseQuery<ParseObject> create() {
+                //gets all department objects in the parse database.
                 ParseQuery query = new ParseQuery("Department");
                 return query;
             }
         };
+        //customer adapter uses the query factory and the array in order for the user to select multiple departments to remove them.
         adapter = new QueryAdapterDeptRemove(this, factory, listToRemove);
         listview = (ListView)findViewById(R.id.admin_rem_dept_listView);
         listview.setAdapter(adapter);
         adapter.loadObjects();
 
+        //adds a department to the listtoremove if its not already on the list. if it is already on the list, remove it from the list.
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -67,6 +72,7 @@ public class Activity_DepartmentRem extends Activity {
         });
     }
 
+    //button on click method. takes the listtoremove and removes all of them from the database.
     public void removeDepartment(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
