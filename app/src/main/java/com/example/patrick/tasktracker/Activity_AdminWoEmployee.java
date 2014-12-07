@@ -27,17 +27,22 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_wo_employee);
         Intent intent = getIntent();
+        //get data passed from previous activity
         workOrderId = intent.getStringExtra("extra");
 
+        //creates query to be used to populate adapter.
         ParseQueryAdapter.QueryFactory<ParseObject> factory = new ParseQueryAdapter.QueryFactory<ParseObject>() {
             @Override
             public ParseQuery<ParseObject> create() {
                 ParseQuery<ParseObject> wo_emp = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                //includes the employee object that is referenced by the workorder_employee table.
                 wo_emp.include("employee");
+                //where the objectId column is equal to the workOrderId.
                 wo_emp.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", workOrderId));
                 return wo_emp;
             }
         };
+        //custom adapter uses factory query above.
         adapter = new QueryAdapterWorkorderEmployee(this, factory);
         listview = (ListView)findViewById(R.id.admin_wo_emp_listView);
         listview.setAdapter(adapter);
@@ -46,18 +51,20 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-// Inflate the menu items for use in the action bar
+        // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_actionbar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    //button on click method. navgates to next activity.
     public void addEmployee(View view){
         Intent intent = new Intent(this, Activity_AdminWoEmployeeAdd.class);
         intent.putExtra("extra", workOrderId);
         startActivity(intent);
     }
 
+    //button on click method. navgates to next activity.
     public void remEmployee(View view)
     {
         Intent intent = new Intent(this, Activity_AdminWoEmployeeRemove.class);
