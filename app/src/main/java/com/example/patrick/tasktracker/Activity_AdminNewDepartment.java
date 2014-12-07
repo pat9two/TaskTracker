@@ -1,6 +1,7 @@
 package com.example.patrick.tasktracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -70,8 +72,17 @@ public class Activity_AdminNewDepartment extends Activity {
                         });
                     }else{
                         //this department already exists, show alert.
+                        // START TOAST
+                        Context toastContext = getApplicationContext();
+                        CharSequence text = "This department already exists.";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast.makeText(toastContext, text, duration).show();
+                        // END TOAST
+
                     }
                 }else{
+                    //failure to find the object  --  not connected to internet.
                     Log.d("NewDepartment", e.toString());
                 }
             }
