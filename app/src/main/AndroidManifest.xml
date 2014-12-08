@@ -11,8 +11,10 @@
 
         <!-- MAIN ACTIVITY-->
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_LoginMain"
-            android:label="Login">
+            android:label="TaskTracker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,41 +24,59 @@
 
         <!-- START DEPARTMENTS PARENT/CHILD STRUCTURE -->
         <activity
-            android:name=".HomepageActivity"
-            android:label="homepage">
-
-        </activity>
-        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminMain"
             android:label="@string/app_name"
-            android:parentActivityName=".Activity_LoginMain">
+            android:parentActivityName=".Activity_LoginMain"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminDepartments"
             android:label="Admin: View Departments"
             android:parentActivityName=".Activity_AdminMain"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminNewDepartment"
             android:label="Admin: New Department"
-            android:parentActivityName=".Activity_AdminDepartments">
+            android:parentActivityName=".Activity_AdminDepartments"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:name=".Activity_DepartmentRem"
+            android:label="Admin: Remove Department"
+            android:parentActivityName=".Activity_AdminDepartments"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_DepartmentLocInfo"
-            android:label="Admin: Department Location Info"
-            android:parentActivityName=".Activity_AdminNewDepartment">
+            android:label="Department: Location Info"
+            android:parentActivityName=".Activity_AdminDepartments"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_DepartmentRemLoc"
-            android:label="Admin: Remove Location to Department"
-            android:parentActivityName=".Activity_DepartmentLocInfo">
+            android:label="Department: Remove Location"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
         <!-- END DEPARTMENTS PARENT/CHILD STRUCTURE -->
@@ -64,24 +84,43 @@
         <!-- START EMPLOYEE PARENT/CHILD STRUCTURE -->
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_EmployeeMain"
             android:label="Admin: Employees"
-            android:parentActivityName=".Activity_AdminMain">
+            android:parentActivityName=".Activity_AdminMain"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:name=".Activity_EmployeeInfo"
+            android:label="Admin: Employee Info"
+            android:parentActivityName=".Activity_EmployeeMain"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_EmployeeNew"
             android:label="Admin: New Employee"
-            android:parentActivityName=".Activity_EmployeeMain">
+            android:parentActivityName=".Activity_EmployeeMain"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_EmployeeRemove"
             android:label="Admin: Remove Employee"
-            android:parentActivityName=".Activity_EmployeeMain">
-
+            android:parentActivityName=".Activity_EmployeeMain"
+            android:windowSoftInputMode="stateHidden">
         </activity>
 
         <!-- END EMPLOYEE PARENT/CHILD STRUCTURE -->
@@ -89,37 +128,62 @@
         <!-- START WORK ORDER PARENT/CHILD STRUCTURE -->
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoView"
             android:label="Admin: Work Orders"
-            android:parentActivityName=".Activity_AdminMain">
+            android:parentActivityName=".Activity_AdminMain"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoNew"
             android:label="Admin: New Work Order"
-            android:parentActivityName=".Activity_AdminWoView">
+            android:parentActivityName=".Activity_AdminWoView"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:name=".Activity_AdminWoInfo"
+            android:label="Admin: Work Order"
+            android:parentActivityName=".Activity_AdminWoView"
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
+
+        <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoEmployee"
-            android:label="Admin: New Work Order"
-            android:parentActivityName=".Activity_AdminWoNew">
+            android:label="Work Order: View Employee"
+            android:parentActivityName=".Activity_AdminWoNew"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoEmployeeAdd"
-            android:label="Admin: Work Order- Add Employee"
-            android:parentActivityName=".Activity_AdminWoEmployee">
+            android:label="Work Order: Add Employee"
+            android:parentActivityName=".Activity_AdminWoEmployee"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_AdminWoEmployeeRemove"
-            android:label="Admin: Work Order- Remove Employee"
-            android:parentActivityName=".Activity_AdminWoEmployee">
+            android:label="Work Order: Remove Employee"
+            android:parentActivityName=".Activity_AdminWoEmployee"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
@@ -128,16 +192,22 @@
         <!-- START USER PARENT/CHILD STRUCTURE -->
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_UserMain"
             android:label="User: Work Orders"
-            android:parentActivityName=".Activity_LoginMain">
+            android:parentActivityName=".Activity_LoginMain"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".Activity_UserJobView"
-            android:label="User: Work Orders: View Details"
-            android:parentActivityName=".Activity_UserMain">
+            android:label="Work Orders: View Details"
+            android:parentActivityName=".Activity_UserMain"
+            android:windowSoftInputMode="stateHidden">
 
         </activity>
 

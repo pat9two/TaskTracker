@@ -13,7 +13,7 @@
     <!-- New Work Order Title String -->
     <TextView
         android:id="@+id/user_view_title_string"
-        android:text="Work Order #"
+        android:text="Work Order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -200,7 +200,8 @@
         android:layout_height="50dp"
         android:text="Start Job"
         android:layout_width="100dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:onClick="Start"/>
 
     <Button
         android:id="@+id/user_view_end_button"
@@ -208,14 +209,16 @@
         android:text="End Job"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/user_view_start_button" />
+        android:layout_below="@id/user_view_start_button"
+        android:onClick="Stop"/>
 
     <Button
         android:id="@+id/user_view_pause_button"
         android:layout_height="50dp"
         android:text="Pause"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="Pause"/>
 
     <Button
         android:id="@+id/user_view_resume_button"
@@ -223,7 +226,8 @@
         android:text="Resume"
         android:layout_width="100dp"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/user_view_pause_button" />
+        android:layout_below="@id/user_view_pause_button"
+        android:onClick="Resume"/>
 </RelativeLayout>
 
 

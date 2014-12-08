@@ -55,7 +55,8 @@
             android:text="Remove Selected"
             android:textSize="14sp"
             android:layout_width="100dp"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="removeLoc"/>
 
         <Button
             android:id="@+id/dept_rem_loc_cancel_button"
@@ -63,7 +64,8 @@
             android:text="Cancel"
             android:layout_width="100dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="cancelAction"/>
         </RelativeLayout>
 
 

@@ -1,26 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:TaskTracker="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/admin_wo_info_item"
-        android:title="Info"
-        TaskTracker:showAsAction="never" />
     <item
         android:id="@+id/admin_wo_assign_emp_item"
         android:title="Employees"
-        TaskTracker:showAsAction="never" />
+        TaskTracker:showAsAction="never"/>
     <item
         android:id="@+id/admin_wo_search_item"
         android:icon="@drawable/ic_action_search"
         android:title="Search"
-        TaskTracker:showAsAction="ifRoom" />
+        TaskTracker:showAsAction="ifRoom|collapseActionView"
+        TaskTracker:actionViewClass="android.support.v7.widget.SearchView" />
     <item
         android:id="@+id/admin_wo_refresh_item"
         android:icon="@drawable/ic_action_refresh"
         android:title="Refresh"
         TaskTracker:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/admin_wo_settings_item"
-        android:title="Settings"
-        TaskTracker:showAsAction="never" />
 </menu>

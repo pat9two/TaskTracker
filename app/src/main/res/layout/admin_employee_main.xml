@@ -47,8 +47,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/emp_add_employee"
         android:layout_toRightOf="@id/emp_add_employee"
+        android:layout_below="@id/emp_spacing_1"
         android:text="Remove Employee"
         android:onClick="removeEmployee"/>
 

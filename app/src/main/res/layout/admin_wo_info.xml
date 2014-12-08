@@ -174,7 +174,8 @@
             android:layout_height="50dp"
             android:text="Cancel"
             android:layout_width="100dp"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:onClick="cancelAction"/>
 
         <Button
             android:id="@+id/admin_info_delete_button"
@@ -182,7 +183,8 @@
             android:text="Delete"
             android:layout_width="100dp"
             android:layout_toRightOf="@id/admin_info_save_button"
-            android:layout_toLeftOf="@id/admin_info_cancel_button"/>
+            android:layout_toLeftOf="@id/admin_info_cancel_button"
+            android:onClick="deleteWorkorder"/>
 
     </RelativeLayout>
 

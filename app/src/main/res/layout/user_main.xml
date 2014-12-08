@@ -56,27 +56,13 @@
 
 
 
-    <EditText
-        android:id="@+id/user_search_job_field"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_by_job_label"
-        android:inputType="text"
-        android:layout_below="@id/user_spacing_2" />
 
-    <Button
-        android:id="@+id/user_search_button"
-        android:layout_height="50dp"
-        android:text="@string/search_button_label"
-        android:layout_width="200dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/user_search_job_field" />
 
     <Space
         android:id="@+id/user_spacing_4"
         android:layout_width="1dp"
         android:layout_height="35dp"
-        android:layout_below="@id/user_search_button" />
+        android:layout_below="@id/user_main_title" />
 
     <TextView
         android:id="@+id/user_employee_list_label"
@@ -87,26 +73,13 @@
 
     <ListView
         android:id="@+id/user_employee_list_view"
-        android:layout_height="200dp"
-        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/user_employee_list_label"/>
     </RelativeLayout>
     </ScrollView>
 
 
-    <RelativeLayout
-        android:id="@+id/footer"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/placeholder"
-            android:text="MORE BUTTONS AND STUFF"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true" />
-
-        </RelativeLayout>
 
 </RelativeLayout>

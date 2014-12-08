@@ -4,9 +4,6 @@ package com.example.patrick.tasktracker;
 
 import java.util.Date;
 
-/**
- * Created by Patrick on 10/5/2014.
- */
 public class Employee {
     //private variables
 

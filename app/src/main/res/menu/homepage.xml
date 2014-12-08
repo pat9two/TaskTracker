@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:TaskTracker="http://schemas.android.com/apk/res-auto"
+    tools:context=".Homepage" >
+
+    <item android:id="@+id/back_button"
+        android:title="Back"
+        android:orderInCategory="0"
+        android:icon="@drawable/ic_action_back"
+        TaskTracker:showAsAction="always" />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        TaskTracker:showAsAction="never" />
+
+    <item android:id="@+id/action_search"
+    android:title="Search"
+    android:icon="@drawable/ic_action_search"
+    TaskTracker:showAsAction="ifRoom|collapseActionView"
+    TaskTracker:actionViewClass="android.support.v7.widget.SearchView"/>
+</menu>

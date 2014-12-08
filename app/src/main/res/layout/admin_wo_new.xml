@@ -8,7 +8,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    android:focusableInTouchMode="true"
     >
 
     <!-- New Work Order Title String -->
@@ -17,7 +16,7 @@
         android:text="@string/admin_new_title_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-ju
+
     <View
         android:id="@+id/title_divider"
         android:background="#1900ff"
@@ -57,7 +56,6 @@ ju
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_2"
-
         />
 
     <!-- Department Drop down box -->
@@ -69,12 +67,7 @@ ju
         android:spinnerMode="dropdown"
         android:layout_below="@id/admin_new_spacing_2"
         android:layout_toRightOf="@id/admin_new_departmentSpinner_label"
-        android:layout_toEndOf="@id/admin_new_departmentSpinner_label"
-        android:padding="0dip"
-        android:drawSelectorOnTop="true"
-
-        />
-
+        android:layout_toEndOf="@id/admin_new_departmentSpinner_label" />
 
     <Space
         android:id="@+id/admin_new_spacing_3"
@@ -100,8 +93,7 @@ ju
         android:spinnerMode="dropdown"
         android:layout_below="@id/admin_new_spacing_3"
         android:layout_toRightOf="@id/admin_new_locationSpinner_label"
-        android:layout_toEndOf="@id/admin_new_locationSpinner_label"
-        android:padding="0dip"/>
+        android:layout_toEndOf="@id/admin_new_locationSpinner_label" />
 
     <Space
         android:id="@+id/admin_new_spacing_4"
@@ -131,8 +123,9 @@ ju
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:scrollbars="vertical"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:layout_below="@id/admin_new_spacing_5"
-
     />
 
     <Space
@@ -164,6 +157,8 @@ ju
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_new_spacing_7"
         />
 
@@ -180,29 +175,27 @@ ju
         android:layout_width="wrap_content"
         android:layout_below="@id/admin_new_spacing_8"
         />
+
     <TextView
-        android:id="@+id/admin_new_schedule_display"
-        android:layout_width="wrap_content"
+        android:id="@+id/admin_new_schedule_value"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/admin_new_schedule_label"
-        android:layout_below="@id/admin_new_spacing_8"
-        />
-    <Button
-        android:id="@+id/admin_wo_new_datebtn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@id/admin_new_spacing_8"
         android:layout_toRightOf="@id/admin_new_schedule_label"
         android:layout_toEndOf="@id/admin_new_schedule_label"
-        android:text = "Select Date"
         />
 
-    <DatePicker
-        android:id="@+id/admin_new_schedule_date_picker"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/admin_new_schedule_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        />
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:text="Date"
+        android:layout_below="@id/admin_new_spacing_8"
+        android:layout_toRightOf="@id/admin_new_schedule_value"
+        android:layout_toEndOf="@id/admin_new_schedule_value"
+        android:onClick="showDatePickerDialog"/>
 
         </RelativeLayout>
     </ScrollView>
@@ -218,7 +211,7 @@ ju
         android:text="Create"
         android:layout_width="100dp"
         android:layout_alignParentLeft="true"
-        android:onClick="save"/>
+        android:onClick="saveWorkOrder"/>
 
     <Button
         android:id="@+id/admin_new_cancel_button"

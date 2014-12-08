@@ -46,6 +46,8 @@
         android:layout_height="wrap_content"
         android:hint="First Name"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_1" />
 
     <Space
@@ -60,6 +62,8 @@
         android:layout_height="wrap_content"
         android:hint="Last Name"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_2" />
 
     <Space
@@ -74,6 +78,8 @@
         android:layout_height="wrap_content"
         android:hint="Eagle ID"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_3" />
 
     <Space
@@ -88,6 +94,8 @@
         android:layout_height="wrap_content"
         android:hint="User Name"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_4" />
 
     <Space
@@ -102,6 +110,8 @@
         android:layout_height="wrap_content"
         android:hint="Password"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_5" />
 
     <Space
@@ -116,8 +126,45 @@
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
         android:inputType="text"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/admin_addEmp_spacing_6" />
-            </RelativeLayout>
+    <Space
+        android:id="@+id/admin_addEmp_spacing_7"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/admin_addEmp_cPass_field"/>
+
+        <TextView
+            android:id="@+id/admin_addEmp_status_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin Rights:"
+            android:textSize="16sp"
+            android:layout_below="@id/admin_addEmp_spacing_7" />
+        <RadioGroup
+            android:id="@+id/admin_addEmp_new_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/admin_addEmp_status_label"
+            android:checkedButton="@+id/admin_addEmp_radio_no"
+            >
+
+            <RadioButton android:id="@+id/admin_addEmp_radio_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:layout_alignParentLeft="true"/>
+            <RadioButton android:id="@+id/admin_addEmp_radio_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:layout_alignParentRight="true"/>
+
+        </RadioGroup>
+        </RelativeLayout>
     </ScrollView>
 
     <!-- BUTTON FOOTER -->
@@ -141,7 +188,8 @@
         android:layout_height="50dp"
         android:text="Cancel"
         android:layout_width="100dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:onClick="cancelAction"/>
     </RelativeLayout>
 
 </RelativeLayout>

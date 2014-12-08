@@ -26,29 +26,13 @@
         android:layout_below="@+id/admin_wo_view_title" />
 
 
-    <EditText
-        android:id="@+id/search_job_field"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search Criteria"
-        android:inputType="text"
-        android:layout_below="@id/title_divider" />
 
-    <Button
-        android:id="@+id/task_search_button"
-        android:background="@drawable/ic_action_search"
-
-        android:layout_height="30dp"
-        android:layout_width="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/title_divider"
-        android:onClick="runSearch"/>
 
     <!-- create custom ListView based on jobs-->
     <ListView
         android:id="@+id/job_list_view"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_below="@id/task_search_button"/>
+        android:layout_below="@id/title_divider"/>
 
 </RelativeLayout>
