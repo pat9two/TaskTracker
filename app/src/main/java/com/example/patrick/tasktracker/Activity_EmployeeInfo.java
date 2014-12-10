@@ -39,11 +39,15 @@ public class Activity_EmployeeInfo extends Activity {
 
         // get objId from employeeObjId
         objectId  = intent.getStringExtra("employeeObjId");
+
+        //set all variables to correct xml elements.
         firstName = (TextView)findViewById(R.id.admin_emp_info_fName);
         lastName = (TextView)findViewById(R.id.admin_emp_info_lName);
         eagleId = (TextView)findViewById(R.id.admin_emp_info_eID);
         userName = (TextView)findViewById(R.id.admin_emp_info_user);
         adminRights = (TextView)findViewById(R.id.admin_emp_info_admin);
+
+        //query to get all information associated with this employee.
         ParseQuery<ParseObject> empinfoquery = ParseQuery.getQuery("Employee");
         empinfoquery.getInBackground(objectId, new GetCallback<ParseObject>(){
             public void done(ParseObject object, ParseException e){

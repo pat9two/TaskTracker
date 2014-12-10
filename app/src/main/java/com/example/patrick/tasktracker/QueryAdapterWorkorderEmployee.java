@@ -8,19 +8,17 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseQueryAdapter;
 
-/**
- * Created by Shwaat on 11/22/2014.
- */
 public class QueryAdapterWorkorderEmployee extends ParseQueryAdapter<ParseObject> {
     public QueryAdapterWorkorderEmployee(Context context, ParseQueryAdapter.QueryFactory<ParseObject> factory) {
         super(context, factory);
     }
 
+
     @Override
     public View getItemView(final ParseObject workorderObject, View v, ViewGroup parent) {
         ViewHolder holder;
         if (v == null) {
-            //this is the layout file that contains a Relative layout containing a TextView and Checkbox element.
+            //this is the layout file that contains a Relative layout containing a TextView.
             v = View.inflate(getContext(), R.layout.admin_wo_employee_listitem, null);
             holder = new ViewHolder();
             holder.name = (TextView)v.findViewById(R.id.admin_wo_emp_name);

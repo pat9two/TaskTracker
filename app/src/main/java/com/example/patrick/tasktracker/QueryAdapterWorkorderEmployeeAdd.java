@@ -35,6 +35,7 @@ public class QueryAdapterWorkorderEmployeeAdd extends ParseQueryAdapter<ParseObj
             final CheckBox checkbox = holder.checkbox;
             v.setTag(holder);
 
+            //listner to run when user presses on the chekbox.
             holder.checkbox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

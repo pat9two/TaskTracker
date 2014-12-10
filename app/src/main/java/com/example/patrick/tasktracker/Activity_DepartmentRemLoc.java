@@ -33,7 +33,6 @@ public class Activity_DepartmentRemLoc extends Activity {
     Department DepObject;
     ListView listView;
     Intent intent;
-    TextView locName;
     QueryAdapterDeptRemoveLoc adapter;
     ArrayList<ParseObject> listToRemove = new ArrayList<ParseObject>();
 
@@ -43,14 +42,16 @@ public class Activity_DepartmentRemLoc extends Activity {
         Parse.initialize(this, "6yEsCcvYy5ym7rmRKWleVy5A9jc2wHFz6aEL3Czs", "t3h3S0090VVBwdw0zasj5J0b28dLe9xebL5nIfKw");
         final Context context = this;
         super.onCreate(savedInstanceState);
+        //set xml layout.
         setContentView(R.layout.admin_department_remove_loc);
 
+        //get the data that was passed from the previous activity
         Intent intent = getIntent();
         DepObject = intent.getParcelableExtra("extra");
-        final ParseObject po = new ParseObject("Department");
+        //log statement.
         Log.d("DepRemove", DepObject.getSync_id() + " " + DepObject.getDepartment_name() + " " + DepObject.getChargedStatus());
 
-
+        //result of this query is to find all locations related to this department.
         ParseQuery<ParseObject> depquery = new ParseQuery<ParseObject>("Department");
         depquery.whereEqualTo("objectId", DepObject.getSync_id());
         depquery.findInBackground(new FindCallback<ParseObject>() {
@@ -64,12 +65,15 @@ public class Activity_DepartmentRemLoc extends Activity {
                     }
                 };
 
+                //custom adapter to show the locations with a checkbox in each listitem.
                 adapter = new QueryAdapterDeptRemoveLoc(context, factory, listToRemove);
+                //the name that will be shown in the listitem.
                 adapter.setTextKey("Location_id");
                 listView = (ListView) findViewById(R.id.dept_rem_loc_view);
                 listView.setAdapter(adapter);
                 adapter.loadObjects();
 
+                //listener for when the user presses on a listitem/checkbox.
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
@@ -92,13 +96,14 @@ public class Activity_DepartmentRemLoc extends Activity {
         });
     }
 
+    //button on click method.
     public void removeLoc(View view){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Delete Location: Are you sure?").setTitle("Warning");
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // Remove loc
+                // Removes all selected locations.
                 ParseObject.deleteAllInBackground(listToRemove, new DeleteCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -138,6 +143,7 @@ public class Activity_DepartmentRemLoc extends Activity {
         dialog.show();
 
     }
+    //does nothing and returns to the previous activity.
     public void cancelAction(View view)
     {
         finish();

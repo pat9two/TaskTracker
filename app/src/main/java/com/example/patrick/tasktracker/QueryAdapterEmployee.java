@@ -8,18 +8,18 @@ import android.widget.TextView;
 import com.parse.ParseObject;
 import com.parse.ParseQueryAdapter;
 
-/**
- * Created by Shwaat on 11/14/2014.
- */
+
 public class QueryAdapterEmployee extends ParseQueryAdapter<ParseObject> {
     public QueryAdapterEmployee(Context context, QueryFactory<ParseObject> factory) {
         super(context, factory);
     }
 
+    //custom listitem view to show a firsntame, last naem, and username of an employee.
     @Override
     public View getItemView(final ParseObject parseobject, View v, ViewGroup parent) {
         ViewHolder holder = null;
         if (v == null) {
+
             v = View.inflate(getContext(), R.layout.employee_list_item, null);
             holder = new ViewHolder();
             holder.title = (TextView)v.findViewById(R.id.emp_lv_item_title);

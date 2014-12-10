@@ -3,9 +3,7 @@ package com.example.patrick.tasktracker;
 
 import java.util.Date;
 
-/**
- * Created by Patrick on 10/8/2014.
- */
+//not used.
 public class Location {
     private int Location_id;
     private String Location_name;

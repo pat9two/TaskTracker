@@ -48,6 +48,7 @@ public class QueryAdapterDeptRemoveLoc extends ParseQueryAdapter<ParseObject> {
             final CheckBox checkbox = holder.checkbox;
             v.setTag(holder);
 
+            //listener to run when user presses on checkbox.
             holder.checkbox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
