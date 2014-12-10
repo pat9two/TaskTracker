@@ -24,7 +24,6 @@ import java.util.List;
  * Created by Shwaat on 11/3/2014.
  */
 public class Activity_LoginMain extends Activity {
-    Date checkpoint;
     EditText username;
     EditText password;
     TextView alert;
@@ -38,6 +37,8 @@ public class Activity_LoginMain extends Activity {
         super.onCreate(savedInstanceState);
         //set xml layout.
         setContentView(R.layout.login_main);
+        alert = (TextView)findViewById(R.id.login_main_greeting);
+
     }
 
 

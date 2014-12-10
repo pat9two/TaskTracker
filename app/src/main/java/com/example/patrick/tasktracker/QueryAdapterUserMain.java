@@ -21,13 +21,14 @@ public class QueryAdapterUserMain extends  ParseQueryAdapter<ParseObject>{
     public View getItemView(final ParseObject parseobject, View v, ViewGroup parent) {
         ViewHolder holder = null;
         if (v == null) {
-            v = View.inflate(getContext(), R.layout.user_main_listitem, null);
-            holder = new ViewHolder();
-            holder.woNumber = (TextView)v.findViewById(R.id.user_main_wo_number);
-            holder.woNumber.setText("#" + parseobject.getParseObject("workorder").get("workorderId").toString() + " ");
-            holder.woDesc = (TextView)v.findViewById(R.id.user_main_wo_desc);
-            holder.woDesc.setText(parseobject.getParseObject("workorder").getString("description"));
-            v.setTag(holder);
+                v = View.inflate(getContext(), R.layout.user_main_listitem, null);
+                holder = new ViewHolder();
+                holder.woNumber = (TextView) v.findViewById(R.id.user_main_wo_number);
+                holder.woNumber.setText("#" + parseobject.getParseObject("workorder").get("workorderId").toString() + " ");
+                holder.woDesc = (TextView) v.findViewById(R.id.user_main_wo_desc);
+                holder.woDesc.setText(parseobject.getParseObject("workorder").getString("description"));
+                v.setTag(holder);
+
         }else{
             holder = (ViewHolder)v.getTag();
         }

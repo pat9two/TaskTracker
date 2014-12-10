@@ -58,6 +58,7 @@ public class Activity_UserMain extends ActionBarActivity {
                 return wo_emp;
             }
         };
+
         mainAdapter = new QueryAdapterUserMain(context, factory);
 
 

@@ -116,24 +116,35 @@ public class Activity_UserJobView extends Activity {
         }
         //start has already been pressed. do nothing.
     }
+
     //Stop button pressed on the device.
     public void Stop(View view){
         if(startPressed ) {
             stop = System.currentTimeMillis();
-
-            final int hours = (int) (elapsed / 3600000);
-            final int minutes = (int) (elapsed - hours * 3600000) / 60000;
-            final int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
 
             //resumePressed only true after pause was pressed.
             if(resumePressed) {
                 elapsed += stop - resumed;
             }else if(pausePressed) {
                 //the timer was not resumed. keeps time elapsed from time that pause was pressed.
+                final int hours = (int) (elapsed / 3600000);
+                final int minutes = (int) (elapsed - hours * 3600000) / 60000;
+                final int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
                 relationObject.put("Elapsed_time", elapsed);
+                relationObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        Log.d("UserJobView", "Elapsed time = " + hours+":"+minutes+":"+seconds);
+                        finish();
+                    }
+                });
             }else{
                 //if neither pause nor resume was pressed, then only use start and stop time for elapsed time.
-                // elapsed = stop - start;
+                elapsed = stop - start;
+                final int hours = (int) (elapsed / 3600000);
+                final int minutes = (int) (elapsed - hours * 3600000) / 60000;
+                final int seconds = (int) (elapsed - hours * 3600000 - minutes * 60000) / 1000;
+
                 //put this time elapsed and time stopped into the relational table of employee -- workorder (many to many)
                 relationObject.put("Stop_time", sdf.format(stop));
                 relationObject.put("Elapsed_time", ""+hours+":"+minutes+":"+seconds);

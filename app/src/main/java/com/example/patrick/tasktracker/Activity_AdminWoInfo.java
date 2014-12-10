@@ -146,6 +146,19 @@ public class Activity_AdminWoInfo extends ActionBarActivity {
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // Remove loc
+                ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("WorkOrder_Employee");
+                query.include("workorder");
+                query.whereEqualTo("workorder", ParseObject.createWithoutData("WorkOrder", wo.getObjectId()));
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> parseObjects, ParseException e) {
+                        if(e == null){
+                            ParseObject.deleteAllInBackground(parseObjects);
+                        }else{
+                            Log.d("AdminWoInfoDelete", e.toString());
+                        }
+                    }
+                });
                 wo.deleteInBackground(new DeleteCallback() {
                     @Override
                     public void done(ParseException e) {
