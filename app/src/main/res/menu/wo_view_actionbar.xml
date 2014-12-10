@@ -4,7 +4,6 @@
         android:id="@+id/admin_wo_create_item"
         android:title="Create Workorder"
         TaskTracker:showAsAction="never" />
-
     <item
         android:id="@+id/admin_wo_refresh_item"
         android:icon="@drawable/ic_action_refresh"

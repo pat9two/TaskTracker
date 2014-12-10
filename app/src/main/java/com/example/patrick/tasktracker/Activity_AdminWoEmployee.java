@@ -57,14 +57,14 @@ public class Activity_AdminWoEmployee extends ActionBarActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //button on click method. navgates to next activity.
+    //button on click method. navigates to next activity.
     public void addEmployee(View view){
         Intent intent = new Intent(this, Activity_AdminWoEmployeeAdd.class);
         intent.putExtra("extra", workOrderId);
         startActivity(intent);
     }
 
-    //button on click method. navgates to next activity.
+    //button on click method. navigates to next activity.
     public void remEmployee(View view)
     {
         Intent intent = new Intent(this, Activity_AdminWoEmployeeRemove.class);
