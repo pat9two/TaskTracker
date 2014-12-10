@@ -5,12 +5,6 @@
         android:title="Create Workorder"
         TaskTracker:showAsAction="never" />
     <item
-        android:id="@+id/admin_wo_search_item"
-        android:icon="@drawable/ic_action_search"
-        android:title="Search"
-        TaskTracker:showAsAction="ifRoom|collapseActionView"
-        TaskTracker:actionViewClass="android.support.v7.widget.SearchView" />
-    <item
         android:id="@+id/admin_wo_refresh_item"
         android:icon="@drawable/ic_action_refresh"
         android:title="Refresh"

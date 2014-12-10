@@ -89,10 +89,6 @@ public class Activity_AdminWoView extends ActionBarActivity {
             case R.id.admin_wo_assign_emp_item:
                 // do create wo employees stuff
                 return true;
-            case R.id.admin_wo_search_item:
-                // do search stuff
-                runSearch();
-                return true;
             case R.id.admin_wo_refresh_item:
                 refreshActivity();
                 return true;
